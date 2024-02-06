@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?PowerDesigner AppLocale="UTF16" ID="{DEE6A297-FB09-4F6E-A6FF-CD265E172442}" Label="" LastModificationDate="1707078443" Name="MLD_Cabinet_Medical" Objects="66" Symbols="15" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" signature="LDM_DATA_MODEL_XML" version="15.1.0.2850"?>
+<?PowerDesigner AppLocale="UTF16" ID="{DEE6A297-FB09-4F6E-A6FF-CD265E172442}" Label="" LastModificationDate="1707078957" Name="MLD_Cabinet_Medical" Objects="68" Symbols="15" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" signature="LDM_DATA_MODEL_XML" version="15.1.0.2850"?>
 <!-- Veuillez ne pas modifier ce fichier -->
 
 <Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
@@ -12,10 +12,317 @@
 <a:Code>MLD_CABINET_MEDICAL</a:Code>
 <a:CreationDate>1707077290</a:CreationDate>
 <a:Creator>pbobc</a:Creator>
-<a:ModificationDate>1707077331</a:ModificationDate>
+<a:ModificationDate>1707078607</a:ModificationDate>
 <a:Modifier>pbobc</a:Modifier>
 <a:History>ORG {D03F8E8B-60BB-465B-8689-B26D6CC073B4}
-DAT 1707077331</a:History>
+DAT 1707077331
+ATT FOPT
+ATT MOPT</a:History>
+<a:PackageOptionsText>[FolderOptions]
+
+[FolderOptions\Common]
+GenerationCheckModel=Yes
+GenerationPath=
+GenerationOptions=
+GenerationTasks=
+GenerationTargets=
+GenerationSelections=
+
+[FolderOptions\CheckModel]
+
+[FolderOptions\CheckModel\Package]
+
+[FolderOptions\CheckModel\Package\GenrCircularityYes]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Package\GenrCircularityNo]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Package\ShortcutUniqCode]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=No
+
+[FolderOptions\CheckModel\Package\ChildShortcut]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine]
+
+[FolderOptions\CheckModel\Domaine\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine\CheckNumParam]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine\CheckPrecSupLng]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine\CheckUndefDttp]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine\CheckOtherDttp]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité]
+
+[FolderOptions\CheckModel\Entité\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\MaxLen - NAME]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\MaxLen - CODE]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EmptyColl - PENTCOL]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EnttNbSerials]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EmptyColl - IDTFCOL]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EmptyCollYesYes]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EnttSamePrnt]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EnttMultInhr]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EnttSevInhr]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\PidtfInhrAtt]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité]
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité\AttrDiffDomn]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité\CheckNumParam]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité\CheckPrecSupLng]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité\CheckUndefDttp]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité\CheckOtherDttp]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Identifiant]
+
+[FolderOptions\CheckModel\Entité.Identifiant\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Identifiant\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Identifiant\EmptyColl - PENTCOL]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Identifiant\CheckIncludeColl - Entt]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Identifiant\IdtfChildPIdtf]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation]
+
+[FolderOptions\CheckModel\Relation\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\RlshReflexiveDeptYes]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\RlshReflexiveDeptNo]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\RlshBject]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\RlshMany]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Héritage]
+
+[FolderOptions\CheckModel\Héritage\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Héritage\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Héritage\EmptyColl - CHILDCOL]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Héritage\InhrComplete]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Réplication]
+
+[FolderOptions\CheckModel\Réplication\PartialReplication]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Règle de gestion]
+
+[FolderOptions\CheckModel\Règle de gestion\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Règle de gestion\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Règle de gestion\EmptyColl - OBJCOL]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Objet étendu]
+
+[FolderOptions\CheckModel\Objet étendu\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Objet étendu\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Lien étendu]
+
+[FolderOptions\CheckModel\Lien étendu\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Lien étendu\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Fichier]
+
+[FolderOptions\CheckModel\Fichier\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Fichier\CheckPathExists]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes</a:PackageOptionsText>
 <a:ModelOptionsText>[ModelOptions]
 
 [ModelOptions\Logical options]
@@ -363,9 +670,24 @@ NameToCode=No
 CheckModel=Yes
 SaveLinks=Yes
 NameToCode=No
-BuildTrgr=No</a:ModelOptionsText>
-<c:GenerationOrigins>
+BuildTrgr=No
+PreserveMode=Yes</a:ModelOptionsText>
+<c:GeneratedModels>
 <o:Shortcut Id="o3">
+<a:ObjectID>39416C63-CB38-48FB-8E3A-4CF1FD77643B</a:ObjectID>
+<a:Name>MPD_Cabinet_Medical</a:Name>
+<a:Code>MPD_CABINET_MEDICAL</a:Code>
+<a:CreationDate>1707078608</a:CreationDate>
+<a:Creator>pbobc</a:Creator>
+<a:ModificationDate>1707078608</a:ModificationDate>
+<a:Modifier>pbobc</a:Modifier>
+<a:TargetStereotype/>
+<a:TargetID>712CA9FB-C77C-41FA-85AF-17B1FD5052AB</a:TargetID>
+<a:TargetClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetClassID>
+</o:Shortcut>
+</c:GeneratedModels>
+<c:GenerationOrigins>
+<o:Shortcut Id="o4">
 <a:ObjectID>1585E966-58FF-47DD-911C-27A982911A5A</a:ObjectID>
 <a:Name>MCD_Cabinet_Medical</a:Name>
 <a:Code>MCD_CABINET_MEDICAL</a:Code>
@@ -379,7 +701,7 @@ BuildTrgr=No</a:ModelOptionsText>
 </o:Shortcut>
 </c:GenerationOrigins>
 <c:LogicalDiagrams>
-<o:LogicalDiagram Id="o4">
+<o:LogicalDiagram Id="o5">
 <a:ObjectID>E6A9641F-8A39-40AF-998A-ED26597B0AFB</a:ObjectID>
 <a:Name>Diagramme_1</a:Name>
 <a:Code>DIAGRAMME_1</a:Code>
@@ -867,10 +1189,10 @@ Shadow=0
 <a:PageOrientation>1</a:PageOrientation>
 <a:PaperSource>15</a:PaperSource>
 <c:Symbols>
-<o:RelationshipSymbol Id="o5">
-<a:ModificationDate>1707078382</a:ModificationDate>
-<a:Rect>((-17750,1473), (18502,11398))</a:Rect>
-<a:ListOfPoints>((18502,11398),(-1279,8998),(-1279,1473),(-17750,3873))</a:ListOfPoints>
+<o:RelationshipSymbol Id="o6">
+<a:ModificationDate>1707078607</a:ModificationDate>
+<a:Rect>((-17750,3873), (18502,11398))</a:Rect>
+<a:ListOfPoints>((18502,11398),(-1279,11398),(-1279,3873),(-17750,3873))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>5138</a:ArrowStyle>
 <a:LineColor>16744576</a:LineColor>
@@ -878,18 +1200,18 @@ Shadow=0
 <a:FontList>DISPNAME 0 Arial,8,N
 NAMA 0 Arial,8,N</a:FontList>
 <c:SourceSymbol>
-<o:EntitySymbol Ref="o6"/>
+<o:EntitySymbol Ref="o7"/>
 </c:SourceSymbol>
 <c:DestinationSymbol>
-<o:EntitySymbol Ref="o7"/>
+<o:EntitySymbol Ref="o8"/>
 </c:DestinationSymbol>
 <c:Object>
-<o:Relationship Ref="o8"/>
+<o:Relationship Ref="o9"/>
 </c:Object>
 </o:RelationshipSymbol>
-<o:RelationshipSymbol Id="o9">
+<o:RelationshipSymbol Id="o10">
 <a:ModificationDate>1707078443</a:ModificationDate>
-<a:Rect>((16141,11470), (19965,31043))</a:Rect>
+<a:Rect>((16179,11470), (19928,31043))</a:Rect>
 <a:ListOfPoints>((17605,31043),(17605,20522),(18502,20522),(18502,11470))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4628</a:ArrowStyle>
@@ -898,59 +1220,59 @@ NAMA 0 Arial,8,N</a:FontList>
 <a:FontList>DISPNAME 0 Arial,8,N
 NAMA 0 Arial,8,N</a:FontList>
 <c:SourceSymbol>
-<o:EntitySymbol Ref="o10"/>
-</c:SourceSymbol>
-<c:DestinationSymbol>
-<o:EntitySymbol Ref="o6"/>
-</c:DestinationSymbol>
-<c:Object>
-<o:Relationship Ref="o11"/>
-</c:Object>
-</o:RelationshipSymbol>
-<o:RelationshipSymbol Id="o12">
-<a:ModificationDate>1707078372</a:ModificationDate>
-<a:Rect>((-18056,11470), (18502,31049))</a:Rect>
-<a:ListOfPoints>((-16594,31049),(-16594,14670),(18502,11470))</a:ListOfPoints>
-<a:CornerStyle>1</a:CornerStyle>
-<a:ArrowStyle>4628</a:ArrowStyle>
-<a:LineColor>16744576</a:LineColor>
-<a:ShadowColor>12632256</a:ShadowColor>
-<a:FontList>DISPNAME 0 Arial,8,N
-NAMA 0 Arial,8,N</a:FontList>
-<c:SourceSymbol>
-<o:EntitySymbol Ref="o13"/>
-</c:SourceSymbol>
-<c:DestinationSymbol>
-<o:EntitySymbol Ref="o6"/>
-</c:DestinationSymbol>
-<c:Object>
-<o:Relationship Ref="o14"/>
-</c:Object>
-</o:RelationshipSymbol>
-<o:RelationshipSymbol Id="o15">
-<a:ModificationDate>1707078352</a:ModificationDate>
-<a:Rect>((-21772,3802), (-16444,31199))</a:Rect>
-<a:ListOfPoints>((-16444,31199),(-19244,22833),(-20550,22833),(-17750,3802))</a:ListOfPoints>
-<a:CornerStyle>1</a:CornerStyle>
-<a:ArrowStyle>4628</a:ArrowStyle>
-<a:LineColor>16744576</a:LineColor>
-<a:ShadowColor>12632256</a:ShadowColor>
-<a:FontList>DISPNAME 0 Arial,8,N
-NAMA 0 Arial,8,N</a:FontList>
-<c:SourceSymbol>
-<o:EntitySymbol Ref="o13"/>
+<o:EntitySymbol Ref="o11"/>
 </c:SourceSymbol>
 <c:DestinationSymbol>
 <o:EntitySymbol Ref="o7"/>
 </c:DestinationSymbol>
 <c:Object>
-<o:Relationship Ref="o16"/>
+<o:Relationship Ref="o12"/>
 </c:Object>
 </o:RelationshipSymbol>
-<o:RelationshipSymbol Id="o17">
+<o:RelationshipSymbol Id="o13">
+<a:ModificationDate>1707078607</a:ModificationDate>
+<a:Rect>((-18019,10883), (18502,31049))</a:Rect>
+<a:ListOfPoints>((-16594,31049),(-16594,11470),(18502,11470))</a:ListOfPoints>
+<a:CornerStyle>1</a:CornerStyle>
+<a:ArrowStyle>4628</a:ArrowStyle>
+<a:LineColor>16744576</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>DISPNAME 0 Arial,8,N
+NAMA 0 Arial,8,N</a:FontList>
+<c:SourceSymbol>
+<o:EntitySymbol Ref="o14"/>
+</c:SourceSymbol>
+<c:DestinationSymbol>
+<o:EntitySymbol Ref="o7"/>
+</c:DestinationSymbol>
+<c:Object>
+<o:Relationship Ref="o15"/>
+</c:Object>
+</o:RelationshipSymbol>
+<o:RelationshipSymbol Id="o16">
+<a:ModificationDate>1707078607</a:ModificationDate>
+<a:Rect>((-18934,3802), (-15260,31199))</a:Rect>
+<a:ListOfPoints>((-16444,31199),(-16444,22833),(-17750,22833),(-17750,3802))</a:ListOfPoints>
+<a:CornerStyle>1</a:CornerStyle>
+<a:ArrowStyle>4628</a:ArrowStyle>
+<a:LineColor>16744576</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>DISPNAME 0 Arial,8,N
+NAMA 0 Arial,8,N</a:FontList>
+<c:SourceSymbol>
+<o:EntitySymbol Ref="o14"/>
+</c:SourceSymbol>
+<c:DestinationSymbol>
+<o:EntitySymbol Ref="o8"/>
+</c:DestinationSymbol>
+<c:Object>
+<o:Relationship Ref="o17"/>
+</c:Object>
+</o:RelationshipSymbol>
+<o:RelationshipSymbol Id="o18">
 <a:ModificationDate>1707078344</a:ModificationDate>
 <a:CenterTextOffset>(0, -3200)</a:CenterTextOffset>
-<a:Rect>((15923,-5452), (20273,11620))</a:Rect>
+<a:Rect>((15961,-5452), (20235,11620))</a:Rect>
 <a:ListOfPoints>((18652,11620),(18652,5817),(17545,5817),(17545,-5452))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4627</a:ArrowStyle>
@@ -959,18 +1281,18 @@ NAMA 0 Arial,8,N</a:FontList>
 <a:FontList>DISPNAME 0 Arial,8,N
 NAMA 0 Arial,8,N</a:FontList>
 <c:SourceSymbol>
-<o:EntitySymbol Ref="o6"/>
+<o:EntitySymbol Ref="o7"/>
 </c:SourceSymbol>
 <c:DestinationSymbol>
-<o:EntitySymbol Ref="o18"/>
+<o:EntitySymbol Ref="o19"/>
 </c:DestinationSymbol>
 <c:Object>
-<o:Relationship Ref="o19"/>
+<o:Relationship Ref="o20"/>
 </c:Object>
 </o:RelationshipSymbol>
-<o:RelationshipSymbol Id="o20">
+<o:RelationshipSymbol Id="o21">
 <a:ModificationDate>1707078302</a:ModificationDate>
-<a:Rect>((-9136,-5266), (18502,12057))</a:Rect>
+<a:Rect>((-9098,-5266), (18502,12057))</a:Rect>
 <a:ListOfPoints>((-6961,-5266),(-6961,11470),(18502,11470))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4882</a:ArrowStyle>
@@ -979,18 +1301,18 @@ NAMA 0 Arial,8,N</a:FontList>
 <a:FontList>DISPNAME 0 Arial,8,N
 NAMA 0 Arial,8,N</a:FontList>
 <c:SourceSymbol>
-<o:EntitySymbol Ref="o21"/>
+<o:EntitySymbol Ref="o22"/>
 </c:SourceSymbol>
 <c:DestinationSymbol>
-<o:EntitySymbol Ref="o6"/>
+<o:EntitySymbol Ref="o7"/>
 </c:DestinationSymbol>
 <c:Object>
-<o:Relationship Ref="o22"/>
+<o:Relationship Ref="o23"/>
 </c:Object>
 </o:RelationshipSymbol>
-<o:RelationshipSymbol Id="o23">
+<o:RelationshipSymbol Id="o24">
 <a:ModificationDate>1707078400</a:ModificationDate>
-<a:Rect>((-9878,20443), (-4404,34064))</a:Rect>
+<a:Rect>((-9841,20443), (-4442,34064))</a:Rect>
 <a:ListOfPoints>((-5804,20443),(-5804,25187),(-8478,25187),(-8478,34064))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>6162</a:ArrowStyle>
@@ -999,18 +1321,18 @@ NAMA 0 Arial,8,N</a:FontList>
 <a:FontList>DISPNAME 0 Arial,8,N
 NAMA 0 Arial,8,N</a:FontList>
 <c:SourceSymbol>
-<o:EntitySymbol Ref="o24"/>
+<o:EntitySymbol Ref="o25"/>
 </c:SourceSymbol>
 <c:DestinationSymbol>
-<o:EntitySymbol Ref="o13"/>
+<o:EntitySymbol Ref="o14"/>
 </c:DestinationSymbol>
 <c:Object>
-<o:Relationship Ref="o25"/>
+<o:Relationship Ref="o26"/>
 </c:Object>
 </o:RelationshipSymbol>
-<o:RelationshipSymbol Id="o26">
+<o:RelationshipSymbol Id="o27">
 <a:ModificationDate>1707078396</a:ModificationDate>
-<a:Rect>((5084,19542), (10558,33685))</a:Rect>
+<a:Rect>((5122,19542), (10521,33685))</a:Rect>
 <a:ListOfPoints>((6013,19542),(6013,24907),(9629,24907),(9629,33685))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>6162</a:ArrowStyle>
@@ -1019,16 +1341,16 @@ NAMA 0 Arial,8,N</a:FontList>
 <a:FontList>DISPNAME 0 Arial,8,N
 NAMA 0 Arial,8,N</a:FontList>
 <c:SourceSymbol>
-<o:EntitySymbol Ref="o24"/>
+<o:EntitySymbol Ref="o25"/>
 </c:SourceSymbol>
 <c:DestinationSymbol>
-<o:EntitySymbol Ref="o10"/>
+<o:EntitySymbol Ref="o11"/>
 </c:DestinationSymbol>
 <c:Object>
-<o:Relationship Ref="o27"/>
+<o:Relationship Ref="o28"/>
 </c:Object>
 </o:RelationshipSymbol>
-<o:EntitySymbol Id="o13">
+<o:EntitySymbol Id="o14">
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-26438,26653), (-6750,35445))</a:Rect>
 <a:AutoAdjustToText>0</a:AutoAdjustToText>
@@ -1047,10 +1369,10 @@ Identifiers 0 Arial,8,N</a:FontList>
 <a:GradientEndColor>16777215</a:GradientEndColor>
 <a:ManuallyResized>1</a:ManuallyResized>
 <c:Object>
-<o:Entity Ref="o28"/>
+<o:Entity Ref="o29"/>
 </c:Object>
 </o:EntitySymbol>
-<o:EntitySymbol Id="o18">
+<o:EntitySymbol Id="o19">
 <a:ModificationDate>1707078278</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((8994,-9025), (26096,-1879))</a:Rect>
@@ -1070,10 +1392,10 @@ Identifiers 0 Arial,8,N</a:FontList>
 <a:GradientEndColor>16777215</a:GradientEndColor>
 <a:ManuallyResized>1</a:ManuallyResized>
 <c:Object>
-<o:Entity Ref="o29"/>
+<o:Entity Ref="o30"/>
 </c:Object>
 </o:EntitySymbol>
-<o:EntitySymbol Id="o21">
+<o:EntitySymbol Id="o22">
 <a:ModificationDate>1707078302</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-15631,-8899), (1708,-1633))</a:Rect>
@@ -1093,10 +1415,10 @@ Identifiers 0 Arial,8,N</a:FontList>
 <a:GradientEndColor>16777215</a:GradientEndColor>
 <a:ManuallyResized>1</a:ManuallyResized>
 <c:Object>
-<o:Entity Ref="o30"/>
+<o:Entity Ref="o31"/>
 </c:Object>
 </o:EntitySymbol>
-<o:EntitySymbol Id="o7">
+<o:EntitySymbol Id="o8">
 <a:ModificationDate>1707078318</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-26363,815), (-9137,6789))</a:Rect>
@@ -1116,10 +1438,10 @@ Identifiers 0 Arial,8,N</a:FontList>
 <a:GradientEndColor>16777215</a:GradientEndColor>
 <a:ManuallyResized>1</a:ManuallyResized>
 <c:Object>
-<o:Entity Ref="o31"/>
+<o:Entity Ref="o32"/>
 </c:Object>
 </o:EntitySymbol>
-<o:EntitySymbol Id="o10">
+<o:EntitySymbol Id="o11">
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((8918,26618), (26292,35468))</a:Rect>
 <a:AutoAdjustToText>0</a:AutoAdjustToText>
@@ -1138,10 +1460,10 @@ Identifiers 0 Arial,8,N</a:FontList>
 <a:GradientEndColor>16777215</a:GradientEndColor>
 <a:ManuallyResized>1</a:ManuallyResized>
 <c:Object>
-<o:Entity Ref="o32"/>
+<o:Entity Ref="o33"/>
 </c:Object>
 </o:EntitySymbol>
-<o:EntitySymbol Id="o24">
+<o:EntitySymbol Id="o25">
 <a:ModificationDate>1707078396</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-7504,16631), (8356,22397))</a:Rect>
@@ -1160,11 +1482,11 @@ Identifiers 0 Arial,8,N</a:FontList>
 <a:GradientFillMode>65</a:GradientFillMode>
 <a:GradientEndColor>16777215</a:GradientEndColor>
 <c:Object>
-<o:Entity Ref="o33"/>
+<o:Entity Ref="o34"/>
 </c:Object>
 </o:EntitySymbol>
-<o:EntitySymbol Id="o6">
-<a:ModificationDate>1707078061</a:ModificationDate>
+<o:EntitySymbol Id="o7">
+<a:ModificationDate>1707078607</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((11229,7613), (25775,15327))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
@@ -1181,17 +1503,17 @@ Identifiers 0 Arial,8,N</a:FontList>
 <a:GradientFillMode>65</a:GradientFillMode>
 <a:GradientEndColor>16777215</a:GradientEndColor>
 <c:Object>
-<o:Entity Ref="o34"/>
+<o:Entity Ref="o35"/>
 </c:Object>
 </o:EntitySymbol>
 </c:Symbols>
 </o:LogicalDiagram>
 </c:LogicalDiagrams>
 <c:DefaultDiagram>
-<o:LogicalDiagram Ref="o4"/>
+<o:LogicalDiagram Ref="o5"/>
 </c:DefaultDiagram>
 <c:Entities>
-<o:Entity Id="o28">
+<o:Entity Id="o29">
 <a:ObjectID>F65D86EB-FC7E-445B-B74A-CAE95A472D00</a:ObjectID>
 <a:Name>Patient</a:Name>
 <a:Code>PATIENT</a:Code>
@@ -1202,7 +1524,7 @@ Identifiers 0 Arial,8,N</a:FontList>
 <a:History>ORG {41ADC900-9735-43F7-9B74-0FB9037BEFC0}
 DAT 1707077331</a:History>
 <c:Identifiers>
-<o:Identifier Id="o35">
+<o:Identifier Id="o36">
 <a:ObjectID>082F7278-21B1-4B3C-AB12-E49E0832AD7C</a:ObjectID>
 <a:Name>pk_id_patient</a:Name>
 <a:Code>PK_ID_PATIENT</a:Code>
@@ -1213,15 +1535,15 @@ DAT 1707077331</a:History>
 <a:History>ORG {B90A6228-E5BF-4D59-83F5-615A716003A5}
 DAT 1707077331</a:History>
 <c:Identifier.Attributes>
-<o:EntityAttribute Ref="o36"/>
+<o:EntityAttribute Ref="o37"/>
 </c:Identifier.Attributes>
 </o:Identifier>
 </c:Identifiers>
 <c:PrimaryIdentifier>
-<o:Identifier Ref="o35"/>
+<o:Identifier Ref="o36"/>
 </c:PrimaryIdentifier>
 <c:Attributes>
-<o:EntityAttribute Id="o36">
+<o:EntityAttribute Id="o37">
 <a:ObjectID>9BCAA07A-98B5-446B-A1DC-2B29A9C689EE</a:ObjectID>
 <a:Name>Id_Patient#</a:Name>
 <a:Code>ID_PATIENT_</a:Code>
@@ -1234,7 +1556,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o37">
+<o:EntityAttribute Id="o38">
 <a:ObjectID>A4FABA48-572F-4E93-B5F4-2F1AC7847C93</a:ObjectID>
 <a:Name>Nom</a:Name>
 <a:Code>NOM</a:Code>
@@ -1248,7 +1570,7 @@ DAT 1707077331</a:History>
 <a:Length>50</a:Length>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o38">
+<o:EntityAttribute Id="o39">
 <a:ObjectID>F1748F10-F58C-40BB-8C2E-85E778D99606</a:ObjectID>
 <a:Name>Prenom</a:Name>
 <a:Code>PRENOM</a:Code>
@@ -1262,7 +1584,7 @@ DAT 1707077331</a:History>
 <a:Length>50</a:Length>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o39">
+<o:EntityAttribute Id="o40">
 <a:ObjectID>26C28B77-038B-423D-9175-71484417377E</a:ObjectID>
 <a:Name>Adresse</a:Name>
 <a:Code>ADRESSE</a:Code>
@@ -1275,7 +1597,7 @@ DAT 1707077331</a:History>
 <a:DataType>VA100</a:DataType>
 <a:Length>100</a:Length>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o40">
+<o:EntityAttribute Id="o41">
 <a:ObjectID>1C6CC8E5-A9E1-494B-9111-66EFF71375C4</a:ObjectID>
 <a:Name>Email</a:Name>
 <a:Code>EMAIL</a:Code>
@@ -1288,7 +1610,7 @@ DAT 1707077331</a:History>
 <a:DataType>VA50</a:DataType>
 <a:Length>50</a:Length>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o41">
+<o:EntityAttribute Id="o42">
 <a:ObjectID>2099DE3E-C62F-4F0E-B858-C60E7C7B921E</a:ObjectID>
 <a:Name>Date_naissaince</a:Name>
 <a:Code>DATE_NAISSAINCE</a:Code>
@@ -1303,7 +1625,7 @@ DAT 1707077331</a:History>
 </o:EntityAttribute>
 </c:Attributes>
 </o:Entity>
-<o:Entity Id="o29">
+<o:Entity Id="o30">
 <a:ObjectID>7954940A-ECF2-4585-97F2-DF881E472AFD</a:ObjectID>
 <a:Name>Prescription</a:Name>
 <a:Code>PRESCRIPTION</a:Code>
@@ -1314,7 +1636,7 @@ DAT 1707077331</a:History>
 <a:History>ORG {607AAC4F-95BD-4DB0-8A1A-E2238A2AF5C5}
 DAT 1707077331</a:History>
 <c:Identifiers>
-<o:Identifier Id="o42">
+<o:Identifier Id="o43">
 <a:ObjectID>D69FF1E9-B5B1-476E-B13C-B81462026DA8</a:ObjectID>
 <a:Name>pk_id_prescription</a:Name>
 <a:Code>PK_ID_PRESCRIPTION</a:Code>
@@ -1325,15 +1647,15 @@ DAT 1707077331</a:History>
 <a:History>ORG {39926E45-32D2-40E4-8093-392864F37DD8}
 DAT 1707077331</a:History>
 <c:Identifier.Attributes>
-<o:EntityAttribute Ref="o43"/>
+<o:EntityAttribute Ref="o44"/>
 </c:Identifier.Attributes>
 </o:Identifier>
 </c:Identifiers>
 <c:PrimaryIdentifier>
-<o:Identifier Ref="o42"/>
+<o:Identifier Ref="o43"/>
 </c:PrimaryIdentifier>
 <c:Attributes>
-<o:EntityAttribute Id="o43">
+<o:EntityAttribute Id="o44">
 <a:ObjectID>E1C0683F-ABCB-4DDB-9E50-29446E0D9D81</a:ObjectID>
 <a:Name>Id_Prescription#</a:Name>
 <a:Code>ID_PRESCRIPTION_</a:Code>
@@ -1346,7 +1668,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o44">
+<o:EntityAttribute Id="o45">
 <a:ObjectID>A5373F60-CEFE-4082-AA43-74E55BF22EE4</a:ObjectID>
 <a:Name>Id_Consultation#</a:Name>
 <a:Code>ID_CONSULTATION_</a:Code>
@@ -1359,7 +1681,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o45">
+<o:EntityAttribute Id="o46">
 <a:ObjectID>D816D922-F55B-4811-81E4-8A4740CE9491</a:ObjectID>
 <a:Name>Details_Prescription</a:Name>
 <a:Code>DETAILS_PRESCRIPTION</a:Code>
@@ -1373,7 +1695,7 @@ DAT 1707077331</a:History>
 <a:Length>200</a:Length>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o46">
+<o:EntityAttribute Id="o47">
 <a:ObjectID>7786E6A1-F57C-4C23-AB6B-A191F852A759</a:ObjectID>
 <a:Name>Date_Prescription</a:Name>
 <a:Code>DATE_PRESCRIPTION</a:Code>
@@ -1388,7 +1710,7 @@ DAT 1707077331</a:History>
 </o:EntityAttribute>
 </c:Attributes>
 </o:Entity>
-<o:Entity Id="o30">
+<o:Entity Id="o31">
 <a:ObjectID>051D346A-DABE-48CF-9DF3-D35807E504F5</a:ObjectID>
 <a:Name>Examen</a:Name>
 <a:Code>EXAMEN</a:Code>
@@ -1399,7 +1721,7 @@ DAT 1707077331</a:History>
 <a:History>ORG {1C42597C-DAB2-4D17-AA96-CA41F36EA3EF}
 DAT 1707077331</a:History>
 <c:Identifiers>
-<o:Identifier Id="o47">
+<o:Identifier Id="o48">
 <a:ObjectID>14D4DF9C-3B1C-4882-87E7-1A99E5F17D2F</a:ObjectID>
 <a:Name>pk_id_examen</a:Name>
 <a:Code>PK_ID_EXAMEN</a:Code>
@@ -1410,15 +1732,15 @@ DAT 1707077331</a:History>
 <a:History>ORG {463D6C6A-A527-4009-80BE-72D2AD114CE5}
 DAT 1707077331</a:History>
 <c:Identifier.Attributes>
-<o:EntityAttribute Ref="o48"/>
+<o:EntityAttribute Ref="o49"/>
 </c:Identifier.Attributes>
 </o:Identifier>
 </c:Identifiers>
 <c:PrimaryIdentifier>
-<o:Identifier Ref="o47"/>
+<o:Identifier Ref="o48"/>
 </c:PrimaryIdentifier>
 <c:Attributes>
-<o:EntityAttribute Id="o48">
+<o:EntityAttribute Id="o49">
 <a:ObjectID>302EB28A-9489-42A6-8224-935E62B852FA</a:ObjectID>
 <a:Name>Id_Examen#</a:Name>
 <a:Code>ID_EXAMEN_</a:Code>
@@ -1431,7 +1753,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o49">
+<o:EntityAttribute Id="o50">
 <a:ObjectID>F8D5CE53-6C8B-4D2B-94DC-25808546898B</a:ObjectID>
 <a:Name>Id_Consultation#</a:Name>
 <a:Code>ID_CONSULTATION_</a:Code>
@@ -1444,7 +1766,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o50">
+<o:EntityAttribute Id="o51">
 <a:ObjectID>F608928D-ED22-4864-89AE-FF147EFEF426</a:ObjectID>
 <a:Name>Details_Examen</a:Name>
 <a:Code>DETAILS_EXAMEN</a:Code>
@@ -1458,7 +1780,7 @@ DAT 1707077331</a:History>
 <a:Length>100</a:Length>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o51">
+<o:EntityAttribute Id="o52">
 <a:ObjectID>EFF39C71-E0CB-4251-94ED-0BD9EB466488</a:ObjectID>
 <a:Name>Date_Examen</a:Name>
 <a:Code>DATE_EXAMEN</a:Code>
@@ -1473,7 +1795,7 @@ DAT 1707077331</a:History>
 </o:EntityAttribute>
 </c:Attributes>
 </o:Entity>
-<o:Entity Id="o31">
+<o:Entity Id="o32">
 <a:ObjectID>E6E1CEEA-5195-4E0F-B0AA-682D6829373C</a:ObjectID>
 <a:Name>Facture</a:Name>
 <a:Code>FACTURE</a:Code>
@@ -1484,7 +1806,7 @@ DAT 1707077331</a:History>
 <a:History>ORG {CB88A81E-F6C8-4701-BFCD-D2BA38B955CA}
 DAT 1707077331</a:History>
 <c:Identifiers>
-<o:Identifier Id="o52">
+<o:Identifier Id="o53">
 <a:ObjectID>ABC40643-6146-4607-BC96-9F5CEE7DD841</a:ObjectID>
 <a:Name>pk_id_facture</a:Name>
 <a:Code>PK_ID_FACTURE</a:Code>
@@ -1495,15 +1817,15 @@ DAT 1707077331</a:History>
 <a:History>ORG {CBBE1320-1A76-4550-B583-92C7239AAF65}
 DAT 1707077331</a:History>
 <c:Identifier.Attributes>
-<o:EntityAttribute Ref="o53"/>
+<o:EntityAttribute Ref="o54"/>
 </c:Identifier.Attributes>
 </o:Identifier>
 </c:Identifiers>
 <c:PrimaryIdentifier>
-<o:Identifier Ref="o52"/>
+<o:Identifier Ref="o53"/>
 </c:PrimaryIdentifier>
 <c:Attributes>
-<o:EntityAttribute Id="o53">
+<o:EntityAttribute Id="o54">
 <a:ObjectID>583F4612-94EA-4194-806D-723FE2C373B8</a:ObjectID>
 <a:Name>Id_Facture#</a:Name>
 <a:Code>ID_FACTURE_</a:Code>
@@ -1516,7 +1838,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o54">
+<o:EntityAttribute Id="o55">
 <a:ObjectID>C9842EEB-FEC3-4F5B-B46C-7A2E71779A24</a:ObjectID>
 <a:Name>Id_Patient#</a:Name>
 <a:Code>ID_PATIENT_</a:Code>
@@ -1529,7 +1851,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o55">
+<o:EntityAttribute Id="o56">
 <a:ObjectID>A18AA1F6-51DB-4927-9E08-DFE844F4A732</a:ObjectID>
 <a:Name>Montant_Total</a:Name>
 <a:Code>MONTANT_TOTAL</a:Code>
@@ -1544,7 +1866,7 @@ DAT 1707077331</a:History>
 <a:Precision>2</a:Precision>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o56">
+<o:EntityAttribute Id="o57">
 <a:ObjectID>7D8DB15F-5853-4A9F-92F3-74AB6A0AD680</a:ObjectID>
 <a:Name>Date_Facture</a:Name>
 <a:Code>DATE_FACTURE</a:Code>
@@ -1559,7 +1881,7 @@ DAT 1707077331</a:History>
 </o:EntityAttribute>
 </c:Attributes>
 </o:Entity>
-<o:Entity Id="o32">
+<o:Entity Id="o33">
 <a:ObjectID>AD3B1891-821A-4F21-9BD4-EDCFA47AEB50</a:ObjectID>
 <a:Name>Medecin</a:Name>
 <a:Code>MEDECIN</a:Code>
@@ -1570,7 +1892,7 @@ DAT 1707077331</a:History>
 <a:History>ORG {BC8931C9-3072-4942-B99B-CA5B8CE8496A}
 DAT 1707077331</a:History>
 <c:Identifiers>
-<o:Identifier Id="o57">
+<o:Identifier Id="o58">
 <a:ObjectID>2F1E6A26-FD48-4D48-A228-D370A2D09F9B</a:ObjectID>
 <a:Name>pk_id_medecin</a:Name>
 <a:Code>PK_ID_MEDECIN</a:Code>
@@ -1581,15 +1903,15 @@ DAT 1707077331</a:History>
 <a:History>ORG {1B474A80-18B4-42CF-8737-4B66AAA4053F}
 DAT 1707077331</a:History>
 <c:Identifier.Attributes>
-<o:EntityAttribute Ref="o58"/>
+<o:EntityAttribute Ref="o59"/>
 </c:Identifier.Attributes>
 </o:Identifier>
 </c:Identifiers>
 <c:PrimaryIdentifier>
-<o:Identifier Ref="o57"/>
+<o:Identifier Ref="o58"/>
 </c:PrimaryIdentifier>
 <c:Attributes>
-<o:EntityAttribute Id="o58">
+<o:EntityAttribute Id="o59">
 <a:ObjectID>33C4EB51-7153-42A3-A493-59EEBDCF2B5F</a:ObjectID>
 <a:Name>Id_Medecin#</a:Name>
 <a:Code>ID_MEDECIN_</a:Code>
@@ -1602,7 +1924,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o59">
+<o:EntityAttribute Id="o60">
 <a:ObjectID>404C1CD7-6CF9-40F8-81C8-58AD27309843</a:ObjectID>
 <a:Name>Nom</a:Name>
 <a:Code>NOM</a:Code>
@@ -1616,7 +1938,7 @@ DAT 1707077331</a:History>
 <a:Length>50</a:Length>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o60">
+<o:EntityAttribute Id="o61">
 <a:ObjectID>A4789367-AA46-47E7-911A-8F5FBEC43DBB</a:ObjectID>
 <a:Name>Prenom</a:Name>
 <a:Code>PRENOM</a:Code>
@@ -1630,7 +1952,7 @@ DAT 1707077331</a:History>
 <a:Length>50</a:Length>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o61">
+<o:EntityAttribute Id="o62">
 <a:ObjectID>B8F20F61-014D-4686-8EEE-6940C4155122</a:ObjectID>
 <a:Name>Specialite</a:Name>
 <a:Code>SPECIALITE</a:Code>
@@ -1644,7 +1966,7 @@ DAT 1707077331</a:History>
 <a:Length>50</a:Length>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o62">
+<o:EntityAttribute Id="o63">
 <a:ObjectID>8FE4BD16-ABB2-4438-95F0-FAD9B1EAF27B</a:ObjectID>
 <a:Name>Telephone</a:Name>
 <a:Code>TELEPHONE</a:Code>
@@ -1658,7 +1980,7 @@ DAT 1707077331</a:History>
 <a:Length>8</a:Length>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o63">
+<o:EntityAttribute Id="o64">
 <a:ObjectID>629E6F26-41CC-49BC-933A-BAE9D2C36B25</a:ObjectID>
 <a:Name>Email</a:Name>
 <a:Code>EMAIL</a:Code>
@@ -1674,7 +1996,7 @@ DAT 1707077331</a:History>
 </o:EntityAttribute>
 </c:Attributes>
 </o:Entity>
-<o:Entity Id="o34">
+<o:Entity Id="o35">
 <a:ObjectID>EFCBBD58-CEA9-40E7-A7ED-65487BDBA41F</a:ObjectID>
 <a:Name>Consultation</a:Name>
 <a:Code>CONSULTATION</a:Code>
@@ -1685,7 +2007,7 @@ DAT 1707077331</a:History>
 <a:History>ORG {97BFF49A-F1E5-4CFE-B972-3798991DAE2F}
 DAT 1707077331</a:History>
 <c:Identifiers>
-<o:Identifier Id="o64">
+<o:Identifier Id="o65">
 <a:ObjectID>1632BFAE-0CC3-406E-9CCC-F4D6AC96D3A5</a:ObjectID>
 <a:Name>Identifiant_1</a:Name>
 <a:Code>IDENTIFIANT_1</a:Code>
@@ -1696,15 +2018,15 @@ DAT 1707077331</a:History>
 <a:History>ORG {B39238B2-6DF5-4890-80F2-28B6F9290444}
 DAT 1707077331</a:History>
 <c:Identifier.Attributes>
-<o:EntityAttribute Ref="o65"/>
+<o:EntityAttribute Ref="o66"/>
 </c:Identifier.Attributes>
 </o:Identifier>
 </c:Identifiers>
 <c:PrimaryIdentifier>
-<o:Identifier Ref="o64"/>
+<o:Identifier Ref="o65"/>
 </c:PrimaryIdentifier>
 <c:Attributes>
-<o:EntityAttribute Id="o65">
+<o:EntityAttribute Id="o66">
 <a:ObjectID>7575BCBC-31D1-4FE9-A6BF-DC483E8FCF75</a:ObjectID>
 <a:Name>Id_Consultation#</a:Name>
 <a:Code>ID_CONSULTATION_</a:Code>
@@ -1717,7 +2039,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o66">
+<o:EntityAttribute Id="o67">
 <a:ObjectID>D66DA90B-B1DF-42CE-AE44-95C04961CC11</a:ObjectID>
 <a:Name>Id_Facture#</a:Name>
 <a:Code>ID_FACTURE_</a:Code>
@@ -1730,7 +2052,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o67">
+<o:EntityAttribute Id="o68">
 <a:ObjectID>C5AD5FE8-2CBC-4E3A-936D-2F7F2EDC72B6</a:ObjectID>
 <a:Name>Id_Medecin#</a:Name>
 <a:Code>ID_MEDECIN_</a:Code>
@@ -1743,7 +2065,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o68">
+<o:EntityAttribute Id="o69">
 <a:ObjectID>B8F32884-0C61-4546-82F5-DA33CA4ACA2D</a:ObjectID>
 <a:Name>Id_Patient#</a:Name>
 <a:Code>ID_PATIENT_</a:Code>
@@ -1756,7 +2078,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o69">
+<o:EntityAttribute Id="o70">
 <a:ObjectID>D3CC3CEF-D4B2-425E-8116-16DF663B1B63</a:ObjectID>
 <a:Name>Date_Consultation</a:Name>
 <a:Code>DATE_CONSULTATION</a:Code>
@@ -1771,7 +2093,7 @@ DAT 1707077331</a:History>
 </o:EntityAttribute>
 </c:Attributes>
 </o:Entity>
-<o:Entity Id="o33">
+<o:Entity Id="o34">
 <a:ObjectID>5C37F142-FB23-42E3-8B38-D8BD457F7B8F</a:ObjectID>
 <a:Name>Rendez_Vous</a:Name>
 <a:Code>RENDEZ_VOUS</a:Code>
@@ -1782,7 +2104,7 @@ DAT 1707077331</a:History>
 <a:History>ORG {1A010FF9-EC86-41F1-951C-44DE99F9205D}
 DAT 1707077331</a:History>
 <c:Identifiers>
-<o:Identifier Id="o70">
+<o:Identifier Id="o71">
 <a:ObjectID>B4F81EBE-9D6D-42C7-BCA4-32DC6EC67C60</a:ObjectID>
 <a:Name>Identifiant_1</a:Name>
 <a:Code>IDENTIFIANT_1</a:Code>
@@ -1791,16 +2113,16 @@ DAT 1707077331</a:History>
 <a:ModificationDate>1707077331</a:ModificationDate>
 <a:Modifier>pbobc</a:Modifier>
 <c:Identifier.Attributes>
-<o:EntityAttribute Ref="o71"/>
 <o:EntityAttribute Ref="o72"/>
+<o:EntityAttribute Ref="o73"/>
 </c:Identifier.Attributes>
 </o:Identifier>
 </c:Identifiers>
 <c:PrimaryIdentifier>
-<o:Identifier Ref="o70"/>
+<o:Identifier Ref="o71"/>
 </c:PrimaryIdentifier>
 <c:Attributes>
-<o:EntityAttribute Id="o71">
+<o:EntityAttribute Id="o72">
 <a:ObjectID>A4ABD9D8-5F5B-465D-B7C1-178EEC3335F8</a:ObjectID>
 <a:Name>Id_Patient#</a:Name>
 <a:Code>ID_PATIENT_</a:Code>
@@ -1813,7 +2135,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o72">
+<o:EntityAttribute Id="o73">
 <a:ObjectID>2EA3E785-41BD-496F-AEF4-775E8C5AB395</a:ObjectID>
 <a:Name>Id_Medecin#</a:Name>
 <a:Code>ID_MEDECIN_</a:Code>
@@ -1826,7 +2148,7 @@ DAT 1707077331</a:History>
 <a:DataType>I</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o73">
+<o:EntityAttribute Id="o74">
 <a:ObjectID>02B92105-4EB7-41C0-A5CA-E3FF42413CFA</a:ObjectID>
 <a:Name>Date_Rendez_Vous</a:Name>
 <a:Code>DATE_RENDEZ_VOUS</a:Code>
@@ -1843,7 +2165,7 @@ DAT 1707077331</a:History>
 </o:Entity>
 </c:Entities>
 <c:Relationships>
-<o:Relationship Id="o8">
+<o:Relationship Id="o9">
 <a:ObjectID>C457966D-2FCF-45E2-9CB7-75CB2F8CA75E</a:ObjectID>
 <a:Name>Inclure</a:Name>
 <a:Code>INCLURE</a:Code>
@@ -1856,31 +2178,31 @@ DAT 1707077331</a:History>
 <a:Entity1ToEntity2RoleCardinality>1,1</a:Entity1ToEntity2RoleCardinality>
 <a:Entity2ToEntity1RoleCardinality>1,n</a:Entity2ToEntity1RoleCardinality>
 <c:Object1>
-<o:Entity Ref="o31"/>
+<o:Entity Ref="o32"/>
 </c:Object1>
 <c:Object2>
-<o:Entity Ref="o34"/>
+<o:Entity Ref="o35"/>
 </c:Object2>
 <c:Joins>
-<o:RelationshipJoin Id="o74">
+<o:RelationshipJoin Id="o75">
 <a:ObjectID>8385F48D-8699-4F2D-BC48-1384EA2524AF</a:ObjectID>
 <a:CreationDate>1707077331</a:CreationDate>
 <a:Creator>pbobc</a:Creator>
 <a:ModificationDate>1707077331</a:ModificationDate>
 <a:Modifier>pbobc</a:Modifier>
 <c:Object1>
-<o:EntityAttribute Ref="o53"/>
+<o:EntityAttribute Ref="o54"/>
 </c:Object1>
 <c:Object2>
-<o:EntityAttribute Ref="o66"/>
+<o:EntityAttribute Ref="o67"/>
 </c:Object2>
 </o:RelationshipJoin>
 </c:Joins>
 <c:ParentIdentifier>
-<o:Identifier Ref="o52"/>
+<o:Identifier Ref="o53"/>
 </c:ParentIdentifier>
 </o:Relationship>
-<o:Relationship Id="o11">
+<o:Relationship Id="o12">
 <a:ObjectID>3E9D0041-D7B7-4396-BBE1-4FC37E057E9D</a:ObjectID>
 <a:Name>Effectuer</a:Name>
 <a:Code>EFFECTUER</a:Code>
@@ -1893,31 +2215,31 @@ DAT 1707077331</a:History>
 <a:Entity1ToEntity2RoleCardinality>1,n</a:Entity1ToEntity2RoleCardinality>
 <a:Entity2ToEntity1RoleCardinality>1,1</a:Entity2ToEntity1RoleCardinality>
 <c:Object1>
-<o:Entity Ref="o34"/>
+<o:Entity Ref="o35"/>
 </c:Object1>
 <c:Object2>
-<o:Entity Ref="o32"/>
+<o:Entity Ref="o33"/>
 </c:Object2>
 <c:Joins>
-<o:RelationshipJoin Id="o75">
+<o:RelationshipJoin Id="o76">
 <a:ObjectID>5D30E2E0-BDD7-47A7-A84E-141EFA80B67E</a:ObjectID>
 <a:CreationDate>1707077331</a:CreationDate>
 <a:Creator>pbobc</a:Creator>
 <a:ModificationDate>1707077331</a:ModificationDate>
 <a:Modifier>pbobc</a:Modifier>
 <c:Object1>
-<o:EntityAttribute Ref="o58"/>
+<o:EntityAttribute Ref="o59"/>
 </c:Object1>
 <c:Object2>
-<o:EntityAttribute Ref="o67"/>
+<o:EntityAttribute Ref="o68"/>
 </c:Object2>
 </o:RelationshipJoin>
 </c:Joins>
 <c:ParentIdentifier>
-<o:Identifier Ref="o57"/>
+<o:Identifier Ref="o58"/>
 </c:ParentIdentifier>
 </o:Relationship>
-<o:Relationship Id="o14">
+<o:Relationship Id="o15">
 <a:ObjectID>D394E3F5-A83D-43D5-9FCB-65503643557E</a:ObjectID>
 <a:Name>Passer</a:Name>
 <a:Code>PASSER</a:Code>
@@ -1930,31 +2252,31 @@ DAT 1707077331</a:History>
 <a:Entity1ToEntity2RoleCardinality>1,n</a:Entity1ToEntity2RoleCardinality>
 <a:Entity2ToEntity1RoleCardinality>1,1</a:Entity2ToEntity1RoleCardinality>
 <c:Object1>
-<o:Entity Ref="o34"/>
+<o:Entity Ref="o35"/>
 </c:Object1>
 <c:Object2>
-<o:Entity Ref="o28"/>
+<o:Entity Ref="o29"/>
 </c:Object2>
 <c:Joins>
-<o:RelationshipJoin Id="o76">
+<o:RelationshipJoin Id="o77">
 <a:ObjectID>A3713785-E5C8-4988-8F2D-7DF781E4FCFB</a:ObjectID>
 <a:CreationDate>1707077331</a:CreationDate>
 <a:Creator>pbobc</a:Creator>
 <a:ModificationDate>1707077331</a:ModificationDate>
 <a:Modifier>pbobc</a:Modifier>
 <c:Object1>
-<o:EntityAttribute Ref="o36"/>
+<o:EntityAttribute Ref="o37"/>
 </c:Object1>
 <c:Object2>
-<o:EntityAttribute Ref="o68"/>
+<o:EntityAttribute Ref="o69"/>
 </c:Object2>
 </o:RelationshipJoin>
 </c:Joins>
 <c:ParentIdentifier>
-<o:Identifier Ref="o35"/>
+<o:Identifier Ref="o36"/>
 </c:ParentIdentifier>
 </o:Relationship>
-<o:Relationship Id="o16">
+<o:Relationship Id="o17">
 <a:ObjectID>5F5C62A2-D5D7-4512-8CC5-5B9D370E55DA</a:ObjectID>
 <a:Name>Recevoir</a:Name>
 <a:Code>RECEVOIR</a:Code>
@@ -1967,31 +2289,31 @@ DAT 1707077331</a:History>
 <a:Entity1ToEntity2RoleCardinality>1,n</a:Entity1ToEntity2RoleCardinality>
 <a:Entity2ToEntity1RoleCardinality>1,1</a:Entity2ToEntity1RoleCardinality>
 <c:Object1>
-<o:Entity Ref="o31"/>
+<o:Entity Ref="o32"/>
 </c:Object1>
 <c:Object2>
-<o:Entity Ref="o28"/>
+<o:Entity Ref="o29"/>
 </c:Object2>
 <c:Joins>
-<o:RelationshipJoin Id="o77">
+<o:RelationshipJoin Id="o78">
 <a:ObjectID>66B97C0A-220D-4C72-98E9-031C88538321</a:ObjectID>
 <a:CreationDate>1707077331</a:CreationDate>
 <a:Creator>pbobc</a:Creator>
 <a:ModificationDate>1707077331</a:ModificationDate>
 <a:Modifier>pbobc</a:Modifier>
 <c:Object1>
-<o:EntityAttribute Ref="o36"/>
+<o:EntityAttribute Ref="o37"/>
 </c:Object1>
 <c:Object2>
-<o:EntityAttribute Ref="o54"/>
+<o:EntityAttribute Ref="o55"/>
 </c:Object2>
 </o:RelationshipJoin>
 </c:Joins>
 <c:ParentIdentifier>
-<o:Identifier Ref="o35"/>
+<o:Identifier Ref="o36"/>
 </c:ParentIdentifier>
 </o:Relationship>
-<o:Relationship Id="o19">
+<o:Relationship Id="o20">
 <a:ObjectID>4C566AC8-05FA-48FC-9661-8FB908D9A880</a:ObjectID>
 <a:Name>Contenir 2</a:Name>
 <a:Code>CONTENIR_2</a:Code>
@@ -2004,31 +2326,31 @@ DAT 1707077331</a:History>
 <a:Entity1ToEntity2RoleCardinality>0,n</a:Entity1ToEntity2RoleCardinality>
 <a:Entity2ToEntity1RoleCardinality>1,1</a:Entity2ToEntity1RoleCardinality>
 <c:Object1>
-<o:Entity Ref="o29"/>
+<o:Entity Ref="o30"/>
 </c:Object1>
 <c:Object2>
-<o:Entity Ref="o34"/>
+<o:Entity Ref="o35"/>
 </c:Object2>
 <c:Joins>
-<o:RelationshipJoin Id="o78">
+<o:RelationshipJoin Id="o79">
 <a:ObjectID>A389A8BC-2428-47DA-BD3D-36C38D7DC2F6</a:ObjectID>
 <a:CreationDate>1707077331</a:CreationDate>
 <a:Creator>pbobc</a:Creator>
 <a:ModificationDate>1707077331</a:ModificationDate>
 <a:Modifier>pbobc</a:Modifier>
 <c:Object1>
-<o:EntityAttribute Ref="o65"/>
+<o:EntityAttribute Ref="o66"/>
 </c:Object1>
 <c:Object2>
-<o:EntityAttribute Ref="o44"/>
+<o:EntityAttribute Ref="o45"/>
 </c:Object2>
 </o:RelationshipJoin>
 </c:Joins>
 <c:ParentIdentifier>
-<o:Identifier Ref="o64"/>
+<o:Identifier Ref="o65"/>
 </c:ParentIdentifier>
 </o:Relationship>
-<o:Relationship Id="o22">
+<o:Relationship Id="o23">
 <a:ObjectID>28885265-28BF-48B1-9156-24BEBAA7DDB8</a:ObjectID>
 <a:Name>Contenir 1</a:Name>
 <a:Code>CONTENIR_1</a:Code>
@@ -2041,31 +2363,31 @@ DAT 1707077331</a:History>
 <a:Entity1ToEntity2RoleCardinality>1,1</a:Entity1ToEntity2RoleCardinality>
 <a:Entity2ToEntity1RoleCardinality>0,n</a:Entity2ToEntity1RoleCardinality>
 <c:Object1>
-<o:Entity Ref="o34"/>
+<o:Entity Ref="o35"/>
 </c:Object1>
 <c:Object2>
-<o:Entity Ref="o30"/>
+<o:Entity Ref="o31"/>
 </c:Object2>
 <c:Joins>
-<o:RelationshipJoin Id="o79">
+<o:RelationshipJoin Id="o80">
 <a:ObjectID>E8F6FBA1-B5B5-4520-B114-41FEF98EB88D</a:ObjectID>
 <a:CreationDate>1707077331</a:CreationDate>
 <a:Creator>pbobc</a:Creator>
 <a:ModificationDate>1707077331</a:ModificationDate>
 <a:Modifier>pbobc</a:Modifier>
 <c:Object1>
-<o:EntityAttribute Ref="o65"/>
+<o:EntityAttribute Ref="o66"/>
 </c:Object1>
 <c:Object2>
-<o:EntityAttribute Ref="o49"/>
+<o:EntityAttribute Ref="o50"/>
 </c:Object2>
 </o:RelationshipJoin>
 </c:Joins>
 <c:ParentIdentifier>
-<o:Identifier Ref="o64"/>
+<o:Identifier Ref="o65"/>
 </c:ParentIdentifier>
 </o:Relationship>
-<o:Relationship Id="o25">
+<o:Relationship Id="o26">
 <a:ObjectID>52A2FFD5-344B-4284-8F4F-FBC68BC2B6B0</a:ObjectID>
 <a:Name>Rendez_Vous</a:Name>
 <a:Code>RENDEZ_VOUS2</a:Code>
@@ -2079,31 +2401,31 @@ DAT 1707077331</a:History>
 <a:Entity1ToEntity2RoleCardinality>1,1</a:Entity1ToEntity2RoleCardinality>
 <a:Entity2ToEntity1RoleCardinality>1,n</a:Entity2ToEntity1RoleCardinality>
 <c:Object1>
-<o:Entity Ref="o28"/>
+<o:Entity Ref="o29"/>
 </c:Object1>
 <c:Object2>
-<o:Entity Ref="o33"/>
+<o:Entity Ref="o34"/>
 </c:Object2>
 <c:Joins>
-<o:RelationshipJoin Id="o80">
+<o:RelationshipJoin Id="o81">
 <a:ObjectID>DF83789E-C2AD-430F-9AE4-C067DCF09F10</a:ObjectID>
 <a:CreationDate>1707077331</a:CreationDate>
 <a:Creator>pbobc</a:Creator>
 <a:ModificationDate>1707077331</a:ModificationDate>
 <a:Modifier>pbobc</a:Modifier>
 <c:Object1>
-<o:EntityAttribute Ref="o36"/>
+<o:EntityAttribute Ref="o37"/>
 </c:Object1>
 <c:Object2>
-<o:EntityAttribute Ref="o71"/>
+<o:EntityAttribute Ref="o72"/>
 </c:Object2>
 </o:RelationshipJoin>
 </c:Joins>
 <c:ParentIdentifier>
-<o:Identifier Ref="o35"/>
+<o:Identifier Ref="o36"/>
 </c:ParentIdentifier>
 </o:Relationship>
-<o:Relationship Id="o27">
+<o:Relationship Id="o28">
 <a:ObjectID>97F21DAE-7CAC-4B57-A341-6D0DFFD5544E</a:ObjectID>
 <a:Name>Rendez_Vous</a:Name>
 <a:Code>RENDEZ_VOUS</a:Code>
@@ -2117,33 +2439,33 @@ DAT 1707077331</a:History>
 <a:Entity1ToEntity2RoleCardinality>1,1</a:Entity1ToEntity2RoleCardinality>
 <a:Entity2ToEntity1RoleCardinality>1,n</a:Entity2ToEntity1RoleCardinality>
 <c:Object1>
-<o:Entity Ref="o32"/>
+<o:Entity Ref="o33"/>
 </c:Object1>
 <c:Object2>
-<o:Entity Ref="o33"/>
+<o:Entity Ref="o34"/>
 </c:Object2>
 <c:Joins>
-<o:RelationshipJoin Id="o81">
+<o:RelationshipJoin Id="o82">
 <a:ObjectID>31407D0A-1EFB-463F-88AC-CC22C6B59163</a:ObjectID>
 <a:CreationDate>1707077331</a:CreationDate>
 <a:Creator>pbobc</a:Creator>
 <a:ModificationDate>1707077331</a:ModificationDate>
 <a:Modifier>pbobc</a:Modifier>
 <c:Object1>
-<o:EntityAttribute Ref="o58"/>
+<o:EntityAttribute Ref="o59"/>
 </c:Object1>
 <c:Object2>
-<o:EntityAttribute Ref="o72"/>
+<o:EntityAttribute Ref="o73"/>
 </c:Object2>
 </o:RelationshipJoin>
 </c:Joins>
 <c:ParentIdentifier>
-<o:Identifier Ref="o57"/>
+<o:Identifier Ref="o58"/>
 </c:ParentIdentifier>
 </o:Relationship>
 </c:Relationships>
 <c:TargetModels>
-<o:TargetModel Id="o82">
+<o:TargetModel Id="o83">
 <a:ObjectID>5F690104-0C66-4F4B-A537-BD1F47BC9C02</a:ObjectID>
 <a:Name>MCD_Cabinet_Medical</a:Name>
 <a:Code>MCD_CABINET_MEDICAL</a:Code>
@@ -2154,6 +2476,21 @@ DAT 1707077331</a:History>
 <a:TargetModelURL>file:///C|/Users/pbobc/Documents/MBDS/BD_SQL_ORACLE/Immersion-BD-et-SQL-Oracle/MCD_MLD_MPD/ModeleConceptuelDonnees_Cabinet_Medical.mcd</a:TargetModelURL>
 <a:TargetModelID>D03F8E8B-60BB-465B-8689-B26D6CC073B4</a:TargetModelID>
 <a:TargetModelClassID>1E597170-9350-11D1-AB3C-0020AF71E433</a:TargetModelClassID>
+<c:SessionShortcuts>
+<o:Shortcut Ref="o4"/>
+</c:SessionShortcuts>
+</o:TargetModel>
+<o:TargetModel Id="o84">
+<a:ObjectID>843F3EEB-A8A6-47F4-BA21-4683E4A2EA06</a:ObjectID>
+<a:Name>MPD_Cabinet_Medical</a:Name>
+<a:Code>MPD_CABINET_MEDICAL</a:Code>
+<a:CreationDate>1707078608</a:CreationDate>
+<a:Creator>pbobc</a:Creator>
+<a:ModificationDate>1707078957</a:ModificationDate>
+<a:Modifier>pbobc</a:Modifier>
+<a:TargetModelURL>file:///C|/Users/pbobc/Documents/MBDS/BD_SQL_ORACLE/Immersion-BD-et-SQL-Oracle/MCD_MLD_MPD/MPD_Cabinet_Medical.mpd</a:TargetModelURL>
+<a:TargetModelID>712CA9FB-C77C-41FA-85AF-17B1FD5052AB</a:TargetModelID>
+<a:TargetModelClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetModelClassID>
 <c:SessionShortcuts>
 <o:Shortcut Ref="o3"/>
 </c:SessionShortcuts>
