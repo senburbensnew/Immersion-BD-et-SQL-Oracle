@@ -1,0 +1,128 @@
+• La description textuelles des requêtes de mise à jour (2 requêtes impliquant 1 table, 2 
+requêtes impliquant 2 tables, 2 requêtes impliquant plus de 2 tables)
+
+A) 2 requêtes impliquant 1 table:
+
+                1)  UPDATE PATIENT
+                    SET DATE_NAISSAINCE = TO_DATE('22-AUG-1986','DD-MON-YYYY')
+                    WHERE EMAIL = 'thomas.leclerc@email.com';
+
+                Description :
+                Explication de la requête SQL :
+                1. Analyse de la requête :
+
+                Cette requête SQL est composée de trois parties principales :
+
+                UPDATE PATIENT : Cette partie indique que la requête souhaite modifier des données dans la table PATIENT.
+                SET DATE_NAISSAINCE = TO_DATE('22-AUG-1986','DD-MON-YYYY') : Cette partie définit les modifications à apporter. La colonne DATE_NAISSAINCE sera mise à jour avec la valeur 22-AUG-1986 formatée en date selon le format DD-MON-YYYY.
+                WHERE EMAIL = 'thomas.leclerc@email.com' : Cette partie précise les lignes de la table PATIENT qui seront affectées par la modification. Seules les lignes où la colonne EMAIL est égale à thomas.leclerc@email.com seront mises à jour.
+                2. Fonctionnement de la requête :
+
+                La requête recherche d'abord toutes les lignes de la table PATIENT où la colonne EMAIL est égale à thomas.leclerc@email.com.
+                Pour chaque ligne trouvée, la valeur de la colonne DATE_NAISSAINCE est remplacée par la date 22-AUG-1986 formatée selon le format DD-MON-YYYY.
+                Le nombre de lignes affectées par la modification est ensuite renvoyé.
+                3. Résumé des effets de la requête :
+
+                Cette requête modifie la date de naissance du patient dont l'adresse mail est thomas.leclerc@email.com.
+                La nouvelle date de naissance sera 22-AUG-1986.
+                Seules les lignes correspondant à l'adresse mail spécifiée seront affectées.
+
+
+                2)  UPDATE PATIENT
+                    SET ADRESSE = '90, DELMAS 75'
+                    WHERE ID_PATIENT_ = 1;
+
+                Description :
+
+                Explication de la requête SQL :
+
+                1. Analyse de la requête :
+
+                Cette requête SQL est composée de trois parties principales :
+
+                - UPDATE PATIENT: Cette partie indique que la requête souhaite modifier des données dans la table PATIENT.
+
+                - SET ADRESSE = '90, DELMAS 75': Cette partie définit les modifications à apporter. La colonne ADRESSE sera mise à jour avec la valeur '90, DELMAS 75'.
+
+                - WHERE ID_PATIENT_ = 1: Cette partie précise les lignes de la table PATIENT qui seront affectées par la modification. Seule la ligne où la colonne ID_PATIENT_ est égale à 1 sera mise à jour.
+
+                2. Fonctionnement de la requête :
+
+                La requête recherche d'abord la ligne de la table PATIENT où la colonne ID_PATIENT_ est égale à 1.
+                La valeur de la colonne ADRESSE de cette ligne est remplacée par la valeur '90, DELMAS 75'.
+                Le nombre de lignes affectées par la modification est ensuite renvoyé (ici, 1).
+
+                3. Résumé des effets de la requête :
+
+                Cette requête modifie l'adresse du patient dont l'identifiant est 1.
+                La nouvelle adresse sera '90, DELMAS 75'.
+                Seule la ligne correspondant à l'identifiant spécifié sera affectée.
+
+B) 2 requêtes impliquant 2 tables:
+
+                1)  UPDATE (SELECT P.ID_PATIENT_, P.NOM,P.PRENOM,R.DATE_RENDEZ_VOUS FROM PATIENT P
+                    JOIN RENDEZ_VOUS R 
+                    ON P.ID_PATIENT_ = R.ID_PATIENT_
+                    WHERE R.DATE_RENDEZ_VOUS BETWEEN '14-FEB-2024' AND '18-FEB-2024') X
+                    SET X.DATE_RENDEZ_VOUS = '01-MAR-24';
+
+                Explication de la requête SQL :
+                1. Analyse de la requête :
+
+                Cette requête SQL est composée de plusieurs parties imbriquées :
+
+                - UPDATE: Cette partie indique que la requête souhaite modifier des données.
+
+                - (SELECT P.ID_PATIENT_, P.NOM,P.PRENOM,R.DATE_RENDEZ_VOUS FROM PATIENT P JOIN RENDEZ_VOUS R ON P.ID_PATIENT_ = R.ID_PATIENT_ WHERE R.DATE_RENDEZ_VOUS BETWEEN '14-FEB-2024' AND '18-FEB-2024'): Cette partie définit la table et les colonnes à modifier, ainsi que les lignes concernées par la modification.
+
+                - SET DATE_RENDEZ_VOUS = '01-MAR-24': Cette partie définit la nouvelle valeur à attribuer à la colonne DATE_RENDEZ_VOUS.
+
+                2. Fonctionnement de la requête :
+
+                La requête exécute d'abord la sous-requête entre parenthèses. Cette sous-requête sélectionne les colonnes ID_PATIENT_, NOM, PRENOM et DATE_RENDEZ_VOUS des tables PATIENT et RENDEZ_VOUS pour les patients dont le rendez-vous est entre le 14-FEB-2024 et le 18-FEB-2024.
+
+                La requête utilise ensuite le résultat de la sous-requête comme table virtuelle pour la mise à jour.
+
+                Pour chaque ligne de la table virtuelle, la valeur de la colonne DATE_RENDEZ_VOUS est mise à jour avec la valeur 01-MAR-24.
+
+                Le nombre de lignes affectées par la modification est ensuite renvoyé.
+
+                3. Résumé des effets de la requête :
+
+                Cette requête modifie la date de rendez-vous des patients dont le rendez-vous est prévu entre le 14-FEB-2024 et le 18-FEB-2024.
+                La nouvelle date de rendez-vous sera le 01-MAR-24.
+                Seules les lignes correspondant aux dates spécifiées seront affectées.
+
+                4. Remarques :
+
+                La sous-requête permet de filtrer les patients dont la date de rendez-vous est dans la période spécifiée.
+                La clause WHERE de la sous-requête est obligatoire pour limiter les lignes à modifier.
+                La jointure entre les tables PATIENT et RENDEZ_VOUS est nécessaire pour obtenir les informations des deux tables.
+
+                En résumé, cette requête SQL permet de modifier la date de rendez-vous des patients dont le rendez-vous est prévu
+                 entre le 14-FEB-2024 et le 18-FEB-2024 dans la table virtuelle issue de la jointure entre PATIENT 
+                 et RENDEZ_VOUS. La nouvelle date de rendez-vous sera le 01-MAR-24.
+
+                2)  UPDATE(SELECT * FROM FACTURE F , PATIENT P
+                    WHERE F.ID_PATIENT_ = P.ID_PATIENT_
+                    AND F.MONTANT_TOTAL < 200)
+                    SET MONTANT_TOTAL = MONTANT_TOTAL + MONTANT_TOTAL * 0.1;
+
+                    Description:
+
+                    Cette requête vise à mettre à jour le montant total de certaines factures dans une base de données.
+
+                    Fonctionnement étape par étape:
+
+                    Sélection des factures:
+
+                    La requête commence par la sous-requête SELECT * FROM FACTURE F, PATIENT P. Cela signifie qu'elle sélectionne toutes les colonnes des tables FACTURE (F) et PATIENT (P).
+                    La clause WHERE associée à la sous-requête précise les conditions de sélection :
+                    F.ID_PATIENT_ = P.ID_PATIENT_ : cette condition garantit que seules les factures et les patients correspondants sont sélectionnés. En d'autres termes, la facture doit appartenir au patient identifié.
+                    F.MONTANT_TOTAL < 200 : cette condition filtre les factures dont le montant total est inférieur à 200. Seules ces factures seront affectées par la mise à jour.
+                    Mise à jour du montant total:
+
+                    La clause UPDATE intervient ensuite. Elle indique que l'on souhaite modifier des données dans une table, mais la table à modifier n'est pas explicitement mentionnée ici. En effet, la sous-requête précédente agit comme une table virtuelle contenant les factures sélectionnées.
+                    La clause SET définit la modification à apporter. Dans ce cas, MONTANT_TOTAL = MONTANT_TOTAL + MONTANT_TOTAL * 0.1 signifie que le montant total de chaque facture sélectionnée sera augmenté de 10%. L'augmentation est calculée en multipliant le montant total d'origine par 1.1 (100% + 10%).
+                    En résumé, cette requête parcourt toutes les factures dont le montant total est inférieur à 200 et pour lesquelles un patient correspondant existe. Pour chacune de ces factures, elle augmente le montant total de 10%.
+
