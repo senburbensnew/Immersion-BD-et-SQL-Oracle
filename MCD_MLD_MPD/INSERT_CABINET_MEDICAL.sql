@@ -1,30 +1,51 @@
--- Données pour la table MEDECIN
+-- Donnï¿½es pour la table MEDECIN
 --MEDECIN (ID_MEDECIN_, NOM, PRENOM, SPECIALITE, TELEPHONE, EMAIL)
 INSERT INTO MEDECIN VALUES ( 1, 'Dupont', 'Jean', 'Cardiologue', '01234567', 'jean.dupont@email.com');
 INSERT INTO MEDECIN VALUES ( 2, 'Martin', 'Sophie', 'Dermatologue', '02345678', 'sophie.martin@email.com');
-INSERT INTO MEDECIN VALUES ( 3, 'Lefevre', 'Pierre', 'Généraliste', '03456789', 'pierre.lefevre@email.com');
+INSERT INTO MEDECIN VALUES ( 3, 'Lefevre', 'Pierre', 'Gï¿½nï¿½raliste', '03456789', 'pierre.lefevre@email.com');
 INSERT INTO MEDECIN VALUES ( 4, 'Leroy', 'Isabelle', 'Ophtalmologue', '04567890', 'isabelle.leroy@email.com');
 INSERT INTO MEDECIN VALUES ( 5, 'Girard', 'Philippe', 'Chirurgien', '05678901', 'philippe.girard@email.com');
-INSERT INTO MEDECIN VALUES ( 6, 'Bertrand', 'Marie', 'Gynécologue', '06789012', 'marie.bertrand@email.com');
-INSERT INTO MEDECIN VALUES ( 7, 'Lemoine', 'François', 'Pédiatre', '07890123', 'francois.lemoine@email.com');
-INSERT INTO MEDECIN VALUES ( 8, 'Roy', 'Catherine', 'Orthopédiste', '08901234', 'catherine.roy@email.com');
+INSERT INTO MEDECIN VALUES ( 6, 'Bertrand', 'Marie', 'Gynï¿½cologue', '06789012', 'marie.bertrand@email.com');
+INSERT INTO MEDECIN VALUES ( 7, 'Lemoine', 'Franï¿½ois', 'Pï¿½diatre', '07890123', 'francois.lemoine@email.com');
+INSERT INTO MEDECIN VALUES ( 8, 'Roy', 'Catherine', 'Orthopï¿½diste', '08901234', 'catherine.roy@email.com');
 INSERT INTO MEDECIN VALUES ( 9, 'Moulin', 'Alexandre', 'Neurologue', '09012345', 'alexandre.moulin@email.com');
 INSERT INTO MEDECIN VALUES ( 10, 'Marchand', 'Caroline', 'Rhumatologue', '01234567', 'caroline.marchand@email.com');
+INSERT INTO MEDECIN VALUES (11, 'Dubois', 'Pierre', 'Cardiologue', '01234568', 'pierre.dubois@email.com');
+INSERT INTO MEDECIN VALUES (12, 'Lefebvre', 'Sophie', 'Dermatologue', '01234569', 'sophie.lefebvre@email.com');
+INSERT INTO MEDECIN VALUES (13, 'Martin', 'Luc', 'Ophtalmologue', '01234570', 'luc.martin@email.com');
+INSERT INTO MEDECIN VALUES (14, 'Thomas', 'Marie', 'Psychiatre', '01234571', 'marie.thomas@email.com');
+INSERT INTO MEDECIN VALUES (15, 'Garcia', 'Jean', 'GynÃ©cologue', '01234572', 'jean.garcia@email.com');
+INSERT INTO MEDECIN VALUES (16, 'Legrand', 'Isabelle', 'PÃ©diatre', '01234573', 'isabelle.legrand@email.com');
+INSERT INTO MEDECIN VALUES (17, 'Moreau', 'Philippe', 'Chirurgien', '01234574', 'philippe.moreau@email.com');
+INSERT INTO MEDECIN VALUES (18, 'Petit', 'Carlos', 'Oncologue', '01234575', 'carlos.petit@email.com');
+INSERT INTO MEDECIN VALUES (19, 'Sanchez', 'Ã‰milie', 'Neurologue', '01234576', 'emilie.sanchez@email.com');
+INSERT INTO MEDECIN VALUES (20, 'Robert', 'Antoine', 'Endocrinologue', '01234577', 'antoine.robert@email.com');
 
--- Données pour la table PATIENT
+
+-- Donnï¿½es pour la table PATIENT
 --INSERT INTO PATIENT (ID_PATIENT_, NOM, PRENOM, ADRESSE, EMAIL, DATE_NAISSAINCE)
 INSERT INTO PATIENT VALUES(1, 'Dubois', 'Alice', '123 Rue de la Paix', 'alice.dubois@email.com', TO_DATE('1990-05-15', 'YYYY-MM-DD'));
 INSERT INTO PATIENT VALUES(2, 'Leclerc', 'Thomas', '456 Avenue des Roses', 'thomas.leclerc@email.com', TO_DATE('1985-08-22', 'YYYY-MM-DD'));
 INSERT INTO PATIENT VALUES(3, 'Moreau', 'Sophie', '789 Boulevard du Soleil', 'sophie.moreau@email.com', TO_DATE('1995-02-10', 'YYYY-MM-DD'));
 INSERT INTO PATIENT VALUES(4, 'Leroy', 'Jean', '101 Rue de la Lune', 'jean.leroy@email.com', TO_DATE('1980-12-01', 'YYYY-MM-DD'));
-INSERT INTO PATIENT VALUES(5, 'Girard', 'Isabelle', '202 Avenue des Étoiles', 'isabelle.girard@email.com', TO_DATE('1992-09-18', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(5, 'Girard', 'Isabelle', '202 Avenue des ï¿½toiles', 'isabelle.girard@email.com', TO_DATE('1992-09-18', 'YYYY-MM-DD'));
 INSERT INTO PATIENT VALUES(6, 'Bertrand', 'Luc', '303 Boulevard de la Galaxie', 'luc.bertrand@email.com', TO_DATE('1987-04-25', 'YYYY-MM-DD'));
-INSERT INTO PATIENT VALUES(7, 'Lemoine', 'Sophie', '404 Rue des Planètes', 'sophie.lemoine@email.com', TO_DATE('1998-07-03', 'YYYY-MM-DD'));
-INSERT INTO PATIENT VALUES(8, 'Roy', 'Pierre', '505 Avenue de la Voie Lactée', 'pierre.roy@email.com', TO_DATE('1983-10-12', 'YYYY-MM-DD'));
-INSERT INTO PATIENT VALUES(9, 'Moulin', 'Caroline', '606 Boulevard des Comètes', 'caroline.moulin@email.com', TO_DATE('1994-03-28', 'YYYY-MM-DD'));
-INSERT INTO PATIENT VALUES(10, 'Marchand', 'Alexandre', '707 Rue des Astéroïdes', 'alexandre.marchand@email.com', TO_DATE('1988-06-15', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(7, 'Lemoine', 'Sophie', '404 Rue des Planï¿½tes', 'sophie.lemoine@email.com', TO_DATE('1998-07-03', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(8, 'Roy', 'Pierre', '505 Avenue de la Voie Lactï¿½e', 'pierre.roy@email.com', TO_DATE('1983-10-12', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(9, 'Moulin', 'Caroline', '606 Boulevard des Comï¿½tes', 'caroline.moulin@email.com', TO_DATE('1994-03-28', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(10, 'Marchand', 'Alexandre', '707 Rue des Astï¿½roï¿½des', 'alexandre.marchand@email.com', TO_DATE('1988-06-15', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(11, 'Dubois', 'Sophie', '123 Rue de la Paix', 'sophie.dubois@email.com', TO_DATE('1990-03-22', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(12, 'Lefebvre', 'Pierre', '456 Avenue des Champs-Ã‰lysÃ©es', 'pierre.lefebvre@email.com', TO_DATE('1985-11-10', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(13, 'Martin', 'Charlotte', '789 Boulevard Voltaire', 'charlotte.martin@email.com', TO_DATE('1995-09-28', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(14, 'Thomas', 'Luc', '1010 Rue de Rivoli', 'luc.thomas@email.com', TO_DATE('1977-07-17', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(15, 'Garcia', 'Maria', '222 Rue du Faubourg Saint-HonorÃ©', 'maria.garcia@email.com', TO_DATE('1983-12-03', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(16, 'Legrand', 'Jean', '333 Avenue Montaigne', 'jean.legrand@email.com', TO_DATE('1992-05-20', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(17, 'Moreau', 'Isabelle', '444 Boulevard Haussmann', 'isabelle.moreau@email.com', TO_DATE('1979-08-12', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(18, 'Petit', 'Philippe', '555 Rue de la LibertÃ©', 'philippe.petit@email.com', TO_DATE('1989-04-25', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(19, 'Sanchez', 'Carlos', '666 Avenue Foch', 'carlos.sanchez@email.com', TO_DATE('1980-02-09', 'YYYY-MM-DD'));
+INSERT INTO PATIENT VALUES(20, 'Robert', 'Ã‰milie', '777 Boulevard des Capucines', 'emilie.robert@email.com', TO_DATE('1993-10-15', 'YYYY-MM-DD'));
 
--- Données pour la table FACTURE
+-- Donnï¿½es pour la table FACTURE
 --INSERT INTO FACTURE (ID_FACTURE_, ID_PATIENT_, MONTANT_TOTAL, DATE_FACTURE) 
 INSERT INTO FACTURE VALUES( 101, 1, 150.50, TO_DATE('2024-02-06', 'YYYY-MM-DD'));
 INSERT INTO FACTURE VALUES( 102, 2, 200.75, TO_DATE('2024-02-07', 'YYYY-MM-DD'));
@@ -36,8 +57,18 @@ INSERT INTO FACTURE VALUES( 107, 7, 170.75, TO_DATE('2024-02-12', 'YYYY-MM-DD'))
 INSERT INTO FACTURE VALUES( 108, 8, 220.00, TO_DATE('2024-02-13', 'YYYY-MM-DD'));
 INSERT INTO FACTURE VALUES( 109, 9, 190.20, TO_DATE('2024-02-14', 'YYYY-MM-DD'));
 INSERT INTO FACTURE VALUES( 110, 10, 280.75, TO_DATE('2024-02-15', 'YYYY-MM-DD'));
+INSERT INTO FACTURE VALUES( 111, 3, 150.50, TO_DATE('2024-02-16', 'YYYY-MM-DD'));
+INSERT INTO FACTURE VALUES( 112, 9, 200.75, TO_DATE('2024-02-17', 'YYYY-MM-DD'));
+INSERT INTO FACTURE VALUES( 113, 4, 120.00, TO_DATE('2024-02-18', 'YYYY-MM-DD'));
+INSERT INTO FACTURE VALUES( 114, 8, 180.25, TO_DATE('2024-02-19', 'YYYY-MM-DD'));
+INSERT INTO FACTURE VALUES( 115, 7, 250.00, TO_DATE('2024-02-20', 'YYYY-MM-DD'));
+INSERT INTO FACTURE VALUES( 116, 3, 300.50, TO_DATE('2024-02-21', 'YYYY-MM-DD'));
+INSERT INTO FACTURE VALUES( 117, 8, 170.75, TO_DATE('2024-02-22', 'YYYY-MM-DD'));
+INSERT INTO FACTURE VALUES( 118, 4, 220.00, TO_DATE('2024-02-23', 'YYYY-MM-DD'));
+INSERT INTO FACTURE VALUES( 119, 10, 190.20, TO_DATE('2024-02-24', 'YYYY-MM-DD'));
+INSERT INTO FACTURE VALUES( 120, 8, 280.75, TO_DATE('2024-02-25', 'YYYY-MM-DD'));
 
--- Données pour la table CONSULTATION
+-- Donnï¿½es pour la table CONSULTATION
 --INSERT INTO CONSULTATION (ID_CONSULTATION_, ID_FACTURE_, ID_MEDECIN_, ID_PATIENT_, DATE_CONSULTATION)
 INSERT INTO CONSULTATION VALUES( 1, 101, 1, 1, TO_DATE('2024-02-05', 'YYYY-MM-DD'));
 INSERT INTO CONSULTATION VALUES( 2, 102, 2, 2, TO_DATE('2024-02-06', 'YYYY-MM-DD'));
@@ -49,36 +80,65 @@ INSERT INTO CONSULTATION VALUES( 7, 107, 7, 7, TO_DATE('2024-02-11', 'YYYY-MM-DD
 INSERT INTO CONSULTATION VALUES( 8, 108, 8, 8, TO_DATE('2024-02-12', 'YYYY-MM-DD'));
 INSERT INTO CONSULTATION VALUES( 9, 109, 9, 9, TO_DATE('2024-02-13', 'YYYY-MM-DD'));
 INSERT INTO CONSULTATION VALUES( 10, 110, 10, 10, TO_DATE('2024-02-14', 'YYYY-MM-DD'));
+INSERT INTO CONSULTATION VALUES( 11, 111, 1, 1, TO_DATE('2024-02-16', 'YYYY-MM-DD'));
+INSERT INTO CONSULTATION VALUES( 12, 112, 2, 2, TO_DATE('2024-02-17', 'YYYY-MM-DD'));
+INSERT INTO CONSULTATION VALUES( 13, 113, 3, 3, TO_DATE('2024-02-18', 'YYYY-MM-DD'));
+INSERT INTO CONSULTATION VALUES( 14, 114, 4, 4, TO_DATE('2024-02-19', 'YYYY-MM-DD'));
+INSERT INTO CONSULTATION VALUES( 15, 115, 5, 5, TO_DATE('2024-02-20', 'YYYY-MM-DD'));
+INSERT INTO CONSULTATION VALUES( 16, 116, 6, 6, TO_DATE('2024-02-21', 'YYYY-MM-DD'));
+INSERT INTO CONSULTATION VALUES( 17, 117, 7, 7, TO_DATE('2024-02-22', 'YYYY-MM-DD'));
+INSERT INTO CONSULTATION VALUES( 18, 118, 8, 8, TO_DATE('2024-02-23', 'YYYY-MM-DD'));
+INSERT INTO CONSULTATION VALUES( 19, 119, 9, 9, TO_DATE('2024-02-24', 'YYYY-MM-DD'));
+INSERT INTO CONSULTATION VALUES( 20, 120, 10, 10, TO_DATE('2024-02-25', 'YYYY-MM-DD'));
 
--- Données pour la table EXAMEN
+
+-- Donnï¿½es pour la table EXAMEN
 --INSERT INTO EXAMEN (ID_EXAMEN_, ID_CONSULTATION_, DETAILS_EXAMEN, DATE_EXAMEN)
-INSERT INTO EXAMEN VALUES(1, 1, 'Électrocardiogramme', TO_DATE('2024-02-05', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(1, 1, 'ï¿½lectrocardiogramme', TO_DATE('2024-02-05', 'YYYY-MM-DD'));
 INSERT INTO EXAMEN VALUES(2, 2, 'Dermatoscopie', TO_DATE('2024-02-06', 'YYYY-MM-DD'));
 INSERT INTO EXAMEN VALUES(3, 3, 'Bilan sanguin', TO_DATE('2024-02-07', 'YYYY-MM-DD'));
 INSERT INTO EXAMEN VALUES(4, 4, 'Examen ophtalmologique', TO_DATE('2024-02-08', 'YYYY-MM-DD'));
 INSERT INTO EXAMEN VALUES(5, 5, 'Chirurgie du genou', TO_DATE('2024-02-09', 'YYYY-MM-DD'));
-INSERT INTO EXAMEN VALUES(6, 6, 'Échographie gynécologique', TO_DATE('2024-02-10', 'YYYY-MM-DD'));
-INSERT INTO EXAMEN VALUES(7, 7, 'Vaccination pédiatrique', TO_DATE('2024-02-11', 'YYYY-MM-DD'));
-INSERT INTO EXAMEN VALUES(8, 8, 'Radiographie orthopédique', TO_DATE('2024-02-12', 'YYYY-MM-DD'));
-INSERT INTO EXAMEN VALUES(9, 9, 'IRM cérébrale', TO_DATE('2024-02-13', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(6, 6, 'ï¿½chographie gynï¿½cologique', TO_DATE('2024-02-10', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(7, 7, 'Vaccination pï¿½diatrique', TO_DATE('2024-02-11', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(8, 8, 'Radiographie orthopï¿½dique', TO_DATE('2024-02-12', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(9, 9, 'IRM cï¿½rï¿½brale', TO_DATE('2024-02-13', 'YYYY-MM-DD'));
 INSERT INTO EXAMEN VALUES(10, 10, 'Scintigraphie articulaire', TO_DATE('2024-02-14', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(11, 11, 'IRM cÃ©rÃ©brale', TO_DATE('2024-02-16', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(12, 12, 'Ã‰chographie cardiaque', TO_DATE('2024-02-17', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(13, 13, 'Radiographie thoracique', TO_DATE('2024-02-18', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(14, 14, 'Scanner abdominal', TO_DATE('2024-02-19', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(15, 15, 'Ã‰lectrocardiogramme', TO_DATE('2024-02-20', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(16, 16, 'Endoscopie digestive', TO_DATE('2024-02-21', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(17, 17, 'IRM lombaire', TO_DATE('2024-02-22', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(18, 18, 'Mammographie', TO_DATE('2024-02-23', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(19, 19, 'Ã‰chographie rÃ©nale', TO_DATE('2024-02-24', 'YYYY-MM-DD'));
+INSERT INTO EXAMEN VALUES(20, 20, 'Coloscopie', TO_DATE('2024-02-25', 'YYYY-MM-DD'));
 
-
--- Données pour la table PRESCRIPTION
+-- Donnï¿½es pour la table PRESCRIPTION
 --INSERT INTO PRESCRIPTION (ID_PRESCRIPTION_, ID_CONSULTATION_, DETAILS_PRESCRIPTION, DATE_PRESCRIPTION)
 INSERT INTO PRESCRIPTION VALUES(1, 1, 'Aspirine quotidienne', TO_DATE('2024-02-05', 'YYYY-MM-DD'));
-INSERT INTO PRESCRIPTION VALUES(2, 2, 'Crème solaire SPF 30', TO_DATE('2024-02-06', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(2, 2, 'Crï¿½me solaire SPF 30', TO_DATE('2024-02-06', 'YYYY-MM-DD'));
 INSERT INTO PRESCRIPTION VALUES(3, 3, 'Antibiotiques', TO_DATE('2024-02-07', 'YYYY-MM-DD'));
 INSERT INTO PRESCRIPTION VALUES(4, 4, 'Collyre pour les yeux', TO_DATE('2024-02-08', 'YYYY-MM-DD'));
-INSERT INTO PRESCRIPTION VALUES(5, 5, 'Repos postopératoire', TO_DATE('2024-02-09', 'YYYY-MM-DD'));
-INSERT INTO PRESCRIPTION VALUES(6, 6, 'Contrôle gynécologique annuel', TO_DATE('2024-02-10', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(5, 5, 'Repos postopï¿½ratoire', TO_DATE('2024-02-09', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(6, 6, 'Contrï¿½le gynï¿½cologique annuel', TO_DATE('2024-02-10', 'YYYY-MM-DD'));
 INSERT INTO PRESCRIPTION VALUES(7, 7, 'Vitamines pour enfants', TO_DATE('2024-02-11', 'YYYY-MM-DD'));
 INSERT INTO PRESCRIPTION VALUES(8, 8, 'Attelle pour le genou', TO_DATE('2024-02-12', 'YYYY-MM-DD'));
 INSERT INTO PRESCRIPTION VALUES(9, 9, 'Traitement neurologique', TO_DATE('2024-02-13', 'YYYY-MM-DD'));
 INSERT INTO PRESCRIPTION VALUES(10, 10, 'Anti-inflammatoires', TO_DATE('2024-02-14', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(11, 11, 'Antibiotiques', TO_DATE('2024-02-16', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(12, 12, 'Analgesiques', TO_DATE('2024-02-17', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(13, 13, 'Antihypertenseurs', TO_DATE('2024-02-18', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(14, 14, 'Anticoagulants', TO_DATE('2024-02-19', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(15, 15, 'AntidÃ©presseurs', TO_DATE('2024-02-20', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(16, 16, 'Antispasmodiques', TO_DATE('2024-02-21', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(17, 17, 'Antihistaminiques', TO_DATE('2024-02-22', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(18, 18, 'AntiemÃ©tiques', TO_DATE('2024-02-23', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(19, 19, 'Antifongiques', TO_DATE('2024-02-24', 'YYYY-MM-DD'));
+INSERT INTO PRESCRIPTION VALUES(20, 20, 'Anticonvulsivants', TO_DATE('2024-02-25', 'YYYY-MM-DD'));
 
-
--- Données pour la table RENDEZ_VOUS
+-- Donnï¿½es pour la table RENDEZ_VOUS
 --INSERT INTO RENDEZ_VOUS (ID_PATIENT_, ID_MEDECIN_, DATE_RENDEZ_VOUS)
 INSERT INTO RENDEZ_VOUS VALUES(1, 1, TO_DATE('2024-02-10', 'YYYY-MM-DD'));
 INSERT INTO RENDEZ_VOUS VALUES(2, 2, TO_DATE('2024-02-11', 'YYYY-MM-DD'));

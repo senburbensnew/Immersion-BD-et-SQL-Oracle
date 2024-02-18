@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* Nom de SGBD :  ORACLE Version 11g                            */
-/* Date de création :  04/02/2024 15:35:29                      */
+/* Date de crï¿½ation :  04/02/2024 15:35:29                      */
 /*==============================================================*/
 
 
@@ -62,7 +62,7 @@ create table EXAMEN
 (
    ID_EXAMEN_           INTEGER              not null,
    ID_CONSULTATION_     INTEGER              not null,
-   DETAILS_EXAMEN       CLOB                 not null,
+   DETAILS_EXAMEN       VARCHAR2(100)        not null,
    DATE_EXAMEN          DATE                 not null,
    constraint PK_EXAMEN primary key (ID_EXAMEN_)
 );
@@ -114,7 +114,7 @@ create table PRESCRIPTION
 (
    ID_PRESCRIPTION_     INTEGER              not null,
    ID_CONSULTATION_     INTEGER              not null,
-   DETAILS_PRESCRIPTION CLOB                 not null,
+   DETAILS_PRESCRIPTION VARCHAR2(100)        not null,
    DATE_PRESCRIPTION    DATE                 not null,
    constraint PK_PRESCRIPTION primary key (ID_PRESCRIPTION_)
 );

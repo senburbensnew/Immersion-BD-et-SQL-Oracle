@@ -1,4 +1,4 @@
-• La description textuelles des requêtes de mise à jour (2 requêtes impliquant 1 table, 2 
+I • La description textuelles des requêtes de mise à jour (2 requêtes impliquant 1 table, 2 
 requêtes impliquant 2 tables, 2 requêtes impliquant plus de 2 tables)
 
 A) 2 requêtes impliquant 1 table:
@@ -126,3 +126,231 @@ B) 2 requêtes impliquant 2 tables:
                     La clause SET définit la modification à apporter. Dans ce cas, MONTANT_TOTAL = MONTANT_TOTAL + MONTANT_TOTAL * 0.1 signifie que le montant total de chaque facture sélectionnée sera augmenté de 10%. L'augmentation est calculée en multipliant le montant total d'origine par 1.1 (100% + 10%).
                     En résumé, cette requête parcourt toutes les factures dont le montant total est inférieur à 200 et pour lesquelles un patient correspondant existe. Pour chacune de ces factures, elle augmente le montant total de 10%.
 
+C)  2 requêtes impliquant plus de 2 tables
+
+
+
+                1)   UPDATE PRESCRIPTION R
+                        SET R.DETAILS_PRESCRIPTION = 'Zinoboost'
+                        WHERE R.ID_CONSULTATION_ IN (
+                            SELECT C.ID_CONSULTATION_
+                            FROM CONSULTATION C
+                            WHERE DATE_CONSULTATION = TO_DATE('05/02/2024','DD/MM/YYYY')
+                            AND C.ID_PATIENT_ IN (
+                                SELECT P.ID_PATIENT_
+                                FROM PATIENT P
+                                WHERE P.ID_PATIENT_ = 1
+                            )
+                        );
+
+
+                             Cette requête SQL Oracle met à jour les enregistrements dans la table `PRESCRIPTION`. Voici une explication de la requête :
+
+                            1. `UPDATE PRESCRIPTION R`: Cela indique que nous allons mettre à jour des données dans la table `PRESCRIPTION` et nous l'identifions avec l'alias `R`.
+
+                            2. `SET R.DETAILS_PRESCRIPTION = 'Zinoboost'`: Cela indique que nous allons mettre à jour la colonne `DETAILS_PRESCRIPTION` de la table `PRESCRIPTION` avec la valeur `'Zinoboost'`.
+
+                            3. `WHERE R.ID_CONSULTATION_ IN (...)`: C'est une clause de restriction qui spécifie que la mise à jour ne s'applique qu'aux enregistrements dans la table `PRESCRIPTION` où la colonne `ID_CONSULTATION_` correspond à certaines valeurs.
+
+                            4. `(SELECT C.ID_CONSULTATION_ FROM CONSULTATION C WHERE DATE_CONSULTATION = TO_DATE('05/02/2024','DD/MM/YYYY') AND C.ID_PATIENT_ IN (...))`: C'est une sous-requête qui sélectionne les identifiants de consultation (`ID_CONSULTATION_`) de la table `CONSULTATION` où la date de consultation (`DATE_CONSULTATION`) est égale au 5 février 2024 et où l'identifiant de patient (`ID_PATIENT_`) correspond à certaines valeurs.
+
+                            5. `(SELECT P.ID_PATIENT_ FROM PATIENT P WHERE P.ID_PATIENT_ = 1)`: C'est une autre sous-requête qui sélectionne l'identifiant de patient (`ID_PATIENT_`) de la table `PATIENT` où l'identifiant de patient est égal à 1.
+
+                            En résumé, cette requête met à jour la colonne `DETAILS_PRESCRIPTION` de la table `PRESCRIPTION` pour les enregistrements associés à des consultations de patients ayant un identifiant de patient égal à 1 et où la date de consultation est le 5 février 2024. La nouvelle valeur de la colonne `DETAILS_PRESCRIPTION` sera `'Zinoboost'`.
+
+
+                        2) 
+                            UPDATE EXAMEN  R
+                            SET R.DETAILS_EXAMEN  = 'HAC1'
+                            WHERE R.ID_CONSULTATION_ IN (
+                                SELECT C.ID_CONSULTATION_
+                                FROM CONSULTATION C
+                                WHERE DATE_CONSULTATION = TO_DATE('05/02/2024','DD/MM/YYYY') 
+                                AND C.ID_PATIENT_ IN (
+                                    SELECT P.ID_PATIENT_
+                                    FROM PATIENT P
+                                    WHERE P.ID_PATIENT_ = 1
+                                )
+                            );
+
+                        
+                        Cette requête SQL Oracle met à jour les enregistrements dans la table `EXAMEN`. Voici une explication de la requête :
+
+                        1. `UPDATE EXAMEN R`: Cela indique que nous allons mettre à jour des données dans la table `EXAMEN` et nous l'identifions avec l'alias `R`.
+
+                        2. `SET R.DETAILS_EXAMEN = 'HAC1'`: Cela indique que nous allons mettre à jour la colonne `DETAILS_EXAMEN` de la table `EXAMEN` avec la valeur `'HAC1'`.
+
+                        3. `WHERE R.ID_CONSULTATION_ IN (...)`: C'est une clause de restriction qui spécifie que la mise à jour ne s'applique qu'aux enregistrements dans la table `EXAMEN` où la colonne `ID_CONSULTATION_` correspond à certaines valeurs.
+
+                        4. `(SELECT C.ID_CONSULTATION_ FROM CONSULTATION C WHERE DATE_CONSULTATION = TO_DATE('05/02/2024','DD/MM/YYYY') AND C.ID_PATIENT_ IN (...))`: C'est une sous-requête qui sélectionne les identifiants de consultation (`ID_CONSULTATION_`) de la table `CONSULTATION` où la date de consultation (`DATE_CONSULTATION`) est égale au 5 février 2024 et où l'identifiant de patient (`ID_PATIENT_`) correspond à certaines valeurs.
+
+                        5. `(SELECT P.ID_PATIENT_ FROM PATIENT P WHERE P.ID_PATIENT_ = 1)`: C'est une autre sous-requête qui sélectionne l'identifiant de patient (`ID_PATIENT_`) de la table `PATIENT` où l'identifiant de patient est égal à 1.
+
+                        En résumé, cette requête met à jour la colonne `DETAILS_EXAMEN` de la table `EXAMEN` pour les enregistrements associés à des consultations de patients ayant un identifiant de patient égal à 1 et où la date de consultation est le 5 février 2024. La nouvelle valeur de la colonne `DETAILS_EXAMEN` sera `'HAC1'`.
+
+
+
+ II • La description textuelles des requêtes de suppression (2 requêtes impliquant 1 table, 2 
+requêtes impliquant 2 tables, 2 requêtes impliquant plus de 2 tables)  
+
+A) 2 requêtes impliquant 1 table:
+
+        1) DELETE EXAMEN
+            WHERE DATE_EXAMEN = TO_DATE('05-02-24','DD-MM-YY'); 
+
+            Description ??
+
+        2) DELETE FROM PRESCRIPTION
+            WHERE DATE_PRESCRIPTION  = TO_DATE('05-02-24','DD-MM-YY'); 
+
+            Description ??
+
+
+B)   2 requêtes impliquant 2 tables:  
+
+        1) DELETE FROM RENDEZ_VOUS 
+            WHERE ID_PATIENT_ IN (
+            SELECT ID_PATIENT_ FROM PATIENT
+            WHERE EMAIL = 'thomas.leclerc@email.com'
+            ) ;
+
+            Description ??
+
+        2) DELETE FROM RENDEZ_VOUS 
+            WHERE ID_PATIENT_ IN (
+            SELECT ID_PATIENT_ FROM PATIENT
+            WHERE ID_PATIENT_ = 3
+            ) ;
+
+            Description ??
+
+
+C) 2  requêtes de suppression impliquant plus de 2 tables:
+
+    1)DELETE FROM EXAMEN
+            WHERE ID_CONSULTATION_ IN (
+                SELECT C.ID_CONSULTATION_
+                FROM CONSULTATION C
+                WHERE DATE_CONSULTATION = TO_DATE('05/02/2024','DD/MM/YYYY') 
+                AND C.ID_PATIENT_ IN (
+                    SELECT P.ID_PATIENT_
+                    FROM PATIENT P
+                    WHERE P.ID_PATIENT_ = 1
+                )
+            );
+
+            Description ??
+
+    2)  DELETE FROM EXAMEN
+            WHERE ID_CONSULTATION_ IN (
+                SELECT C.ID_CONSULTATION_
+                FROM CONSULTATION C
+                WHERE DATE_CONSULTATION = TO_DATE('06/02/2024','DD/MM/YYYY') 
+                AND C.ID_PATIENT_ IN (
+                    SELECT P.ID_PATIENT_
+                    FROM PATIENT P
+                    WHERE P.ID_PATIENT_ = 2
+                )
+            );
+
+            Description ??
+
+
+III  • La description textuelles des requêtes de consultation (5 requêtes impliquant 1 table dont 1 
+avec un group By et une avec un Order By, 5 requêtes impliquant 2 tables avec jointures internes 
+dont 1 externe + 1 group by + 1 tri, 5 requêtes impliquant plus de 2 tables avec jointures internes 
+dont 1 externe + 1 group by + 1 tri)
+
+A) 5 requêtes impliquant 1 table dont 1 avec un group By et une avec un Order By:
+
+    1) SELECT * FROM PATIENT;
+        Description ??
+
+    2) SELECT * FROM CONSULTATION;
+        Description ??
+    
+    3) SELECT COUNT(*), DETAILS_EXAMEN FROM EXAMEN GROUP BY DETAILS_EXAMEN;
+        Description ??
+
+    4) SELECT COUNT(*), DETAILS_EXAMEN FROM EXAMEN GROUP BY DETAILS_EXAMEN ORDER BY DETAILS_EXAMEN ;
+        Description ??
+
+    5)SELECT ID_PATIENT_,COUNT(*),SUM(MONTANT_TOTAL) FROM FACTURE GROUP BY ID_PATIENT_ ORDER BY ID_PATIENT_ ;
+        Description ??
+
+
+B) 5 requêtes impliquant 2 tables avec jointures internes dont 1 externe + 1 group by + 1 tri:
+
+        1)  SELECT * FROM CONSULTATION C
+    INNER JOIN PATIENT P 
+    ON C.ID_PATIENT_ = P.ID_PATIENT_;
+
+    Description ?? 
+
+    2)  SELECT * FROM FACTURE F
+    INNER JOIN PATIENT P 
+    ON F.ID_PATIENT_ = P.ID_PATIENT_;
+
+    Description ??
+
+    3)  SELECT * FROM CONSULTATION C
+    INNER JOIN PATIENT P 
+    ON C.ID_PATIENT_ = P.ID_PATIENT_
+    ORDER BY C.DATE_CONSULTATION;
+
+    Description ??
+
+    4)  SELECT F.ID_PATIENT_ ,P.EMAIL,SUM(F.MONTANT_TOTAL)MONTANT_TOTAL FROM FACTURE F
+    INNER JOIN PATIENT P 
+    ON F.ID_PATIENT_ = P.ID_PATIENT_
+    GROUP BY F.ID_PATIENT_,P.EMAIL
+    ORDER BY F.ID_PATIENT_,P.EMAIL;
+
+    Description ??
+
+    5)  SELECT * FROM CONSULTATION C
+    RIGHT JOIN PATIENT P 
+    ON C.ID_PATIENT_ = P.ID_PATIENT_
+    ORDER BY C.DATE_CONSULTATION;
+
+    Description ??
+
+
+C) 5 requêtes impliquant plus de 2 tables avec jointures internes dont 1 externe + 1 group by + 1 tri:
+
+
+        1)  SELECT C.*, P.*, E.* FROM CONSULTATION C
+    INNER JOIN PATIENT P ON C.ID_PATIENT_ = P.ID_PATIENT_
+    INNER JOIN EXAMEN E ON C.ID_CONSULTATION_  = E.ID_CONSULTATION_  ;
+
+        Description ??
+
+        2)  SELECT  F.*, P.*, C.* FROM FACTURE F
+    INNER JOIN PATIENT P ON F.ID_PATIENT_ = P.ID_PATIENT_
+    INNER JOIN CONSULTATION C ON F.ID_FACTURE_ = C.ID_FACTURE_ ;
+
+        Description ??
+
+        3)  SELECT C.*,P.*,E.* FROM CONSULTATION C
+    INNER JOIN PATIENT P  ON C.ID_PATIENT_ = P.ID_PATIENT_
+    INNER JOIN EXAMEN E ON C.ID_CONSULTATION_  = E.ID_CONSULTATION_  
+    ORDER BY C.DATE_CONSULTATION;
+
+        Description ??
+
+        4)  SELECT F.ID_PATIENT_ ,P.EMAIL,SUM(F.MONTANT_TOTAL)MONTANT_TOTAL,F.DATE_FACTURE, C.DATE_CONSULTATION  FROM FACTURE F
+    INNER JOIN PATIENT P ON F.ID_PATIENT_ = P.ID_PATIENT_
+    INNER JOIN CONSULTATION C ON F.ID_FACTURE_ = C.ID_FACTURE_ 
+    GROUP BY F.ID_PATIENT_,P.EMAIL,F.DATE_FACTURE, C.DATE_CONSULTATION
+    ORDER BY F.ID_PATIENT_,P.EMAIL,F.DATE_FACTURE, C.DATE_CONSULTATION;
+
+        Description ??
+
+        5)  SELECT C.*,E.*,P.* FROM CONSULTATION C
+    INNER JOIN EXAMEN E ON C.ID_CONSULTATION_  = E.ID_CONSULTATION_  
+    RIGHT JOIN PATIENT P ON C.ID_PATIENT_ = P.ID_PATIENT_
+    ORDER BY C.DATE_CONSULTATION;
+
+        Description ??
+
+            
