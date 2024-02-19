@@ -1,0 +1,167 @@
+
+Voici la description de chaque entité ainsi que de ses propriétés :
+
+1. *CONSULTATION*:
+   - *Titre*: Consultation
+   - *Description*: Enregistre les détails d'une consultation médicale entre un médecin et un patient.
+   - *Format des données*:
+     - ID_CONSULTATION_: Entier
+     - ID_FACTURE_: Entier 
+     - ID_MEDECIN_: Entier 
+     - ID_PATIENT_: Entier 
+     - DATE_CONSULTATION: Date 
+   - *Type*: 
+       ID_CONSULTATION_     -------->               NUMBER(38)                  
+       ID_FACTURE_          -------->               NUMBER(38)                  
+       ID_MEDECIN_          --------->              NUMBER(38)                  
+       ID_PATIENT_          -------->              NUMBER(38)                  
+       DATE_CONSULTATION    -------->              DATE  
+   - *Identifiant*: ID_CONSULTATION_
+   - *Contraintes*:
+     - ID_CONSULTATION_      IS   NOT NULL                   
+     - ID_FACTURE_           IS   NOT NULL                   
+     - ID_MEDECIN_           IS   NOT NULL                   
+     - ID_PATIENT_           IS  NOT NULL                   
+     - DATE_CONSULTATION     IS   NOT NULL  
+     - Clé primaire (PK_CONSULTATION) sur ID_CONSULTATION_
+     - Contrainte de clé étrangère (FK_CONSULTA_EFFECTUER_MEDECIN) sur ID_MEDECIN_ référençant MEDECIN(ID_MEDECIN_)
+     - Contrainte de clé étrangère (FK_CONSULTA_INCLURE_FACTURE) sur ID_FACTURE_ référençant FACTURE(ID_FACTURE_)
+     - Contrainte de clé étrangère (FK_CONSULTA_PASSER_PATIENT) sur ID_PATIENT_ référençant PATIENT(ID_PATIENT_)
+
+2. *EXAMEN*:
+   - *Titre*: Examen
+   - *Description*: Enregistre les détails des examens médicaux effectués lors d'une consultation.
+   - *Format des données*:
+     - ID_EXAMEN_: Entier 
+     - ID_CONSULTATION_: Entier 
+     - DETAILS_EXAMEN: Chaîne de caractères
+     - DATE_EXAMEN: Date 
+   - *Type*: 
+       - ID_EXAMEN_              --------> NUMBER(38)                  
+       - ID_CONSULTATION_        --------> NUMBER(38)                  
+       - DETAILS_EXAMEN          --------> VARCHAR2(100)               
+       - DATE_EXAMEN             --------> DATE 
+   - *Identifiant*: ID_EXAMEN_
+   - *Contraintes*:
+     - ID_EXAMEN_          IS NOT NULL                  
+     - ID_CONSULTATION_    IS NOT NULL                   
+     - DETAILS_EXAMEN      IS NOT NULL                
+     - DATE_EXAMEN         IS NOT NULL 
+     - Clé primaire (PK_EXAMEN) sur ID_EXAMEN_
+     - Contrainte de clé étrangère (FK_EXAMEN_CONTENIR_CONSULTA) sur ID_CONSULTATION référençant CONSULTATION(ID_CONSULTATION_)
+
+3. *FACTURE*:
+   - *Titre*: Facture
+   - *Description*: Enregistre les détails des factures générées suite à une consultation.
+   - *Format des données*:
+     - ID_FACTURE_: Entier
+     - ID_PATIENT_: Entier
+     - MONTANT_TOTAL: Nombre décimal 
+     - DATE_FACTURE: Date
+   - *Type*: 
+     -  ID_FACTURE_      -------->       NUMBER(38)                  
+     -  ID_PATIENT_      -------->        NUMBER(38)                  
+     -  MONTANT_TOTAL     -------->       NUMBER(15,2)                
+     -  DATE_FACTURE       -------->      DATE 
+   - *Identifiant*: ID_FACTURE_
+   - *Contraintes*:
+     -  ID_FACTURE_      IS NOT NULL                   
+     -  ID_PATIENT_      IS NOT NULL                   
+     -  MONTANT_TOTAL    IS NOT NULL                 
+     -  DATE_FACTURE     IS NOT NULL 
+     - Clé primaire (PK_FACTURE) sur ID_FACTURE_
+     - Contrainte de clé étrangère (FK_FACTURE_RECEVOIR_PATIENT) sur ID_PATIENT_ référençant PATIENT(ID_PATIENT_)
+
+4. *MEDECIN*:
+   - *Titre*: Médecin
+   - *Description*: Enregistre les détails des médecins.
+   - *Format des données*:
+     - ID_MEDECIN_: Entier 
+     - NOM: Chaîne de caractères 
+     - PRENOM: Chaîne de caractères 
+     - SPECIALITE: Chaîne de caractères 
+     - TELEPHONE: Chaîne de caractères
+     - EMAIL: Chaîne de caractères
+   - *Type*: 
+      - ID_MEDECIN_    -------->                NUMBER(38)                  
+      - NOM            -------->                VARCHAR2(50)                
+      - PRENOM         -------->                VARCHAR2(50)                
+      - SPECIALITE     -------->                VARCHAR2(50)                
+      - TELEPHONE       -------->               VARCHAR2(8)                 
+      - EMAIL           -------->               VARCHAR2(50)
+   - *Identifiant*: ID_MEDECIN_
+   - *Contraintes*:
+     - ID_MEDECIN_    IS NOT NULL
+     - NOM            IS NOT NULL
+     - PRENOM         IS NOT NULL
+     - SPECIALITE     IS NOT NULL
+     - TELEPHONE     IS NOT NULL
+     - EMAIL         IS NOT NULL
+     - Clé primaire (PK_MEDECIN) sur ID_MEDECIN_
+
+5. *PATIENT*:
+   - *Titre*: Patient
+   - *Description*: Enregistre les détails des patients.
+   - *Format des données*:
+     - ID_PATIENT_: Entier
+     - NOM: Chaîne de caractères 
+     - PRENOM: Chaîne de caractères 
+     - ADRESSE: Chaîne de caractères
+     - EMAIL: Chaîne de caractères 
+     - DATE_NAISSAINCE: Date 
+   - *Type*: 
+     -  ID_PATIENT_    -------->       NUMBER(38)                  
+     -  NOM         -------->          VARCHAR2(50)                
+     -  PRENOM       -------->         VARCHAR2(50)                
+     -  ADRESSE       -------->        VARCHAR2(100)               
+     -  EMAIL         -------->        VARCHAR2(50)                
+     -  DATE_NAISSAINCE  -------->     DATE                        
+   - *Identifiant*: ID_PATIENT_
+   - *Contraintes*:
+      - ID_PATIENT_     IS NOT NULL               
+      - NOM             IS  NOT NULL                
+      - PRENOM          IS  NOT NULL                                                                            
+      - DATE_NAISSAINCE  IS NOT NULL  
+     - Clé primaire (PK_PATIENT) sur ID_PATIENT_
+
+6. *PRESCRIPTION*:
+   - *Titre*: Prescription
+   - *Description*: Enregistre les détails des prescriptions médicales effectuées lors d'une consultation.
+   - *Format des données*:
+     - ID_PRESCRIPTION_: Entier
+     - ID_CONSULTATION_: Entier 
+     - DETAILS_PRESCRIPTION: Chaîne de caractères
+     - DATE_PRESCRIPTION: Date 
+   - *Type*: 
+      - ID_PRESCRIPTION_   -------->       NUMBER(38)                  
+      - ID_CONSULTATION_    -------->      NUMBER(38)                  
+      - DETAILS_PRESCRIPTION   -------->   VARCHAR2(100)               
+      - DATE_PRESCRIPTION     -------->    DATE
+   - *Identifiant*: ID_PRESCRIPTION_
+   - *Contraintes*:
+     -  ID_PRESCRIPTION_       IS NOT NULL                  
+     -  ID_CONSULTATION_       IS NOT NULL             
+     -  DETAILS_PRESCRIPTION   IS NOT NULL               
+     -  DATE_PRESCRIPTION      IS NOT NULL 
+     - Clé primaire (PK_PRESCRIPTION) sur ID_PRESCRIPTION_
+     - Contrainte de clé étrangère (FK_PRESCRIP_CONTENIR_CONSULTA) sur ID_CONSULTATION référençant CONSULTATION(ID_CONSULTATION_)
+
+7. *RENDEZ_VOUS*:
+   - *Titre*: Rendez-vous
+   - *Description*: Enregistre les rendez-vous pris entre un patient et un médecin.
+   - *Format des données*:
+     - ID_PATIENT_: Entier 
+     - ID_MEDECIN_: Entier 
+     - DATE_RENDEZ_VOUS: Date
+   - *Type*: 
+      - ID_PATIENT_     -------->        NUMBER(38)                  
+      - ID_MEDECIN_     -------->        NUMBER(38)                  
+      - DATE_RENDEZ_VOUS   -------->     DATE 
+   - *Identifiant*: (ID_PATIENT_, ID_MEDECIN_)
+   - *Contraintes*:
+     - ID_PATIENT_   IS NOT NULL
+     - ID_MEDECIN_       IS NOT NULL
+     - DATE_RENDEZ_VOUS      IS NOT NULL
+     - Clé primaire composée (PK_RENDEZ_VOUS) sur (ID_PATIENT_, ID_MEDECIN_)
+     - Contrainte de clé étrangère (FK_RENDEZ_V_RENDEZ_VO_MEDECIN) sur (ID_MEDECIN_) référençant MEDECIN (ID_MEDECIN_)
+     - Contrainte de clé étrangère ( FK_RENDEZ_V_RENDEZ_VO_PATIENT) sur (ID_PATIENT_) référençant PATIENT (ID_PATIENT_)
