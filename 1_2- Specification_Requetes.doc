@@ -478,12 +478,6 @@ B) 5 requêtes impliquant 2 tables avec jointures internes dont 1 externe + 1 gr
     
 
 
-
-
-
-
-
-
 C)   5 requêtes impliquant plus de 2 tables avec jointures internes dont 1 externe + 1 group by + 1 tri:
 
      1)  SELECT C.*, P.*, E.* FROM CONSULTATION C
@@ -605,3 +599,195 @@ C)   5 requêtes impliquant plus de 2 tables avec jointures internes dont 1 exte
     En résumé, cette requête récupère toutes les colonnes des tables CONSULTATION, EXAMEN et PATIENT, en combinant les données des tables CONSULTATION et EXAMEN en fonction de l'ID de consultation, puis joint la table PATIENT en fonction de l'ID du patient. Les résultats sont triés par date de consultation.
 
              
+
+
+
+Spécification des traitement avec des packages PLSQL (Modèle de traitements) . 
+Choisir parmi vos tables deux d’entres (A et B) elles sur lesquelles les fonctions suivantes vont être spécifiées 
+puis implémentées :  
+
+Sur la table A, définir un package plsql ayant le nom de la dite table: 
+
+-- Création du package PK_MEDECIN
+ 
+CREATE OR REPLACE PACKAGE PK_MEDECIN AS
+    -- Déclaration de la fonction AInserer pour insérer des données dans la table MEDECIN
+    PROCEDURE AInserer(
+        p_id_medecin IN INTEGER,
+        p_nom_medecin IN VARCHAR2,
+        p_prenom_medecin IN VARCHAR2,
+        p_specialite IN VARCHAR2,
+        p_telephone IN VARCHAR2,
+        p_email IN VARCHAR2
+    );
+END PK_MEDECIN;
+/
+
+--Création du corps du package PK_MEDECIN
+CREATE OR REPLACE PACKAGE BODY PK_MEDECIN AS
+    -- Implémentation de la fonction AInserer pour insérer des données dans la table MEDECIN
+    PROCEDURE AInserer(
+        p_id_medecin IN INTEGER,
+        p_nom_medecin IN VARCHAR2,
+        p_prenom_medecin IN VARCHAR2,
+        p_specialite IN VARCHAR2,
+        p_telephone IN VARCHAR2,
+        p_email IN VARCHAR2
+    ) AS
+    BEGIN
+        -- Insertion des données dans la table MEDECIN en utilisant les paramètres passés
+        INSERT INTO MEDECIN (ID_MEDECIN_, NOM, PRENOM, SPECIALITE, TELEPHONE, EMAIL)
+        VALUES (p_id_medecin, p_nom_medecin, p_prenom_medecin, p_specialite, p_telephone, p_email);
+        
+        COMMIT; -- Valider l'insertion
+    END AInserer;
+END PK_MEDECIN;
+/
+
+
+-- ajouter une nouvelle occurence à A : fonction AInserer;  
+-- On a ajouter deux(2) pour pouvoir faire la suppression sur l'une d'entre elles et laissaer la trace de l'autre
+
+
+--Occurence 1
+BEGIN
+    -- Appel de la fonction AInserer avec les valeurs appropriées pour insérer une nouvelle ligne dans la table MEDECIN
+    PK_MEDECIN.AInserer(
+        p_id_medecin => 30,
+        p_nom_medecin => 'DOUILLY',
+        p_prenom_medecin => 'Rodely',
+        p_specialite => 'Data',
+        p_telephone => '42211939',
+        p_email => 'Rodelydouilly@gmail.com'
+    );
+END;
+/
+
+
+--Occurence 2
+BEGIN
+    -- Appel de la fonction AInserer avec les valeurs appropriées pour insérer une nouvelle ligne dans la table MEDECIN
+    PK_MEDECIN.AInserer(
+        p_id_medecin => 31,
+        p_nom_medecin => 'DOUILLY',
+        p_prenom_medecin => 'Shedeline',
+        p_specialite => 'Pos coor.',
+        p_telephone => '40630528',
+        p_email => 'shed05.sc@gmail.com.com'
+    );
+END;
+/
+
+
+
+
+
+- supprimer une occurrence à A (Attention : les enregistrements liés dans B doivent aussi 
+être supprimés) : fonction ASupprimer;  
+
+
+
+- modifier des informations sur de A : fonction AmodifierF1, AmodifierF2 (texte requêtes 
+correspondantes plus haut);  
+
+
+
+
+
+
+
+
+- Lister toutes les occurrences de A: fonction ALister;  
+
+CREATE OR REPLACE FUNCTION ALister RETURN SYS_REFCURSOR AS
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    -- Ouvrir le curseur pour sélectionner toutes les colonnes de la table MEDECIN
+    OPEN v_cursor FOR
+        SELECT *
+        FROM MEDECIN;
+        
+    -- Retourner le curseur ouvert
+    RETURN v_cursor;
+END ALister;
+/
+
+--Voici les etapes à suivre pour executer la fonction ALister
+
+- Déclaration d'une variable pour stocker le curseur retourné par la fonction
+VARIABLE v_result REFCURSOR;
+
+-- Appel de la fonction ALister et stockage des résultats dans le curseur
+BEGIN
+    :v_result := ALister;
+END;
+/
+
+
+
+-Fournir le nombre total des occurrences de A (MEDECIN) : fonction ATotal ; 
+
+CREATE OR REPLACE FUNCTION ATotal RETURN NUMBER AS
+    v_total NUMBER;
+BEGIN
+    -- Sélectionner le nombre total d'occurrences dans la table MEDECIN
+    SELECT COUNT(*) INTO v_total FROM MEDECIN;
+    
+    -- Retourner le nombre total
+    RETURN v_total;
+END ATotal;
+/
+
+--Appelation de la fonction ATotal pour affichage
+--Si rien ne s'affiche  executer cette requete : SET SERVEROUTPUT ON; ,afficher a nouveau.
+
+DECLARE
+    v_count NUMBER;
+BEGIN
+    -- Activer la sortie DBMS
+    DBMS_OUTPUT.ENABLE;
+    
+    -- Appeler la fonction ATotal pour obtenir le nombre total d'occurrences
+    v_count := ATotal();
+    
+    -- Afficher le résultat
+    DBMS_OUTPUT.PUT_LINE('Nombre total d''occurrences dans la table MEDECIN: ' || v_count);
+END;
+/
+
+
+
+
+
+
+ - Proposer aussi 3 fonctions avec des requêtes de consultation impliquant 2 ou 3 tables 
+au moins (jointure, groupe, tri) : fonction Af1, Af2, Af3. f1, f2, f3 sont des noms à définir 
+AmodifierF2 (texte requêtes correspondantes plus haut);  
+
+
+Sur la table B, définir un package plsql ayant le nom de la dite table : 
+
+ - ajouter une nouvelle occurence à B : fonction BInserer  
+
+
+- supprimer une occurrence à B : fonction BSupprimer;  
+
+
+- modifier des informations sur de B : fonction BModifierF1, BModifierF2 (texte requêtes 
+correspondantes plus haut);  
+
+
+- lister toutes les occurrences de B pour une occurrence de A donnée: fonction Blister 
+Nota : Seule la partie spécification de chaque package est nécessaire ici. bien choisir les 
+paramètres des méthodes. Bien nommer les méthodes. Remplacer F1 à Fn par des noms 
+appropriés.  
+
+
+
+• Spécification des trigers  
+Vous devez définir textuellement aux moins deux triggers. Ces triggers vous permettrant devront 
+vous permettre de gérer aux moins deux règles de gestions qui ne peuvent être prises en compte 
+à travers le schéma de données. 
+
+
+
