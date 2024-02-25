@@ -683,6 +683,39 @@ END;
 - SUPPRIMER UNE OCCURRENCE A A (Attention : les enregistrements liés dans B doivent aussi 
 être supprimés) : fonction ASupprimer;  
 
+CREATE OR REPLACE FUNCTION ASupprimer(
+    p_id_medecin IN INTEGER
+) RETURN VARCHAR2 IS
+BEGIN
+    -- Supprimer les consultations associées au médecin
+    DELETE FROM CONSULTATION WHERE ID_MEDECIN_ = p_id_medecin;
+
+    -- Supprimer le médecin lui-même
+    DELETE FROM MEDECIN WHERE ID_MEDECIN_ = p_id_medecin;
+
+    -- Retourner un message indiquant que la suppression a été effectuée
+    RETURN 'Le médecin et les consultations associées ont été supprimés avec succès.';
+EXCEPTION
+    WHEN OTHERS THEN
+        -- En cas d'erreur, retourner un message d'erreur
+        RETURN 'Une erreur s''est produite : ' || SQLERRM;
+END ASupprimer;
+/
+
+
+--Appel de la fonction 
+DECLARE
+    v_result VARCHAR2(200);
+BEGIN
+    v_result := ASupprimer(32); -- Remplacez 123 par l'ID du médecin à supprimer
+    DBMS_OUTPUT.PUT_LINE(v_result);
+END;
+
+
+-- N.b: Message apres suppression : Le médecin et les consultations associées ont été supprimés avec succès.
+--Pour la verification il est possible raffraichir les tables MEDECIN et consultation ou du mois faire une requete de selection concernant la jointure entre les deux tables.
+
+
 
 
 - MODIFIER DES INFORMATIONS SUR A : fonction AmodifierF1, AmodifierF2 (texte requêtes 
