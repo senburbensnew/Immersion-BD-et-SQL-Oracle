@@ -718,10 +718,10 @@ END;
 
 
 
-- MODIFIER DES INFORMATIONS SUR A : fonction AmodifierF1, AmodifierF2 (texte requêtes 
-correspondantes plus haut);  
+- MODIFIER DES INFORMATIONS SUR A : fonction AmodifierF1, AmodifierF2 (texte requêtes correspondantes plus haut);  
 
-CREATE OR REPLACE FUNCTION AMedecinConsultation(
+--Fonction AmodifierF1
+CREATE OR REPLACE FUNCTION AModifierf1(
     p_id_medecin IN INTEGER,
     p_nouveau_nom IN VARCHAR2,
     p_nouvelle_specialite IN VARCHAR2,
@@ -748,28 +748,95 @@ EXCEPTION
     WHEN OTHERS THEN
         -- En cas d'erreur, retourner un message d'erreur
         RETURN 'Une erreur s''est produite : ' || SQLERRM;
-END AMedecinConsultation;
+END AModifierf1;
 /
 
-
+--Appel de la fonction
 --Si la fonction n'affiche rien
 SET SERVEROUTPUT ON;
-
 
 -----Appel de la fonction et modification
 DECLARE
     v_result VARCHAR2(200); 
 BEGIN
-    v_result := AMedecinConsultation(
+    v_result := AModifierf1(
                     p_id_medecin => 20,
                     p_nouveau_nom => 'Nouveau',
                     p_nouvelle_specialite => 'NewSpecialite',
                     p_nouveau_telephone => 'Phone',
-                    p_nouvel_email => 'new@mail.com'
+                    p_nouvel_email => 'nou@mail.com'
                 );
     DBMS_OUTPUT.PUT_LINE(v_result);
 END;
 /
+
+
+
+
+--Fonction AmodifierF2
+
+CREATE OR REPLACE FUNCTION AModifierF2(
+    p_id_medecin IN INTEGER,
+    p_nouveau_nom IN VARCHAR2,
+    p_nouveau_prenom IN VARCHAR2,
+    p_nouvelle_specialite IN VARCHAR2,
+    p_nouveau_telephone IN VARCHAR2,
+    p_nouvel_email IN VARCHAR2
+) RETURN VARCHAR2 IS
+BEGIN
+    -- Mettre à jour le médecin
+    UPDATE MEDECIN
+    SET NOM = p_nouveau_nom,
+        PRENOM = p_nouveau_prenom,
+        SPECIALITE = p_nouvelle_specialite,
+        TELEPHONE = p_nouveau_telephone,
+        EMAIL = p_nouvel_email
+    WHERE ID_MEDECIN_ = p_id_medecin;
+
+    -- Mettre à jour la référence du médecin dans les consultations associées
+    UPDATE CONSULTATION
+    SET ID_MEDECIN_ = p_id_medecin
+    WHERE ID_MEDECIN_ = p_id_medecin;
+
+    -- Retourner un message indiquant que la mise à jour a été effectuée
+    RETURN 'Les informations du médecin et les consultations associées ont été mises à jour avec succès.';
+EXCEPTION
+    WHEN OTHERS THEN
+        -- En cas d'erreur, retourner un message d'erreur
+        RETURN 'Une erreur s''est produite : ' || SQLERRM;
+END AModifierF2;
+/
+
+--Appel et execution de la fonction  AModifierF2
+DECLARE
+    v_result VARCHAR2(200); 
+BEGIN
+    v_result := AModifierF2(
+                    p_id_medecin => 20,
+                    p_nouveau_nom => 'BON',
+                    p_nouveau_prenom => 'Test',
+                    p_nouvelle_specialite => 'TestSpecialite',
+                    p_nouveau_telephone => '250224',
+                    p_nouvel_email => 'bontest@mail.com'
+                );
+    DBMS_OUTPUT.PUT_LINE(v_result);
+END;
+/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 - LISTER TOUTES LES OCCURRENCES DE A: fonction ALister;  
