@@ -606,7 +606,7 @@ Spécification des traitement avec des packages PLSQL (Modèle de traitements) .
 Choisir parmi vos tables deux d’entres (A et B) elles sur lesquelles les fonctions suivantes vont être spécifiées 
 puis implémentées :  
 
-SUR LA TABLE A,DEFINIR UN PACKAGE PLSQL AYANT LE NOM DE LA DITE TABLE: 
+SUR LA TABLE A, DEFINIR UN PACKAGE PLSQL AYANT LE NOM DE LA DITE TABLE: 
 
 -- Création du package PK_MEDECIN
  
