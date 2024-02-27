@@ -825,20 +825,6 @@ END;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 - LISTER TOUTES LES OCCURRENCES DE A: fonction ALister;  
 
 CREATE OR REPLACE FUNCTION ALister RETURN SYS_REFCURSOR AS
@@ -902,7 +888,220 @@ END;
 
  - Proposer aussi 3 fonctions avec des requêtes de consultation impliquant 2 ou 3 tables 
 au moins (jointure, groupe, tri) : fonction Af1, Af2, Af3. f1, f2, f3 sont des noms à définir 
-AmodifierF2 (texte requêtes correspondantes plus haut);  
+AmodifierF2 (texte requêtes correspondantes plus haut); 
+
+--Proposition de la fonction Af1 (f1)
+
+CREATE OR REPLACE FUNCTION DIP.Af1 RETURN SYS_REFCURSOR AS
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    OPEN v_cursor FOR
+        SELECT ID_MEDECIN_, NOM, SPECIALITE, ID_CONSULTATION_, ID_PATIENT_, DATE_CONSULTATION
+        FROM (
+            SELECT m.ID_MEDECIN_, m.NOM, m.SPECIALITE, c.ID_CONSULTATION_, c.ID_PATIENT_, c.DATE_CONSULTATION,
+                   ROW_NUMBER() OVER (ORDER BY m.NOM, c.DATE_CONSULTATION) AS rn
+            FROM MEDECIN m
+            JOIN CONSULTATION c ON m.ID_MEDECIN_ = c.ID_MEDECIN_
+        )
+        WHERE rn <= 10; -- Limitez le nombre de lignes retournées à 10
+    RETURN v_cursor;
+END Af1;
+/
+
+--Appellation et affichage des informations de la fonction Af1
+DECLARE
+    v_cursor SYS_REFCURSOR;
+    v_id_medecin MEDECIN.ID_MEDECIN_%TYPE;
+    v_nom MEDECIN.NOM%TYPE;
+    v_specialite MEDECIN.SPECIALITE%TYPE;
+    v_id_consultation CONSULTATION.ID_CONSULTATION_%TYPE;
+    v_id_patient CONSULTATION.ID_PATIENT_%TYPE;
+    v_date_consultation CONSULTATION.DATE_CONSULTATION%TYPE;
+BEGIN
+    -- Appel de la fonction Af1 pour obtenir le curseur contenant les résultats
+    v_cursor := DIP.Af1;
+
+    -- Boucle pour récupérer et afficher chaque ligne de résultat
+    LOOP
+        FETCH v_cursor INTO v_id_medecin, v_nom, v_specialite, v_id_consultation, v_id_patient, v_date_consultation;
+        EXIT WHEN v_cursor%NOTFOUND;
+        
+        -- Affichage des données de chaque ligne
+        DBMS_OUTPUT.PUT_LINE('ID Médecin: ' || v_id_medecin || ', Nom: ' || v_nom || ', Spécialité: ' || v_specialite);
+        DBMS_OUTPUT.PUT_LINE('ID Consultation: ' || v_id_consultation || ', ID Patient: ' || v_id_patient || ', Date Consultation: ' || v_date_consultation);
+        DBMS_OUTPUT.PUT_LINE('------------------------------');
+    END LOOP;
+    
+    -- Fermeture du curseur
+    CLOSE v_cursor;
+END;
+/
+
+
+*****************Resultat de l'affichage de la foction Af1******************************
+
+ID Médecin: 6, Nom: Bertrand, Spécialité: Gynï¿½cologue
+ID Consultation: 6, ID Patient: 6, Date Consultation: 10-FEB-24
+------------------------------
+ID Médecin: 6, Nom: Bertrand, Spécialité: Gynï¿½cologue
+ID Consultation: 16, ID Patient: 6, Date Consultation: 21-FEB-24
+------------------------------
+ID Médecin: 1, Nom: Dupont, Spécialité: Cardiologue
+ID Consultation: 1, ID Patient: 1, Date Consultation: 05-FEB-24
+------------------------------
+ID Médecin: 1, Nom: Dupont, Spécialité: Cardiologue
+ID Consultation: 11, ID Patient: 1, Date Consultation: 16-FEB-24
+------------------------------
+ID Médecin: 5, Nom: Girard, Spécialité: Chirurgien
+ID Consultation: 5, ID Patient: 5, Date Consultation: 09-FEB-24
+------------------------------
+ID Médecin: 5, Nom: Girard, Spécialité: Chirurgien
+ID Consultation: 15, ID Patient: 5, Date Consultation: 20-FEB-24
+------------------------------
+ID Médecin: 3, Nom: Lefevre, Spécialité: Gï¿½nï¿½raliste
+ID Consultation: 3, ID Patient: 3, Date Consultation: 07-FEB-24
+------------------------------
+ID Médecin: 3, Nom: Lefevre, Spécialité: Gï¿½nï¿½raliste
+ID Consultation: 13, ID Patient: 3, Date Consultation: 18-FEB-24
+------------------------------
+ID Médecin: 7, Nom: Lemoine, Spécialité: Pï¿½diatre
+ID Consultation: 7, ID Patient: 7, Date Consultation: 11-FEB-24
+------------------------------
+ID Médecin: 7, Nom: Lemoine, Spécialité: Pï¿½diatre
+ID Consultation: 17, ID Patient: 7, Date Consultation: 22-FEB-24
+------------------------------
+ PL/SQL procedure successfully completed.
+
+************************************************************************************* 
+
+
+--Proposition de la fonction Af2 (f2)
+
+CREATE OR REPLACE FUNCTION DIP.Af2 RETURN SYS_REFCURSOR AS
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    OPEN v_cursor FOR
+        SELECT NOM, NOMBRE_CONSULTATIONS
+        FROM (
+            SELECT m.NOM, COUNT(c.ID_CONSULTATION_) AS NOMBRE_CONSULTATIONS,
+                   ROW_NUMBER() OVER (ORDER BY COUNT(c.ID_CONSULTATION_) DESC) AS rn
+            FROM MEDECIN m
+            JOIN CONSULTATION c ON m.ID_MEDECIN_ = c.ID_MEDECIN_
+            GROUP BY m.NOM
+        )
+        WHERE rn <= 10; -- Limitez le nombre de lignes retournées à 10
+    RETURN v_cursor;
+END Af2;
+/
+
+--Appellation et affichage des informations de la fonction Af2
+DECLARE
+    v_cursor SYS_REFCURSOR;
+    v_nom MEDECIN.NOM%TYPE;
+    v_nombre_consultations INTEGER;
+BEGIN
+    -- Appel de la fonction DIP.Af2 pour obtenir le curseur contenant les résultats
+    v_cursor := DIP.Af2;
+
+    -- Boucle pour récupérer et afficher chaque ligne de résultat
+    LOOP
+        FETCH v_cursor INTO v_nom, v_nombre_consultations;
+        EXIT WHEN v_cursor%NOTFOUND;
+        
+        -- Affichage des données de chaque ligne
+        DBMS_OUTPUT.PUT_LINE('Nom du médecin: ' || v_nom || ', Nombre de consultations: ' || v_nombre_consultations);
+    END LOOP;
+    
+    -- Fermeture du curseur
+    CLOSE v_cursor;
+END;
+/
+
+
+*****************Resultat de l'affichage de la foction Af2******************************
+
+Nom du médecin: Moulin, Nombre de consultations: 2
+Nom du médecin: Dupont, Nombre de consultations: 2
+Nom du médecin: Girard, Nombre de consultations: 2
+Nom du médecin: Bertrand, Nombre de consultations: 2
+Nom du médecin: Lemoine, Nombre de consultations: 2
+Nom du médecin: Martin, Nombre de consultations: 2
+Nom du médecin: Lefevre, Nombre de consultations: 2
+Nom du médecin: Marchand, Nombre de consultations: 2
+Nom du médecin: Leroy, Nombre de consultations: 2
+Nom du médecin: Roy, Nombre de consultations: 2
+
+PL/SQL procedure successfully completed.
+
+************************************************************************************* 
+
+
+
+--Proposition de la fonction Af3 (f3)
+
+CREATE OR REPLACE FUNCTION DIP.Af3 RETURN SYS_REFCURSOR AS
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    OPEN v_cursor FOR
+        SELECT NOM, SPECIALITE, MONTANT_TOTAL_FACTURES
+        FROM (
+            SELECT m.NOM, m.SPECIALITE, SUM(f.MONTANT_TOTAL) AS MONTANT_TOTAL_FACTURES,
+                   ROW_NUMBER() OVER (ORDER BY SUM(f.MONTANT_TOTAL) DESC) AS rn
+            FROM MEDECIN m
+            JOIN CONSULTATION c ON m.ID_MEDECIN_ = c.ID_MEDECIN_
+            JOIN FACTURE f ON c.ID_FACTURE_ = f.ID_FACTURE_
+            GROUP BY m.NOM, m.SPECIALITE
+        )
+        WHERE rn <= 10; -- Limitez le nombre de lignes retournées à 10
+    RETURN v_cursor;
+END Af3;
+/
+
+--Appellation et affichage des informations de la fonction Af3
+DECLARE
+    v_cursor SYS_REFCURSOR;
+    v_nom MEDECIN.NOM%TYPE;
+    v_specialite MEDECIN.SPECIALITE%TYPE;
+    v_montant_total NUMBER;
+BEGIN
+    -- Appel de la fonction Af3 pour obtenir le curseur contenant les résultats
+    v_cursor := DIP.Af3;
+
+    -- Boucle pour récupérer et afficher chaque ligne de résultat
+    LOOP
+        FETCH v_cursor INTO v_nom, v_specialite, v_montant_total;
+        EXIT WHEN v_cursor%NOTFOUND;
+        
+        -- Affichage des données de chaque ligne
+        DBMS_OUTPUT.PUT_LINE('Nom du médecin: ' || v_nom || ', Spécialité: ' || v_specialite || ', Montant total des factures: ' || v_montant_total);
+    END LOOP;
+    
+    -- Fermeture du curseur
+    CLOSE v_cursor;
+END;
+/
+
+*****************Resultat de l'affichage de la foction Af3******************************
+
+Nom du médecin: Bertrand, Spécialité: Gynï¿½cologue, Montant total des factures: 601
+Nom du médecin: Marchand, Spécialité: Rhumatologue, Montant total des factures: 561.5
+Nom du médecin: Girard, Spécialité: Chirurgien, Montant total des factures: 500
+Nom du médecin: Roy, Spécialité: Orthopï¿½diste, Montant total des factures: 440
+Nom du médecin: Martin, Spécialité: Dermatologue, Montant total des factures: 401.5
+Nom du médecin: Moulin, Spécialité: Neurologue, Montant total des factures: 380.4
+Nom du médecin: Leroy, Spécialité: Ophtalmologue, Montant total des factures: 360.5
+Nom du médecin: Lemoine, Spécialité: Pï¿½diatre, Montant total des factures: 341.5
+Nom du médecin: Dupont, Spécialité: Cardiologue, Montant total des factures: 301
+Nom du médecin: Lefevre, Spécialité: Gï¿½nï¿½raliste, Montant total des factures: 240
+
+PL/SQL procedure successfully completed.
+
+*************************************************************************************
+
+
+
+
+
 
 
 Sur la table B, définir un package plsql ayant le nom de la dite table : 
