@@ -1,0 +1,142 @@
+\subsection{Description textuelle des requêtes de mise à jour}
+\subsubsection{2 requêtes impliquant 1 table}
+\begin{enumerate}
+\item \textbf{Requête 1 :} Cette requête met à jour la valeur de la colonne DATE\_NAISSANCE" pour l'entrée correspondant à l'email  thomas.leclerc@email.com' dans la table "PATIENT". La nouvelle valeur de "DATE\_NAISSANCE" est définie comme étant le "22 août 1986", convertie en format de date à partir de la chaîne '22-AUG-1986' utilisant la fonction TO\_DATE('22-AUG-1986','DD-MON-YYYY'). \newline 
+En résumé, cette requête doit modifier la date de naissance du patient dont l'email est 'thomas.leclerc@email.com' pour devenir "22 août 1986".\\
+\item \textbf{Requête 2 :} Cette requête effectue une mise à jour dans la table "PATIENT". Elle modifie la valeur de la colonne "ADRESSE" pour l'entrée correspondant à l'identifiant du patient égal à 1. La nouvelle valeur de "ADRESSE" est définie comme étant '90, DELMAS 75'. \newline En résumé, cette requête met à jour l'adresse du patient dont l'identifiant est 1 pour devenir '90, DELMAS 75'.
+\end{enumerate}
+
+\subsubsection{2 requêtes impliquant 2 tables}
+\begin{enumerate}
+\item \textbf{Requête 1 :} Cette requête effectue une mise à jour sur un sous-ensemble de données résultant d'une jointure entre les tables "PATIENT" (alias P) et "RENDEZ\_VOUS" (alias R), où les deux tables sont liées par la colonne "ID\_PATIENT\_". Une condition WHERE filtre les résultats pour inclure uniquement les rendez-vous ayant lieu entre le 14 février 2024 et le 18 février 2024.
+Une sous-requête SELECT crée une vue temporaire X avec les colonnes "ID\_PATIENT\_", "NOM", "PRENOM" et "DATE\_RENDEZ\_VOUS" pour les rendez-vous sélectionnés.
+Ensuite, la mise à jour est effectuée sur cette vue temporaire X, modifiant la colonne "DATE\_RENDEZ\_VOUS" pour tous les rendez-vous sélectionnés, en les déplaçant au 1er mars 2024.\\
+\item \textbf{Requête 2 :} Cette requête effectue une mise à jour sur un sous-ensemble de données résultant d'une jointure entre les tables "FACTURE" (alias F) et "PATIENT" (alias P), où les deux tables sont liées par la colonne "ID\_PATIENT\_". De plus, elle inclut une condition supplémentaire pour sélectionner les factures dont le "MONTANT\_TOTAL" est inférieur à 200.    
+Ensuite, la mise à jour est effectuée sur ce sous-ensemble de données, où le "MONTANT\_TOTAL" de chaque facture sélectionnée est augmenté de 10 \% (en ajoutant 10 \% du montant total initial à celui-ci).
+\end{enumerate}
+
+\subsubsection{2 requêtes impliquant plus de 2 tables}
+\begin{enumerate}
+    \item \textbf{Requête 1 :}
+Cette requête effectue une mise à jour sur la table "PRESCRIPTION" (alias R), où elle met à jour la colonne "DETAILS\_PRESCRIPTION" pour les prescriptions associées à certaines consultations.
+La sous-requête SELECT sélectionne les identifiants des consultations (ID\_CONSULTATION\_) qui correspondent à des consultations ayant eu lieu le 5 février 2024 et associées à un patient spécifique (dont l'identifiant est 1).
+Ensuite, la mise à jour est appliquée sur les prescriptions correspondant aux consultations sélectionnées, où la colonne "DETAILS\_PRESCRIPTION" est définie comme étant 'Zinoboost'.\newline
+En résumé, cette requête met à jour les détails des prescriptions associées aux consultations d'un patient spécifique ayant eu lieu le 5 février 2024, en les changeant pour 'Zinoboost'.\\
+\item \textbf{Requête 2 :}
+Cette requête effectue une mise à jour sur la table "EXAMEN" (alias R), où elle met à jour la colonne "DETAILS\_EXAMEN" pour les examens associés à certaines consultations.
+La sous-requête SELECT sélectionne les identifiants des consultations (ID\_CONSULTATION\_) qui correspondent à des consultations ayant eu lieu le 5 février 2024 et associées à un patient spécifique (dont l'identifiant est 1).
+Ensuite, la mise à jour est appliquée sur les examens correspondant aux consultations sélectionnées, où la colonne "DETAILS\_EXAMEN" est définie comme étant 'HAC1'.\newline
+En résumé, cette requête met à jour les détails des examens associés aux consultations d'un patient spécifique ayant eu lieu le 5 février 2024, en les changeant pour 'HAC1'
+\end{enumerate}
+
+\subsection{Description textuelle des requêtes de suppression}
+\subsubsection{2 requêtes impliquant 1 table}
+\begin{enumerate}
+\item \textbf{Requête 1 :} Cette requête DELETE supprime toutes les entrées de la table "EXAMEN" où la date de l'examen (colonne DATE\_EXAMEN) est égale au 5 février 2024. La date est spécifiée dans le format 'DD-MM-YY', et elle est convertie en format de date interne par la fonction TO\_DATE(). En résumé, cette requête supprime tous les enregistrements d'examens qui ont eu lieu le 5 février 2024.\\
+\item \textbf{Requête 2 :} Cette requête DELETE supprime toutes les entrées de la table "PRESCRIPTION" où la date de prescription (colonne DATE\_PRESCRIPTION) est égale au 5 février 2024. La date est spécifiée dans le format 'DD-MM-YY' et elle est convertie en format de date interne par la fonction TO\_DATE(). \newline 
+En résumé, cette requête supprime toutes les prescriptions datées du 5 février 2024.
+\end{enumerate}
+
+\subsubsection{2 requêtes impliquant 2 tables}
+\begin{enumerate}
+\item \textbf{Requête 1 :} Cette requête DELETE supprime tous les rendez-vous de la table "RENDEZ\_VOUS" pour lesquels l'identifiant du patient (ID\_PATIENT\_) correspond à celui des patients ayant l'adresse e-mail 'thomas.leclerc@email.com'.
+Une sous-requête SELECT récupère l'identifiant du patient (ID\_PATIENT\_) à partir de la table "PATIENT" où l'adresse e-mail est 'thomas.leclerc@email.com'.
+En résumé, cette requête supprime tous les rendez-vous associés au patient ayant l'adresse e-mail spécifiée.\\
+\item \textbf{Requête 2 :} Cette requête DELETE supprime tous les rendez-vous de la table "RENDEZ\_VOUS" pour lesquels l'identifiant du patient (ID\_PATIENT\_) correspond à 3.
+Une sous-requête SELECT récupère l'identifiant du patient (ID\_PATIENT\_) à partir de la table "PATIENT" où l'identifiant du patient est égal à 3.
+En résumé, cette requête supprime tous les rendez-vous associés au patient dont l'identifiant est 3.
+\end{enumerate}
+
+\subsubsection{2 requêtes impliquant plus de 2 tables}
+\begin{enumerate}
+\item \textbf{Requête 1 :} 
+Cette requête DELETE supprime les enregistrements de la table "EXAMEN" pour lesquels l'identifiant de la consultation (ID\_CONSULTATION\_) correspond à une consultation ayant eu lieu le 5 février 2024 et impliquant un patient spécifique ayant un identifiant égal à 1.
+La sous-requête SELECT récupère les identifiants des consultations (ID\_CONSULTATION\_) à partir de la table "CONSULTATION" où la date de consultation est le 5 février 2024 et où l'identifiant du patient (ID\_PATIENT\_) est égal à 1.\newline
+En résumé, cette requête supprime tous les enregistrements d'examens associés aux consultations du patient ayant l'identifiant 1 et ayant eu lieu le 5 février 2024.\\
+\item \textbf{Requête 2 :} 
+Cette requête DELETE supprime les enregistrements de la table "EXAMEN" pour lesquels l'identifiant de la consultation (ID\_CONSULTATION\_) correspond à une consultation ayant eu lieu le 6 février 2024 et impliquant un patient spécifique ayant un identifiant égal à 2.
+La sous-requête SELECT récupère les identifiants des consultations (ID\_CONSULTATION\_) à partir de la table "CONSULTATION" où la date de consultation est le 6 février 2024 et où l'identifiant du patient (ID\_PATIENT\_) est égal à 2.\newline
+En résumé, cette requête supprime tous les enregistrements d'examens associés aux consultations du patient ayant l'identifiant 2 et ayant eu lieu le 6 février 2024.
+\end{enumerate}
+
+\subsection{Description textuelle des requêtes de consultation }
+\subsubsection{5 requêtes impliquant 1 table dont 1 avec un GROUP BY et 1 avec un ORDER By}
+\begin{enumerate}
+    \item \textbf{Requête 1 :} Cette requête SELECT récupère toutes les données de la table "PATIENT". Elle retourne toutes les colonnes et toutes les lignes de la table "PATIENT", fournissant ainsi une vue complète de toutes les informations stockées dans cette table. En résumé, elle affiche toutes les données sur les patients qui sont enregistrées dans la table.\\
+    \item \textbf{Requête 2 :} Cette requête SELECT récupère toutes les données de la table "CONSULTATION". Elle retourne toutes les colonnes et toutes les lignes de la table "CONSULTATION", fournissant ainsi une vue complète de toutes les informations stockées dans cette table. En résumé, elle affiche toutes les données sur les consultations qui sont enregistrées dans la table.\\
+    \item \textbf{Requête 3 :} Cette requête SELECT compte le nombre d'occurrences de chaque valeur unique dans la colonne "DETAILS\_EXAMEN" de la table "EXAMEN" et les groupe par ces valeurs.
+    Elle retournera donc deux colonnes :
+    Une première colonne, contiendra le nombre d'occurrences de chaque valeur unique.
+    Une deuxième colonne contiendra les valeurs uniques de la colonne "DETAILS\_EXAMEN".
+    En résumé, cette requête affiche le nombre de fois que chaque détail d'examen spécifique apparaît dans la table "EXAMEN".\\
+    \item \textbf{Requête 4 :} Cette requête SELECT compte le nombre d'occurrences de chaque valeur unique dans la colonne "DETAILS\_EXAMEN" de la table "EXAMEN" et les groupe par ces valeurs. Ensuite, elle trie les résultats par ordre croissant des valeurs de la colonne "DETAILS\_EXAMEN".
+    Elle retournera donc deux colonnes :
+    La première colonne, COUNT(*), contiendra le nombre d'occurrences de chaque valeur unique.
+    La deuxième colonne, DETAILS\_EXAMEN, contiendra les valeurs uniques de la colonne "DETAILS\_EXAMEN".
+    En résumé, cette requête affiche le nombre de fois que chaque détail d'examen spécifique apparaît dans la table "EXAMEN", trié par ordre croissant des détails d'examen.\\
+    \item \textbf{Requête 5 :} Cette requête SELECT récupère les données suivantes de la table "FACTURE" :
+    ID\_PATIENT\_ : l'identifiant du patient, 
+    COUNT(*) : le nombre total de factures pour chaque patient,
+    SUM(MONTANT\_TOTAL) : la somme totale des montants des factures pour chaque patient.
+    Elle groupe ces données par l'identifiant du patient (ID\_PATIENT\_), calculant ainsi le nombre total de factures et la somme totale des montants de factures pour chaque patient distinct. Ensuite, elle ordonne les résultats par ordre croissant des identifiants de patient (ID\_PATIENT\_).
+    
+    En résumé, cette requête fournit le nombre total de factures et la somme totale des montants de factures pour chaque patient, triés par identifiant de patient.
+\end{enumerate}
+\subsubsection{5 requêtes impliquant 2 tables avec jointures internes 
+dont 1 externe + 1 GROUP BY + 1 tri}
+\begin{enumerate}
+    \item \textbf{Requête 1 :} Cette requête SELECT effectue une jointure interne entre deux tables : "CONSULTATION" (alias C) et "PATIENT" (alias P). Elle récupère toutes les colonnes de ces deux tables pour les lignes où l'identifiant du patient (ID\_PATIENT\_) dans la table "CONSULTATION" correspond à l'identifiant du patient dans la table "PATIENT".
+    En résumé, cette requête affiche toutes les colonnes des consultations et des patients associés, pour lesquels il existe une correspondance entre l'identifiant du patient dans la table "CONSULTATION" et l'identifiant du patient dans la table "PATIENT".\\
+    \item \textbf{Requête 2 :} Cette requête SELECT effectue une jointure interne entre deux tables : "FACTURE" (alias F) et "PATIENT" (alias P). Elle récupère toutes les colonnes de ces deux tables pour les lignes où l'identifiant du patient (ID\_PATIENT\_) dans la table "FACTURE" correspond à l'identifiant du patient dans la table "PATIENT".
+    En résumé, cette requête affiche toutes les colonnes des factures et des patients associés, pour lesquels il existe une correspondance entre l'identifiant du patient dans la table "FACTURE" et l'identifiant du patient dans la table "PATIENT".\\
+    \item \textbf{Requête 3 :} 
+Cette requête SELECT effectue une jointure interne entre deux tables : "CONSULTATION" (alias C) et "PATIENT" (alias P). Elle récupère toutes les colonnes de ces deux tables pour les lignes où l'identifiant du patient (ID\_PATIENT\_) dans la table "CONSULTATION" correspond à l'identifiant du patient dans la table "PATIENT". Ensuite, elle ordonne les résultats par ordre croissant de la date de consultation (DATE\_CONSULTATION) de la table "CONSULTATION".
+En résumé, cette requête affiche toutes les colonnes des consultations et des patients associés, pour lesquels il existe une correspondance entre l'identifiant du patient dans la table "CONSULTATION" et l'identifiant du patient dans la table "PATIENT", et les trie par ordre croissant de la date de consultation.\\
+    \item \textbf{Requête 4 :} Cette requête SELECT effectue une jointure interne entre deux tables : "FACTURE" (alias F) et "PATIENT" (alias P). Elle récupère l'identifiant du patient (ID\_PATIENT\_) et l'adresse e-mail (EMAIL) de la table "PATIENT", ainsi que la somme des montants totaux des factures (MONTANT\_TOTAL) de la table "FACTURE" associées à chaque patient.
+    Elle groupe les résultats par l'identifiant du patient (F.ID\_PATIENT\_) et l'adresse e-mail du patient (P.EMAIL), calculant ainsi la somme totale des montants des factures pour chaque patient distinct. Ensuite, elle ordonne les résultats par ordre croissant de l'identifiant du patient (F.ID\_PATIENT\_) et par ordre alphabétique de l'adresse e-mail du patient (P.EMAIL).    
+    En résumé, cette requête affiche l'identifiant du patient, son adresse e-mail et la somme totale des montants des factures pour chaque patient, triés par identifiant de patient et par adresse e-mail.\\
+    \item \textbf{Requête 5 :} Cette requête SELECT effectue une jointure droite (RIGHT JOIN) entre deux tables : "CONSULTATION" (alias C) et "PATIENT" (alias P). Elle récupère toutes les colonnes de ces deux tables, y compris les lignes de la table "PATIENT" pour lesquelles il n'y a pas de correspondance dans la table "CONSULTATION".
+    La condition de jointure spécifie que l'identifiant du patient (ID\_PATIENT\_) dans la table "CONSULTATION" doit correspondre à l'identifiant du patient dans la table "PATIENT".
+    Ensuite, elle ordonne les résultats par ordre croissant de la date de consultation (DATE\_CONSULTATION) de la table "CONSULTATION".
+    En résumé, cette requête affiche toutes les colonnes de la table "CONSULTATION" et de la table "PATIENT", y compris les lignes de la table "PATIENT" qui n'ont pas de correspondance dans la table "CONSULTATION", triées par ordre croissant de la date de consultation.
+\end{enumerate}
+\subsubsection{5 requêtes impliquant plus de 2 tables avec jointures internes dont 1 externe + 1 GROUP BY + 1 tri}
+\begin{enumerate}
+    \item \textbf{Requête 1 :} 
+Cette requête SELECT effectue une jointure interne entre trois tables : "CONSULTATION" (alias C), "PATIENT" (alias P), et "EXAMEN" (alias E). Elle sélectionne toutes les colonnes de chaque table.
+La première jointure INNER JOIN relie les tables "CONSULTATION" et "PATIENT" sur la base de l'identifiant du patient (ID\_PATIENT\_).
+La deuxième jointure INNER JOIN relie les tables "CONSULTATION" et "EXAMEN" sur la base de l'identifiant de la consultation (ID\_CONSULTATION\_).
+En résultat, elle retourne toutes les colonnes des consultations, des patients et des examens qui sont associés, c'est-à-dire qu'elle retourne des informations sur les consultations et les patients associés à ces consultations, ainsi que des informations sur les examens qui sont associés à ces mêmes consultations.
+Notez que cela suppose qu'il existe des correspondances dans toutes les tables pour chaque consultation (c'est-à-dire qu'il y a des patients et des examens associés à chaque consultation). Si des correspondances sont manquantes, cela ne les inclura pas dans les résultats.\\
+    \item \textbf{Requête 2 :} 
+Cette requête SELECT effectue une jointure interne entre trois tables : "FACTURE" (alias F), "PATIENT" (alias P), et "CONSULTATION" (alias C). Elle sélectionne toutes les colonnes de chaque table.
+La première jointure INNER JOIN relie les tables "FACTURE" et "PATIENT" sur la base de l'identifiant du patient (ID\_PATIENT\_).
+La deuxième jointure INNER JOIN relie les tables "FACTURE" et "CONSULTATION" sur la base de l'identifiant de la facture (ID\_FACTURE\_).
+En résultat, elle retourne toutes les colonnes des factures, des patients et des consultations qui sont associées, c'est-à-dire qu'elle retourne des informations sur les factures et les patients associés à ces factures, ainsi que des informations sur les consultations qui sont associées à ces mêmes factures.
+Notez que cela suppose qu'il existe des correspondances dans toutes les tables pour chaque facture (c'est-à-dire qu'il y a des patients et des consultations associés à chaque facture). Si des correspondances sont manquantes, cela ne les inclura pas dans les résultats.\\
+    \item \textbf{Requête 3 :} Cette requête SELECT effectue une jointure interne entre trois tables : "CONSULTATION" (alias C), "PATIENT" (alias P), et "EXAMEN" (alias E). Elle sélectionne toutes les colonnes de chaque table.
+
+La première jointure INNER JOIN relie les tables "CONSULTATION" et "PATIENT" sur la base de l'identifiant du patient (ID\_PATIENT\_).
+
+La deuxième jointure INNER JOIN relie les tables "CONSULTATION" et "EXAMEN" sur la base de l'identifiant de la consultation (ID\_CONSULTATION\_).
+
+En résultat, elle retourne toutes les colonnes des consultations, des patients et des examens qui sont associés, triées par ordre croissant de la date de consultation (DATE\_CONSULTATION).
+
+Notez que cela suppose qu'il existe des correspondances dans toutes les tables pour chaque consultation (c'est-à-dire qu'il y a des patients et des examens associés à chaque consultation). Si des correspondances sont manquantes, cela ne les inclura pas dans les résultats.\\
+    \item \textbf{Requête 4 :} 
+Cette requête SELECT effectue une jointure interne entre trois tables : "FACTURE" (alias F), "PATIENT" (alias P), et "CONSULTATION" (alias C). Elle sélectionne plusieurs colonnes de chaque table, notamment l'identifiant du patient (ID\_PATIENT\_) de la table "FACTURE", l'e-mail du patient (EMAIL) de la table "PATIENT", la somme des montants totaux des factures (MONTANT\_TOTAL) de la table "FACTURE", la date de facturation (DATE\_FACTURE) de la table "FACTURE", et la date de consultation (DATE\_CONSULTATION) de la table "CONSULTATION".
+
+Les jointures INNER JOIN relient les tables "FACTURE" et "PATIENT" sur la base de l'identifiant du patient (ID\_PATIENT\_), et les tables "FACTURE" et "CONSULTATION" sur la base de l'identifiant de la facture (ID\_FACTURE\_).
+
+La clause GROUP BY regroupe les résultats par l'identifiant du patient (F.ID\_PATIENT\_), l'e-mail du patient (P.EMAIL), la date de facturation (F.DATE\_FACTURE) et la date de consultation (C.DATE\_CONSULTATION), calculant ainsi la somme totale des montants des factures pour chaque combinaison unique de ces colonnes.
+
+Ensuite, les résultats sont triés par ordre croissant de l'identifiant du patient (F.ID\_PATIENT\_), l'e-mail du patient (P.EMAIL), la date de facturation (F.DATE\_FACTURE) et la date de consultation (C.DATE\_CONSULTATION).
+
+Notez que si plusieurs consultations sont associées à une même facture, cette requête peut produire des résultats inattendus, car elle regroupe par la date de consultation également. Cela peut entraîner l'agrégation de plusieurs lignes de consultation pour une seule facture, ce qui peut ne pas être souhaité dans certains cas.\\
+    \item \textbf{Requête 5 :} Cette requête SELECT effectue une jointure entre trois tables : "CONSULTATION" (alias C), "EXAMEN" (alias E), et "PATIENT" (alias P). Elle sélectionne toutes les colonnes de chaque table.
+
+La première jointure INNER JOIN relie les tables "CONSULTATION" et "EXAMEN" sur la base de l'identifiant de la consultation (ID\_CONSULTATION\_).
+La deuxième jointure RIGHT JOIN relie les tables "EXAMEN" et "PATIENT" sur la base de l'identifiant du patient (ID\_PATIENT\_). Un RIGHT JOIN signifie que toutes les lignes de la table de droite ("PATIENT") sont incluses dans le résultat, et les lignes de la table de gauche ("EXAMEN") ne sont incluses que si elles correspondent à une ligne dans la table de droite.
+La clause ORDER BY trie les résultats par ordre croissant de la date de consultation (DATE\_CONSULTATION) de la table "CONSULTATION".
+En résumé, cette requête retourne toutes les colonnes des consultations, des examens et des patients, où les examens sont associés aux consultations, et les consultations sont associées aux patients. Les résultats sont triés par ordre croissant de la date de consultation.
+\end{enumerate}
