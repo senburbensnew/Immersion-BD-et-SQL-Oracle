@@ -611,3 +611,159 @@ SUR LA TABLE A, DEFINIR UN PACKAGE PLSQL AYANT LE NOM DE LA DITE TABLE:
 -- Création du package PK_MEDECIN
  
  dans le package PACKAGE_SPECIFICATION.sql et  dans le package PACKAGE_BODY.sql
+
+
+
+
+
+
+
+Sur la table CONSULTATION, définir un package plsql ayant le nom de la dite table : 
+
+--DEFINITION DU PACKAGE PK_CONSULTATION
+
+CREATE OR REPLACE PACKAGE PK_CONSULTATION AS
+    -- Déclaration des fonctions publiques du package
+    FUNCTION CONSULTATION_INSERER(
+        p_id_facture IN consultation.ID_FACTURE_%TYPE,
+        p_id_medecin IN consultation.ID_MEDECIN_%TYPE,
+        p_id_patient IN consultation.ID_PATIENT_%TYPE,
+        p_date_consultation IN consultation.DATE_CONSULTATION%TYPE
+    ) RETURN INTEGER;
+END PK_CONSULTATION;
+/
+
+- Ajout d'une nouvelle occurence à CONSULTATION: CONSULTATION_INSERER 
+
+CREATE OR REPLACE PACKAGE BODY PK_CONSULTATION AS
+    -- Implémentation des fonctions déclarées dans la spécification
+    FUNCTION CONSULTATION_INSERER(
+        p_id_facture IN consultation.ID_FACTURE_%TYPE,
+        p_id_medecin IN consultation.ID_MEDECIN_%TYPE,
+        p_id_patient IN consultation.ID_PATIENT_%TYPE,
+        p_date_consultation IN consultation.DATE_CONSULTATION%TYPE
+    ) RETURN INTEGER AS
+        v_new_id_consultation INTEGER;
+    BEGIN
+        -- Obtenez le nouvel ID de consultation
+        SELECT NVL(MAX(ID_CONSULTATION_), 0) + 1 INTO v_new_id_consultation FROM consultation;
+
+        -- Insérez les données dans la table
+        INSERT INTO consultation (
+            ID_CONSULTATION_,
+            ID_FACTURE_,
+            ID_MEDECIN_,
+            ID_PATIENT_,
+            DATE_CONSULTATION
+        ) VALUES (
+            v_new_id_consultation,
+            p_id_facture,
+            p_id_medecin,
+            p_id_patient,
+            p_date_consultation
+        );
+
+        -- Retournez l'ID de la nouvelle consultation
+        RETURN v_new_id_consultation;
+    END CONSULTATION_INSERER;
+END PK_CONSULTATION;
+/
+
+
+- Suppression d'une occurrence à CONSULTATION : fonction CONSULTATION_SUPPRIMER;  
+
+CREATE OR REPLACE PACKAGE BODY PK_CONSULTATION AS
+    -- Implémentation des fonctions déclarées dans la spécification
+    FUNCTION CONSULTATION_SUPPRIMER(
+        p_id_consultation IN consultation.ID_CONSULTATION_%TYPE
+    ) RETURN INTEGER AS
+    BEGIN
+        -- Supprimer l'occurrence de la table consultation
+        DELETE FROM consultation WHERE ID_CONSULTATION_ = p_id_consultation;
+
+        -- Retourner 1 si la suppression a réussi
+        RETURN 1;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            -- Retourner 0 si aucune occurrence n'a été trouvée pour cet ID
+            RETURN 0;
+    END CONSULTATION_SUPPRIMER;
+END PK_CONSULTATION;
+/
+
+
+- Modification des informations dans la table CONSULTATION : fonction CONSULTATION_MODIFIERF1, CONSULTATION_MODIFIERF2 (texte requêtes 
+correspondantes plus haut);  
+
+--Fonction CONSULTATION_MODIFIERF1
+CREATE OR REPLACE FUNCTION CONSULTATION_MODIFIERF1(
+    p_id_consultation IN consultation.ID_CONSULTATION_%TYPE,
+    p_nouvelle_date IN consultation.DATE_CONSULTATION%TYPE
+) RETURN INTEGER AS
+BEGIN
+    -- Modifier la date de consultation pour l'ID de consultation spécifié
+    UPDATE consultation
+    SET DATE_CONSULTATION = p_nouvelle_date
+    WHERE ID_CONSULTATION_ = p_id_consultation;
+
+    -- Retourner 1 si la modification a réussi
+    RETURN 1;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        -- Retourner 0 si aucune occurrence n'a été trouvée pour cet ID
+        RETURN 0;
+END CONSULTATION_MODIFIERF1;
+/
+
+--Fonction CONSULTATION_MODIFIERF2
+CREATE OR REPLACE FUNCTION CONSULTATION_MODIFIERF2(
+    p_id_consultation IN consultation.ID_CONSULTATION_%TYPE,
+    p_nouvel_id_patient IN consultation.ID_PATIENT_%TYPE
+) RETURN INTEGER AS
+BEGIN
+    -- Modifier l'ID du patient pour l'ID de consultation spécifié
+    UPDATE consultation
+    SET ID_PATIENT_ = p_nouvel_id_patient
+    WHERE ID_CONSULTATION_ = p_id_consultation;
+
+    -- Retourner 1 si la modification a réussi
+    RETURN 1;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        -- Retourner 0 si aucune occurrence n'a été trouvée pour cet ID
+        RETURN 0;
+END CONSULTATION_MODIFIERF2;
+/
+
+- Lister toutes les occurrences de CONSULTATION pour une occurrence de MEDECIN donnée: fonction CONSULTATION_LISTER
+Nota : Seule la partie spécification de chaque package est nécessaire ici. bien choisir les 
+paramètres des méthodes. Bien nommer les méthodes. Remplacer F1 à Fn par des noms 
+appropriés.
+
+-- Specification de la fonction PK_CONSULTATION_LISTER
+CREATE OR REPLACE PACKAGE PK_CONSULTATION_LISTER AS
+    -- Déclaration des fonctions publiques du package
+    FUNCTION CONSULTATION_LISTER(
+        p_id_medecin IN medecin.ID_MEDECIN_%TYPE
+    ) RETURN SYS_REFCURSOR;
+END PK_CONSULTATION_LISTER;
+/
+
+
+
+--Corps de la fonction PK_CONSULTATION_LISTER
+CREATE OR REPLACE PACKAGE BODY PK_CONSULTATION_LISTER AS
+    -- Implémentation de la fonction CONSULTATION_LISTER
+    FUNCTION CONSULTATION_LISTER(
+        p_id_medecin IN medecin.ID_MEDECIN_%TYPE
+    ) RETURN SYS_REFCURSOR AS
+        v_cursor SYS_REFCURSOR;
+    BEGIN
+        OPEN v_cursor FOR
+            SELECT *
+            FROM consultation
+            WHERE ID_MEDECIN_ = p_id_medecin;
+        RETURN v_cursor;
+    END CONSULTATION_LISTER;
+END PK_CONSULTATION_LISTER;
+/
