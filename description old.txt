@@ -1,0 +1,714 @@
+
+%%% Requetes de mise a jour
+\section{Spécification, Analyse et conception}
+\subsection{Description textuelle des requêtes de mise à jour}
+\subsubsection{2 requêtes impliquant 1 table}
+\begin{enumerate}
+\item 
+\begin{center}
+\begin{verbatim} 
+UPDATE PATIENT 
+SET DATE_NAISSAINCE = TO_DATE('22-AUG-1986','DD-MON-YYYY') 
+WHERE EMAIL = 'thomas.leclerc@email.com';
+\end{verbatim}
+\end{center}
+\ding{212}  \underline{Analyse de la requête}\newline
+Cette requête SQL est composée de trois parties principales :
+\begin{itemize}
+     \item \textbf{UPDATE PATIENT :} cette partie indique que la requête souhaite modifier des données dans la table PATIENT.
+     \item \textbf{SET DATE\_NAISSAINCE = TO\_DATE('22-AUG-1986',\newline 'DD-MON-YYYY') :} cette partie définit les modifications à apporter. La colonne DATE\_NAISSAINCE sera mise à jour avec la valeur 22-AUG-1986 formatée en date selon le format DD-MON-YYYY.
+     \item \textbf{WHERE EMAIL = 'thomas.leclerc@email.com' :} cette partie précise les lignes de la table PATIENT qui seront affectées par la modification. Seules les lignes où la colonne EMAIL est égale à thomas.leclerc@email.com seront mises à jour.
+\end{itemize}
+ \ding{212}  \underline{Fonctionnement de la requête} \newline
+La requête recherche d'abord toutes les lignes de la table PATIENT où la colonne EMAIL est égale à thomas.leclerc@email.com.
+Pour chaque ligne trouvée, la valeur de la colonne DATE\_NAISSAINCE est remplacée par la date 22-AUG-1986 formatée selon le format DD-MON-YYYY.
+Le nombre de lignes affectées par la modification est ensuite renvoyé.\newline
+\ding{212}  \underline{Résumé des effets de la requête} \newline
+Cette requête modifie la date de naissance du patient dont l'adresse mail est thomas.leclerc@email.com.
+La nouvelle date de naissance sera 22-AUG-1986. Seules les lignes correspondant à l'adresse mail spécifiée seront affectées. \\
+
+\item \begin{center}
+\begin{verbatim} 
+UPDATE PATIENT
+SET ADRESSE = '90, DELMAS 75'
+WHERE ID_PATIENT_ = 1;
+\end{verbatim}
+\end{center}
+\ding{212}  \underline{Analyse de la requête} \newline
+Cette requête SQL est composée de trois parties principales :
+\begin{itemize}
+\item \textbf{UPDATE PATIENT:} cette partie indique que la requête souhaite modifier des données dans la table PATIENT.
+\item \textbf{SET ADRESSE = '90, DELMAS 75':} cette partie définit les modifications à apporter. La colonne ADRESSE sera mise à jour avec la valeur '90, DELMAS 75'.
+\item \textbf{WHERE ID\_PATIENT\_ = 1:} cette partie précise les lignes de la table PATIENT qui seront affectées par la modification. Seule la ligne où la colonne ID\_PATIENT\_ est égale à 1 sera mise à jour.
+\end{itemize}
+\ding{212}  \underline{Fonctionnement de la requête} : \newline
+La requête recherche d'abord la ligne de la table PATIENT où la colonne ID\_PATIENT\_ est égale à 1.
+La valeur de la colonne ADRESSE de cette ligne est remplacée par la valeur '90, DELMAS 75'.
+Le nombre de lignes affectées par la modification est ensuite renvoyé (ici, 1).\newline
+\ding{212}  \underline{Résumé des effets de la requête} :\newline 
+  Cette requête modifie l'adresse du patient dont l'identifiant est 1.
+  La nouvelle adresse sera '90, DELMAS 75'.
+  Seule la ligne correspondant à l'identifiant spécifié sera affectée.
+
+\end{enumerate}
+
+\subsubsection{2 requêtes impliquant 2 tables}
+\begin{enumerate}
+\item 
+\begin{center}
+\begin{verbatim} 
+UPDATE (SELECT P.ID_PATIENT_, P.NOM, P.PRENOM, 
+R.DATE_RENDEZ_VOUS FROM PATIENT P
+JOIN RENDEZ_VOUS R 
+ON P.ID_PATIENT_ = R.ID_PATIENT_
+WHERE R.DATE_RENDEZ_VOUS BETWEEN '14-FEB-2024' AND '18-FEB-2024') X
+SET X.DATE_RENDEZ_VOUS = '01-MAR-24';
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Analyse de la requête} \newline
+Cette requête SQL est composée de plusieurs parties imbriquées :
+\begin{itemize}
+\item \textbf{UPDATE:} Cette partie indique que la requête souhaite modifier des données.
+\item \textbf{(SELECT P.ID\_PATIENT\_, P.NOM,P.PRENOM,\newline R.DATE\_RENDEZ\_VOUS FROM PATIENT P JOIN RENDEZ\_VOUS R ON P.ID\_PATIENT\_ = R.ID\_PATIENT\_ WHERE R.DATE\_RENDEZ\_VOUS BETWEEN '14-FEB-2024' AND '18-FEB-2024'):} Cette partie définit la table et les colonnes à modifier, ainsi que les lignes concernées par la modification.
+\item \textbf{SET DATE\_RENDEZ\_VOUS = '01-MAR-24':} Cette partie définit la nouvelle valeur à attribuer à la colonne DATE\_RENDEZ\_VOUS.
+\end{itemize}
+\ding{212} \underline{Fonctionnement de la requete} \newline
+La requête exécute d'abord la sous-requête entre parenthèses. Cette sous-requête sélectionne les colonnes ID\_PATIENT\_, NOM, PRENOM et DATE\_RENDEZ\_VOUS des tables PATIENT et RENDEZ\_VOUS pour les patients dont le rendez-vous est entre le 14-FEB-2024 et le 18-FEB-2024.
+La requête utilise ensuite le résultat de la sous-requête comme table virtuelle pour la mise à jour.
+
+Pour chaque ligne de la table virtuelle, la valeur de la colonne DATE\_RENDEZ\_VOUS est mise à jour avec la valeur 01-MAR-24.
+
+Le nombre de lignes affectées par la modification est ensuite renvoyé.
+
+\ding{212} \underline{Résumé des effets de la requête} :
+
+                Cette requête modifie la date de rendez-vous des patients dont le rendez-vous est prévu entre le 14-FEB-2024 et le 18-FEB-2024.
+                La nouvelle date de rendez-vous sera le 01-MAR-24.
+                Seules les lignes correspondant aux dates spécifiées seront affectées.
+
+\ding{212} \underline{Remarques}
+
+                La sous-requête permet de filtrer les patients dont la date de rendez-vous est dans la période spécifiée.
+                La clause WHERE de la sous-requête est obligatoire pour limiter les lignes à modifier.
+                La jointure entre les tables PATIENT et RENDEZ\_VOUS est nécessaire pour obtenir les informations des deux tables.
+
+                En résumé, cette requête SQL permet de modifier la date de rendez-vous des patients dont le rendez-vous est prévu
+                 entre le 14-FEB-2024 et le 18-FEB-2024 dans la table virtuelle issue de la jointure entre PATIENT 
+                 et RENDEZ\_VOUS. La nouvelle date de rendez-vous sera le 01-MAR-24.\newline 
+
+\item \begin{center}
+\begin{verbatim} 
+UPDATE (SELECT * FROM FACTURE F , PATIENT P
+WHERE F.ID_PATIENT_ = P.ID_PATIENT_
+AND F.MONTANT_TOTAL < 200)
+SET MONTANT_TOTAL = MONTANT_TOTAL + MONTANT_TOTAL * 0.1;
+\end{verbatim}
+\end{center}
+
+\ding{212} \underline{Description} \newline
+Cette requête vise à mettre à jour le montant total de certaines factures dans une base de données.
+
+\ding{212} \underline{Fonctionnement}
+\begin{itemize}
+\item \textbf{Sélection des factures:}\newline
+La requête commence par la sous-requête SELECT * FROM FACTURE F, PATIENT P. Cela signifie qu'elle sélectionne toutes les colonnes des tables FACTURE (F) et PATIENT (P).
+La clause WHERE associée à la sous-requête précise les conditions de sélection :
+F.ID\_PATIENT\_ = P.ID\_PATIENT\_ : cette condition garantit que seules les factures et les patients correspondants sont sélectionnés. En d'autres termes, la facture doit appartenir au patient identifié.
+F.MONTANT\_TOTAL < 200 : cette condition filtre les factures dont le montant total est inférieur à 200. Seules ces factures seront affectées par la mise à jour.
+\item \textbf{Mise à jour du montant total:}\newline
+La clause UPDATE intervient ensuite. Elle indique que l'on souhaite modifier des données dans une table, mais la table à modifier n'est pas explicitement mentionnée ici. En effet, la sous-requête précédente agit comme une table virtuelle contenant les factures sélectionnées.
+La clause SET définit la modification à apporter. Dans ce cas, MONTANT\_TOTAL = MONTANT\_TOTAL + MONTANT\_TOTAL * 0.1 signifie que le montant total de chaque facture sélectionnée sera augmenté de 10\%. L'augmentation est calculée en multipliant le montant total d'origine par 1.1 (100\% + 10\%).
+\end{itemize}
+En résumé, cette requête parcourt toutes les factures dont le montant total est inférieur à 200 et pour lesquelles un patient correspondant existe. Pour chacune de ces factures, elle augmente le montant total de 10\%.
+\end{enumerate}
+
+\subsubsection{2 requêtes impliquant plus de 2 tables}
+\begin{enumerate}
+\item 
+\begin{center}
+\begin{verbatim} 
+UPDATE PRESCRIPTION R
+SET R.DETAILS_PRESCRIPTION = 'Zinoboost'
+WHERE R.ID_CONSULTATION_ IN (
+    SELECT C.ID_CONSULTATION_
+    FROM CONSULTATION C
+    WHERE DATE_CONSULTATION = TO_DATE('05/02/2024','DD/MM/YYYY')
+        AND C.ID_PATIENT_ IN (
+        SELECT P.ID_PATIENT_
+        FROM PATIENT P
+        WHERE P.ID_PATIENT_ = 1
+    )
+);
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description}\newline
+Cette requête SQL met à jour les enregistrements dans la table PRESCRIPTION. 
+                 
+Voici une explication de la requête :
+\begin{itemize}
+    \item \textbf{UPDATE PRESCRIPTION R :} Cela indique que nous allons mettre à jour des données dans la table PRESCRIPTION et nous l'identifions avec l'alias R.
+\item \textbf{SET R.DETAILS\_PRESCRIPTION = 'Zinoboost':} Cela indique que nous allons mettre à jour la colonne DETAILS\_PRESCRIPTION de la table PRESCRIPTION avec la valeur 'Zinoboost'.
+\item \textbf{WHERE R.ID\_CONSULTATION\_ IN (...):} C'est une clause de restriction qui spécifie que la mise à jour ne s'applique qu'aux enregistrements dans la table PRESCRIPTION où la colonne \newline ID\_CONSULTATION\_ correspond à certaines valeurs.
+\item \textbf{(SELECT C.ID\_CONSULTATION\_ FROM CONSULTATION C WHERE DATE\_CONSULTATION = \newline
+TO\_DATE('05/02/2024','DD/MM/YYYY') AND \newline C.ID\_PATIENT\_ IN (...)):} C'est une sous-requête qui sélectionne les identifiants de consultation (ID\_CONSULTATION\_) de la table CONSULTATION où la date de consultation (DATE\_CONSULTATION) est égale au 5 février 2024 et où l'identifiant de patient (ID\_PATIENT\_) correspond à certaines valeurs.
+\item \textbf{(SELECT P.ID\_PATIENT\_ FROM PATIENT P WHERE P.ID\_PATIENT\_ = 1):} C'est une autre sous-requête qui sélectionne l'identifiant de patient (ID\_PATIENT\_) de la table PATIENT où l'identifiant de patient est égal à 1.
+\end{itemize}
+En résumé, cette requête met à jour la colonne DETAILS\_PRESCRIPTION de la table PRESCRIPTION pour les enregistrements associés à des consultations de patients ayant un identifiant de patient égal à 1 et où la date de consultation est le 5 février 2024. La nouvelle valeur de la colonne DETAILS\_PRESCRIPTION sera 'Zinoboost'.\newline
+
+\item \begin{center}
+\begin{verbatim} 
+UPDATE EXAMEN  R
+SET R.DETAILS_EXAMEN  = 'HAC1'
+WHERE R.ID_CONSULTATION_ IN (
+    SELECT C.ID_CONSULTATION_
+    FROM CONSULTATION C
+    WHERE DATE_CONSULTATION = TO_DATE('05/02/2024','DD/MM/YYYY') 
+    AND C.ID_PATIENT_ IN (
+        SELECT P.ID_PATIENT_
+        FROM PATIENT P
+        WHERE P.ID_PATIENT_ = 1
+    )
+);
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description:}\newline  
+Cette requête SQL Oracle met à jour les enregistrements dans la table EXAMEN. 
+
+Voici une explication de la requête :
+\begin{itemize}
+\item \textbf{UPDATE EXAMEN R:} Cela indique que nous allons mettre à jour des données dans la table EXAMEN et nous l'identifions avec l'alias R.
+\item \textbf{SET R.DETAILS\_EXAMEN =} 'HAC1':} Cela indique que nous allons mettre à jour la colonne DETAILS\_EXAMEN de la table EXAMEN avec la valeur 'HAC1'.
+\item \textbf{WHERE R.ID\_CONSULTATION\_ IN (...):} C'est une clause de restriction qui spécifie que la mise à jour ne s'applique qu'aux enregistrements dans la table EXAMEN où la colonne ID\_CONSULTATION\_ correspond à certaines valeurs.
+\item \textbf{(SELECT C.ID\_CONSULTATION\_ FROM CONSULTATION C WHERE DATE\_CONSULTATION = \newline TO\_DATE('05/02/2024',\newline'DD/MM/YYYY') AND C.ID\_PATIENT\_ IN (...)):} C'est une sous-requête qui sélectionne les identifiants de consultation (ID\_CONSULTATION\_) de la table CONSULTATION où la date de consultation (DATE\_CONSULTATION) est égale au 5 février 2024 et où l'identifiant de patient (ID\_PATIENT\_) correspond à certaines valeurs.
+\item (SELECT P.ID\_PATIENT\_ FROM PATIENT P WHERE P.ID\_PATIENT\_ = 1): C'est une autre sous-requête qui sélectionne l'identifiant de patient (ID\_PATIENT\_) de la table PATIENT où l'identifiant de patient est égal à 1.
+\end{itemize}
+En résumé, cette requête met à jour la colonne `DETAILS\_EXAMEN` de la table `EXAMEN` pour les enregistrements associés à des consultations de patients ayant un identifiant de patient égal à 1 et où la date de consultation est le 5 février 2024. La nouvelle valeur de la colonne DETAILS\_EXAMEN sera 'HAC1'.
+\end{enumerate}
+
+
+%%% Requetes de suppression
+\subsection{Description textuelle des requêtes de suppression}
+\subsubsection{2 requêtes impliquant 1 table}
+\begin{enumerate}
+\item 
+\begin{center}
+\begin{verbatim} 
+DELETE EXAMEN
+WHERE DATE_EXAMEN = TO_DATE('05-02-24','DD-MM-YY');
+\end{verbatim}
+\end{center}
+
+\ding{212} \underline{Description}\newline
+Cette requête SQL est une commande DELETE qui supprime des lignes de la table EXAMEN en fonction d'un critère spécifique. 
+
+\ding{212} Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item 
+\textbf{DELETE :} Il s'agit du mot-clé qui indique à Oracle que vous souhaitez supprimer des données d'une table.
+\item \textbf{EXAMEN :} C'est le nom de la table à partir de laquelle vous souhaitez supprimer des données.
+\item \textbf{WHERE :} C'est une clause conditionnelle qui spécifie les conditions que les lignes à supprimer doivent satisfaire. Seules les lignes qui correspondent à cette condition seront supprimées.
+\item \textbf{DATE\_EXAMEN :} C'est le nom de la colonne sur laquelle la condition est basée. Dans ce cas, la condition porte sur la colonne DATE\_EXAMEN.
+\item \textbf{TO\_DATE('05-02-24','DD-MM-YY') :} C'est une fonction Oracle qui convertit une chaîne de caractères en un type de données DATE. Dans cet exemple, la chaîne '05-02-24' est convertie en une date au format 'DD-MM-YY', ce qui signifie que la date est le 5 février 2024.
+\end{itemize}
+En résumé, cette requête supprime toutes les lignes de la table EXAMEN où la valeur de la colonne DATE\_EXAMEN est égale à la date du 5 février 2024.\\
+
+\item \begin{center}
+\begin{verbatim} 
+DELETE FROM PRESCRIPTION
+WHERE DATE_PRESCRIPTION  = TO_DATE('05-02-24','DD-MM-YY'); 
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description}\newline
+Cette requête SQL est une commande DELETE qui supprime des lignes de la table PRESCRIPTION en fonction d'un critère spécifique.
+               
+\ding{212} Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item 
+\textbf{DELETE :} Il s'agit du mot-clé qui indique à Oracle que vous souhaitez supprimer des données d'une table.
+\item \textbf{FROM PRESCRIPTION :} PRESCRIPTION est le nom de la table à partir de laquelle vous souhaitez supprimer des données. Le mot-clé FROM est utilisé pour spécifier la table à partir de laquelle les données seront supprimées.
+\item \textbf{WHERE :} C'est une clause conditionnelle qui spécifie les conditions que les lignes à supprimer doivent satisfaire. Seules les lignes qui correspondent à cette condition seront supprimées.
+\item \textbf{DATE\_PRESCRIPTION :} C'est le nom de la colonne sur laquelle la condition est basée. Dans ce cas, la condition porte sur la colonne DATE\_PRESCRIPTION.
+\item \textbf{TO\_DATE('05-02-24','DD-MM-YY') :} C'est une fonction Oracle qui convertit une chaîne de caractères en un type de données DATE. Dans cet exemple, la chaîne '05-02-24' est convertie en une date au format 'DD-MM-YY', ce qui signifie que la date est le 5 février 2024.
+\end{itemize}
+En résumé, cette requête supprime toutes les lignes de la table PRESCRIPTION où la valeur de la colonne DATE\_PRESCRIPTION est égale à la date du 5 février 2024.
+\end{enumerate}
+
+\subsubsection{2 requêtes impliquant 2 tables}
+\begin{enumerate}
+\item 
+\begin{center}
+\begin{verbatim} 
+DELETE FROM RENDEZ_VOUS 
+WHERE ID_PATIENT_ IN (
+    SELECT ID_PATIENT_ FROM PATIENT
+    WHERE EMAIL = 'thomas.leclerc@email.com'
+) ;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL Oracle est une commande DELETE qui supprime des lignes de la table RENDEZ\_VOUS en fonction d'un critère spécifique. 
+
+\ding{212} Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item \textbf{DELETE :} Il s'agit du mot-clé qui indique à Oracle que vous souhaitez supprimer des données d'une table.
+    \item \textbf{FROM RENDEZ\_VOUS :} RENDEZ\_VOUS est le nom de la table à partir de laquelle vous souhaitez supprimer des données. Le mot-clé FROM est utilisé pour spécifier la table à partir de laquelle les données seront supprimées.
+    \item \textbf{WHERE :} C'est une clause conditionnelle qui spécifie les conditions que les lignes à supprimer doivent satisfaire. Seules les lignes qui correspondent à cette condition seront supprimées.
+    \item \textbf{ID\_PATIENT\_ IN (SELECT ID\_PATIENT\_ FROM PATIENT WHERE EMAIL = 'thomas.leclerc@email.com') :} C'est une sous-requête qui sélectionne les identifiants de patients à partir de la table "PATIENT" où l'adresse e-mail est égale à 'thomas.leclerc@email.com'. Cette sous-requête est utilisée comme condition pour la suppression des rendez-vous. Seuls les rendez-vous des patients dont l'adresse e-mail correspondante est 'thomas.leclerc@email.com' seront supprimés.
+\end{itemize}
+En résumé, cette requête supprime tous les rendez-vous des patients dont l'adresse e-mail est 'thomas.leclerc@email.com'.\\
+
+\item \begin{center}
+\begin{verbatim} 
+DELETE FROM RENDEZ_VOUS 
+WHERE ID_PATIENT_ IN (
+    SELECT ID_PATIENT_ FROM PATIENT
+    WHERE ID_PATIENT_ = 3
+) ;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL est une commande DELETE qui supprime des lignes de la table RENDEZ\_VOUS en fonction d'un critère spécifique. 
+            
+\ding{212} Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item \textbf{DELETE :} Il s'agit du mot-clé qui indique à Oracle que vous souhaitez supprimer des données d'une table.
+    \item \textbf{FROM RENDEZ\_VOUS :} RENDEZ\_VOUS est le nom de la table à partir de laquelle vous souhaitez supprimer des données. Le mot-clé FROM est utilisé pour spécifier la table à partir de laquelle les données seront supprimées.
+    \item \textbf{WHERE :} C'est une clause conditionnelle qui spécifie les conditions que les lignes à supprimer doivent satisfaire. Seules les lignes qui correspondent à cette condition seront supprimées.
+    \item \textbf{ID\_PATIENT\_ IN (SELECT ID\_PATIENT\_ FROM PATIENT WHERE ID\_PATIENT\_ = 3) :} C'est une sous-requête qui sélectionne les identifiants de patients à partir de la table "PATIENT" où l'identifiant de patient est égal à 3. Cette sous-requête est utilisée comme condition pour la suppression des rendez-vous. Seuls les rendez-vous associés au patient dont l'identifiant est 3 seront supprimés.
+\end{itemize}
+En résumé, cette requête supprime tous les rendez-vous du patient dont l'identifiant est 3.
+\end{enumerate}
+
+\subsubsection{2 requêtes impliquant plus de 2 tables}
+\begin{enumerate}
+\item 
+\begin{center}
+\begin{verbatim} 
+DELETE FROM EXAMEN
+    WHERE ID_CONSULTATION_ IN (
+        SELECT C.ID_CONSULTATION_
+        FROM CONSULTATION C
+        WHERE DATE_CONSULTATION = TO_DATE('05/02/2024','DD/MM/YYYY') 
+        AND C.ID_PATIENT_ IN (
+            SELECT P.ID_PATIENT_
+            FROM PATIENT P
+            WHERE P.ID_PATIENT_ = 1
+    )
+);
+\end{verbatim}
+\end{center}
+
+\ding{212} \underline{Description} \newline
+Cette requête SQL Oracle est une commande DELETE qui supprime des lignes de la table EXAMEN en fonction de certains critères spécifiques. 
+            
+\ding{212} Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item \textbf{DELETE :} Il s'agit du mot-clé qui indique à Oracle que vous souhaitez supprimer des données d'une table.
+    \item \textbf{FROM EXAMEN :} EXAMEN est le nom de la table à partir de laquelle vous souhaitez supprimer des données. Le mot-clé FROM est utilisé pour spécifier la table à partir de laquelle les données seront supprimées.
+    \item \textbf{WHERE :} C'est une clause conditionnelle qui spécifie les conditions que les lignes à supprimer doivent satisfaire. Seules les lignes qui correspondent à cette condition seront supprimées.
+    \item \textbf{ID\_CONSULTATION\_ IN (...) :} C'est une condition qui filtre les lignes à supprimer en se basant sur les identifiants de consultation. La sous-requête entre parenthèses sélectionne les identifiants de consultation à partir de la table CONSULTATION.
+    \item \textbf{SELECT C.ID\_CONSULTATION\_ FROM CONSULTATION C WHERE DATE\_CONSULTATION = \newline TO\_DATE('05/02/2024','DD/MM/YYYY') \newline AND C.ID\_PATIENT\_ IN (...) :} C'est une sous-requête qui sélectionne les identifiants de consultation à partir de la table "CONSULTATION" en filtrant les consultations qui ont eu lieu le 5 février 2024 et qui sont associées à un patient spécifique. La sous-requête imbriquée sélectionne d'abord l'identifiant du patient à partir de la table "PATIENT".
+    \item \textbf{TO\_DATE('05/02/2024','DD/MM/YYYY') :} C'est une fonction Oracle qui convertit une chaîne de caractères en un type de données DATE. Dans cet exemple, la chaîne '05/02/2024' est convertie en une date au format 'DD/MM/YYYY', ce qui correspond au 5 février 2024.
+\end{itemize}
+En résumé, cette requête supprime tous les examens associés à une consultation qui a eu lieu le 5 février 2024 et qui est liée à un patient dont l'identifiant est 1.\\
+
+\item \begin{center}
+\begin{verbatim} 
+DELETE FROM EXAMEN
+WHERE ID_CONSULTATION_ IN (
+    SELECT C.ID_CONSULTATION_
+    FROM CONSULTATION C
+    WHERE DATE_CONSULTATION = TO_DATE('06/02/2024','DD/MM/YYYY') 
+    AND C.ID_PATIENT_ IN (
+        SELECT P.ID_PATIENT_
+        FROM PATIENT P
+        WHERE P.ID_PATIENT_ = 2
+    )
+);
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL Oracle est une commande DELETE qui supprime des lignes de la table EXAMEN en fonction de certains critères spécifiques. 
+
+\ding{212} Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item \textbf{DELETE :} Il s'agit du mot-clé qui indique à Oracle que vous souhaitez supprimer des données d'une table.
+    \item \textbf{FROM EXAMEN :} EXAMEN est le nom de la table à partir de laquelle vous souhaitez supprimer des données. Le mot-clé FROM est utilisé pour spécifier la table à partir de laquelle les données seront supprimées.
+    \item \textbf{WHERE :} C'est une clause conditionnelle qui spécifie les conditions que les lignes à supprimer doivent satisfaire. Seules les lignes qui correspondent à cette condition seront supprimées.
+    \item \textbf{ID\_CONSULTATION\_ IN (...) :} C'est une condition qui filtre les lignes à supprimer en se basant sur les identifiants de consultation. La sous-requête entre parenthèses sélectionne les identifiants de consultation à partir de la table CONSULTATION.
+    \item \textbf{SELECT C.ID\_CONSULTATION\_ FROM CONSULTATION C WHERE DATE\_CONSULTATION = \newline TO\_DATE('06/02/2024','DD/MM/YYYY') AND C.ID\_PATIENT\_ IN (...) :} C'est une sous-requête qui sélectionne les identifiants de consultation à partir de la table CONSULTATION en filtrant les consultations qui ont eu lieu le 6 février 2024 et qui sont associées à un patient spécifique. La sous-requête imbriquée sélectionne d'abord l'identifiant du patient à partir de la table PATIENT.
+    \item \textbf{TO\_DATE('06/02/2024','DD/MM/YYYY') :} C'est une fonction Oracle qui convertit une chaîne de caractères en un type de données DATE. Dans cet exemple, la chaîne '06/02/2024' est convertie en une date au format 'DD/MM/YYYY', ce qui correspond au 6 février 2024.
+\end{itemize}
+En résumé, cette requête supprime tous les examens associés à une consultation qui a eu lieu le 6 février 2024 et qui est liée à un patient dont l'identifiant est 2.
+\end{enumerate}
+
+
+%%% Requetes de consultation
+\subsection{Description textuelle des requêtes de consultation}
+\subsubsection{5 requêtes impliquant 1 table dont 1 avec un group By et une avec un Order By}
+\begin{enumerate}
+    \item 
+\begin{center}
+\begin{verbatim}
+SELECT * FROM PATIENT;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL Oracle est une commande SELECT qui récupère toutes les lignes et toutes les colonnes de la table PATIENT. 
+        
+Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item \textbf{SELECT * :} C'est une clause SELECT qui spécifie les colonnes que vous souhaitez récupérer dans la requête. L'astérisque (*) est un opérateur de sélection qui signifie "toutes les colonnes". Ainsi, cette partie de la requête récupère toutes les colonnes de la table PATIENT.
+    \item \textbf{FROM PATIENT :} PATIENT est le nom de la table à partir de laquelle vous souhaitez récupérer les données. Le mot-clé FROM est utilisé pour spécifier la table à partir de laquelle les données seront extraites.
+\end{itemize}
+En résumé, cette requête récupère toutes les informations (toutes les colonnes) stockées dans la table PATIENT, ce qui signifie qu'elle retournera toutes les lignes de cette table.\newline
+
+\item \begin{center}
+\begin{verbatim}
+SELECT * FROM CONSULTATION;
+\end{verbatim}
+\end{center}
+
+\ding{212} \underline{Description} \newline
+Cette requête SQL Oracle est une commande SELECT qui récupère toutes les lignes et toutes les colonnes de la table CONSULTATION. 
+
+Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item \textbf{SELECT * :} C'est une clause SELECT qui spécifie les colonnes que vous souhaitez récupérer dans la requête. L'astérisque (*) est un opérateur de sélection qui signifie "toutes les colonnes". Ainsi, cette partie de la requête récupère toutes les colonnes de la table CONSULTATION.
+    \item \textbf{FROM CONSULTATION :} CONSULTATION est le nom de la table à partir de laquelle vous souhaitez récupérer les données. Le mot-clé FROM est utilisé pour spécifier la table à partir de laquelle les données seront extraites.
+\end{itemize}
+En résumé, cette requête récupère toutes les informations (toutes les colonnes) stockées dans la table CONSULTATION, ce qui signifie qu'elle retournera toutes les lignes de cette table.\newline 
+
+\item 
+\begin{center}
+\begin{verbatim}
+SELECT COUNT(*), DETAILS_EXAMEN 
+FROM EXAMEN 
+GROUP BY DETAILS_EXAMEN;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL Oracle est une commande SELECT qui récupère le nombre de lignes pour chaque valeur unique de la colonne DETAILS\_EXAMEN de la table EXAMEN. 
+    
+Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item \textbf{SELECT COUNT(*) :} C'est une fonction d'agrégation qui compte le nombre de lignes dans chaque groupe résultant de la requête GROUP BY. L'opérateur * signifie que toutes les lignes sont prises en compte dans le comptage.
+    La virgule (,),c'est simplement un séparateur pour indiquer que nous voulons sélectionner une autre colonne dans notre résultat.
+    \item \textbf{DETAILS\_EXAMEN :} C'est le nom de la colonne pour laquelle nous voulons obtenir le compte des occurrences de chaque valeur.
+    FROM EXAMEN : EXAMEN est le nom de la table à partir de laquelle les données sont extraites.
+    \item \textbf{GROUP BY DETAILS\_EXAMEN :} C'est une clause GROUP BY qui groupe les lignes en fonction des valeurs uniques dans la colonne DETAILS\_EXAMEN. En d'autres termes, cela signifie que les lignes avec la même valeur dans la colonne DETAILS\_EXAMEN seront regroupées ensemble.
+\end{itemize}
+Ainsi, cette requête retournera le nombre de lignes pour chaque valeur unique de la colonne "DETAILS\_EXAMEN" de la table "EXAMEN".\newline
+
+\item \begin{center}
+\begin{verbatim}
+SELECT COUNT(*), DETAILS_EXAMEN 
+FROM EXAMEN 
+GROUP BY DETAILS_EXAMEN 
+ORDER BY DETAILS_EXAMEN ;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL Oracle est une commande SELECT qui récupère le nombre de lignes pour chaque valeur unique de la colonne DETAILS\_EXAMEN de la table EXAMEN.
+    
+Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item \textbf{SELECT COUNT(*) :} C'est une fonction d'agrégation qui compte le nombre de lignes dans chaque groupe résultant de la requête GROUP BY. L'opérateur * signifie que toutes les lignes sont prises en compte dans le comptage.
+    La virgule (,)C'est simplement un séparateur pour indiquer que nous voulons sélectionner une autre colonne dans notre résultat.
+    \item \textbf{DETAILS\_EXAMEN :} C'est le nom de la colonne pour laquelle nous voulons obtenir le compte des occurrences de chaque valeur.
+    \item \textbf{FROM EXAMEN :} EXAMEN est le nom de la table à partir de laquelle les données sont extraites.
+    \item \textbf{GROUP BY DETAILS\_EXAMEN :} C'est une clause GROUP BY qui groupe les lignes en fonction des valeurs uniques dans la colonne DETAILS\_EXAMEN. En d'autres termes, cela signifie que les lignes avec la même valeur dans la colonne DETAILS\_EXAMEN seront regroupées ensemble.
+    Ainsi, cette requête retournera le nombre de lignes pour chaque valeur unique de la colonne "DETAILS\_EXAMEN" de la table "EXAMEN".\newline
+
+\end{itemize}
+
+\item \begin{center}
+\begin{verbatim}
+SELECT ID_PATIENT_, COUNT(*), SUM(MONTANT_TOTAL) 
+FROM FACTURE 
+GROUP BY ID_PATIENT_ 
+ORDER BY ID_PATIENT_ ;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline    
+Cette requête SQL Oracle est une commande SELECT qui agrège les données de la table FACTURE en fonction de la colonne ID\_PATIENT\_. 
+    
+Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item \textbf{SELECT ID\_PATIENT\_, COUNT(*), SUM(MONTANT\_TOTAL) :} Cette partie de la requête spécifie les colonnes que nous voulons afficher dans le résultat de la requête. 
+    \item \textbf{ID\_PATIENT\_ :} C'est la colonne pour laquelle nous voulons grouper les données.
+    \item \textbf{COUNT(*) :} C'est une fonction d'agrégation qui compte le nombre de lignes pour chaque groupe de données résultant du GROUP BY.
+    \item \textbf{SUM(MONTANT\_TOTAL) :} C'est une autre fonction d'agrégation qui calcule la somme des valeurs de la colonne MONTANT\_TOTAL pour chaque groupe de données résultant du GROUP BY.
+    \item \textbf{FROM FACTURE :} FACTURE est le nom de la table à partir de laquelle les données sont extraites.
+    \item \textbf{GROUP BY ID\_PATIENT\_ :} C'est une clause GROUP BY qui groupe les lignes en fonction des valeurs uniques dans la colonne ID\_PATIENT\_. En d'autres termes, cela signifie que les lignes avec la même valeur dans la colonne ID\_PATIENT\_ seront regroupées ensemble.
+    \item \textbf{ORDER BY ID\_PATIENT\_ :} C'est une clause ORDER BY qui trie les résultats de la requête par ordre croissant des valeurs de la colonne "ID\_PATIENT\_".
+\end{itemize}
+En résumé, cette requête retournera le nombre de factures (COUNT(*)) et la somme des montants totaux (SUM(MONTANT\_TOTAL)) pour chaque patient (ID\_PATIENT\_), avec les résultats triés par ID\_PATIENT\_ dans l'ordre croissant.
+
+
+\end{enumerate}
+\subsubsection{5 requêtes impliquant 2 tables avec jointures internes 
+dont 1 externe + 1 group by + 1 tri}
+\begin{enumerate}
+\item 
+\begin{center}
+\begin{verbatim}
+SELECT * FROM CONSULTATION C
+INNER JOIN PATIENT P 
+ON C.ID_PATIENT_ = P.ID_PATIENT_;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL Oracle est une commande SELECT qui effectue une jointure entre deux tables, CONSULTATION (aliasée par C) et PATIENT (aliasée par P), en utilisant la clé étrangère ID\_PATIENT\_ comme critère de jointure.
+    
+Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item 
+    \textbf{SELECT * :} Cette clause spécifie les colonnes que vous souhaitez récupérer dans le résultat de la requête. L'astérisque (*) signifie toutes les colonnes. Par conséquent, cette requête récupérera toutes les colonnes de la table CONSULTATION et de la table PATIENT après la jointure.
+    \item \textbf{FROM CONSULTATION C :} CONSULTATION est le nom de la première table à partir de laquelle les données sont extraites. L'alias C est utilisé pour identifier la table CONSULTATION dans la requête et faciliter la référence à ses colonnes.
+    \item \textbf{INNER JOIN PATIENT P :} C'est la clause de jointure qui spécifie que nous voulons joindre la table PATIENT à la table CONSULTATION. PATIENT est le nom de la deuxième table que nous voulons joindre, et P est l'alias utilisé pour identifier cette table dans la requête.
+    \item \textbf{ON C.ID\_PATIENT\_ = P.ID\_PATIENT\_ :} C'est la condition de jointure. Elle spécifie quelles colonnes des deux tables doivent être comparées pour déterminer les correspondances. Dans ce cas, nous comparons la colonne ID\_PATIENT\_ de la table CONSULTATION avec la colonne ID\_PATIENT\_ de la table PATIENT. Cela signifie que nous récupérerons uniquement les lignes où les valeurs de ces colonnes correspondent dans les deux tables.
+\end{itemize}
+    En résumé, cette requête récupère toutes les colonnes des tables CONSULTATION et PATIENT pour lesquelles les valeurs de la colonne ID\_PATIENT\_ correspondent dans les deux tables. Cela permet de récupérer des informations sur les consultations ainsi que sur les patients associés à ces consultations.\\
+\item 
+\begin{center}
+\begin{verbatim}
+SELECT * FROM FACTURE F
+INNER JOIN PATIENT P 
+ON F.ID_PATIENT_ = P.ID_PATIENT_;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL Oracle est une commande SELECT qui effectue une jointure interne entre deux tables, FACTURE (aliasée par F) et PATIENT (aliasée par P), en utilisant la clé étrangère ID\_PATIENT\_ comme critère de jointure. 
+    
+Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item 
+\textbf{SELECT * :} Cette clause spécifie les colonnes que vous souhaitez récupérer dans le résultat de la requête. L'astérisque (*) signifie toutes les colonnes. Par conséquent, cette requête récupérera toutes les colonnes de la table "FACTURE" et de la table "PATIENT" après la jointure.
+\item \textbf{FROM FACTURE F :} FACTURE est le nom de la première table à partir de laquelle les données sont extraites. L'alias F est utilisé pour identifier la table FACTURE dans la requête et faciliter la référence à ses colonnes.
+\item \textbf{INNER JOIN PATIENT P :} C'est la clause de jointure qui spécifie que nous voulons joindre la table PATIENT à la table FACTURE. PATIENT est le nom de la deuxième table que nous voulons joindre, et P est l'alias utilisé pour identifier cette table dans la requête.
+\item \textbf{ON F.ID\_PATIENT\_ = P.ID\_PATIENT\_ :} C'est la condition de jointure. Elle spécifie quelles colonnes des deux tables doivent être comparées pour déterminer les correspondances. Dans ce cas, nous comparons la colonne ID\_PATIENT\_ de la table FACTURE avec la colonne ID\_PATIENT\_ de la table PATIENT. Cela signifie que nous récupérerons uniquement les lignes où les valeurs de ces colonnes correspondent dans les deux tables.
+\end{itemize}
+
+En résumé, cette requête récupère toutes les colonnes des tables FACTURE et PATIENT pour lesquelles les valeurs de la colonne ID\_PATIENT\_ correspondent dans les deux tables. Cela permet de récupérer des informations sur les factures ainsi que sur les patients associés à ces factures.\newline
+
+\item 
+\begin{center}
+\begin{verbatim}
+SELECT * FROM CONSULTATION C
+INNER JOIN PATIENT P 
+ON C.ID_PATIENT_ = P.ID_PATIENT_
+ORDER BY C;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL est une instruction SELECT qui récupère des données à partir de deux tables, CONSULTATION et PATIENT, en utilisant une jointure interne (INNER JOIN) entre elles. 
+    
+Voici une explication détaillée de la requête :
+\begin{itemize}
+    \item 
+\textbf{SELECT * FROM CONSULTATION C:} Cela sélectionne toutes les colonnes de la table CONSULTATION et les renomme avec l'alias C. L'alias est utilisé pour référencer la table de manière abrégée dans le reste de la requête.
+\item \textbf{INNER JOIN PATIENT P ON C.ID\_PATIENT\_ = P.ID\_PATIENT\_:} C'est la clause de jointure. Elle relie les lignes des tables CONSULTATION et PATIENT où les valeurs de la colonne ID\_PATIENT\_ sont égales dans les deux tables. Cela relie les consultations aux patients correspondants en fonction de leur ID\_PATIENT\_.
+\item \textbf{ORDER BY C.DATE\_CONSULTATION:} Cette clause est utilisée pour trier les résultats de la requête par ordre croissant de la colonne DATE\_CONSULTATION de la table CONSULTATION.
+\end{itemize}
+
+En analyse, cette requête récupérera toutes les données des consultations (avec leurs patients correspondants) et les ordonnera par date de consultation. Cela peut être utile pour obtenir une liste chronologique des consultations et des détails des patients associés à chacune d'elles.\newline
+
+
+\item 
+\begin{center}
+    \begin{verbatim}
+SELECT F.ID_PATIENT_, P.EMAIL, SUM(F.MONTANT_TOTAL) MONTANT_TOTAL 
+FROM FACTURE F
+INNER JOIN PATIENT P 
+ON F.ID_PATIENT_ = P.ID_PATIENT_
+GROUP BY F.ID_PATIENT_, P.EMAIL
+ORDER BY F.ID_PATIENT_, P.EMAIL;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL récupère des données à partir de deux tables, FACTURE et PATIENT, en utilisant une jointure interne (INNER JOIN) entre elles. Ensuite, elle effectue une agrégation en regroupant les données par ID\_PATIENT\_ et EMAIL du patient, puis elle calcule la somme des montants totaux de factures pour chaque patient. 
+    
+Voici une explication détaillée de la requête :
+\begin{itemize}
+    \item 
+\textbf{SELECT F.ID\_PATIENT\_, P.EMAIL, SUM(F.MONTANT\_TOTAL) AS MONTANT\_TOTAL:} Cette partie de la requête sélectionne trois colonnes. F.ID\_PATIENT\_ est l'identifiant du patient à partir de la table FACTURE, P.EMAIL est l'adresse e-mail du patient à partir de la table PATIENT, et SUM(F.MONTANT\_TOTAL) calcule la somme des montants totaux des factures pour chaque patient. L'alias MONTANT\_TOTAL est utilisé pour désigner cette somme calculée.
+\item \textbf{FROM FACTURE F INNER JOIN PATIENT P ON F.ID\_PATIENT\_ = P.ID\_PATIENT\_:} Cette clause spécifie les tables à partir desquelles les données seront sélectionnées. Elle indique également comment les données des deux tables doivent être jointes. Ici, les lignes de la table FACTURE sont jointes aux lignes correspondantes de la table PATIENT en utilisant les ID\_PATIENT\_ correspondants.
+\item  \textbf{GROUP BY F.ID\_PATIENT\_, P.EMAIL:} Cette clause est utilisée pour regrouper les données en fonction de la colonne ID\_PATIENT\_ de la table FACTURE et de la colonne EMAIL de la table PATIENT. Cela signifie que la somme des montants totaux sera calculée pour chaque combinaison unique de ID\_PATIENT\_ et EMAIL.
+\item  \textbf{ORDER BY F.ID\_PATIENT\_, P.EMAIL:} Cette clause ordonne les résultats de la requête en fonction des colonnes ID\_PATIENT\_ et EMAIL, dans l'ordre croissant.
+\end{itemize}
+
+En analyse, cette requête récupère la somme totale des montants des factures pour chaque patient, en les groupant par ID\_PATIENT\_ et EMAIL. Cela peut être utile pour obtenir une vue consolidée des montants facturés à chaque patient.\newline
+\item
+\begin{center}
+\begin{verbatim}
+SELECT * FROM CONSULTATION C
+RIGHT JOIN PATIENT P 
+ON C.ID_PATIENT_ = P.ID_PATIENT_
+ORDER BY C.DATE_CONSULTATION;
+\end{verbatim}
+\end{center}
+\ding{212} \underline{Description} \newline
+Cette requête SQL utilise une jointure externe droite (RIGHT JOIN) pour récupérer toutes les lignes de la table PATIENT et les lignes correspondantes de la table CONSULTATION lorsque la condition de jointure est satisfaite. 
+    
+Voici une explication détaillée de la requête :
+\begin{itemize}
+\item 
+\textbf{SELECT * FROM CONSULTATION C RIGHT JOIN PATIENT P ON C.ID\_PATIENT\_ = P.ID\_PATIENT\_:} Cela sélectionne toutes les colonnes de la table CONSULTATION et de la table PATIENT. La jointure RIGHT JOIN est utilisée pour inclure toutes les lignes de la table PATIENT, même si elles n'ont pas de correspondance dans la table CONSULTATION. Les lignes de la table CONSULTATION qui ont une correspondance avec la table PATIENT sont également incluses dans le résultat, basées sur la condition de jointure où les valeurs de ID\_PATIENT\_ sont égales dans les deux tables.
+\item \textbf{ORDER BY C.DATE\_CONSULTATION:} Cette clause est utilisée pour trier les résultats de la requête par ordre croissant de la colonne DATE\_CONSULTATION de la table CONSULTATION.
+\end{itemize}
+En analyse, cette requête retournera toutes les données de la table PATIENT ainsi que les données correspondantes de la table CONSULTATION, si elles existent. Si un patient n'a pas de consultation associée, les colonnes de la table CONSULTATION pour ce patient seront NULL dans le résultat. Les résultats seront triés par date de consultation dans l'ordre croissant.\newline
+\end{enumerate}
+
+\subsubsection{5 requêtes impliquant plus de 2 tables avec jointures internes dont 1 externe + 1 group by + 1 tri}
+\begin{enumerate}
+    \item 
+\begin{center}
+\begin{verbatim}
+SELECT C.*, P.*, E.* 
+FROM CONSULTATION C
+INNER JOIN PATIENT P 
+ON C.ID_PATIENT_ = P.ID_PATIENT_
+INNER JOIN EXAMEN E 
+ON C.ID_CONSULTATION_  = E.ID_CONSULTATION_;
+\end{verbatim}
+\end{center}
+Cette requête SQL Oracle est une commande SELECT qui effectue une jointure entre trois tables : "CONSULTATION" (aliasée par "C"), "PATIENT" (aliasée par "P"), et "EXAMEN" (aliasée par "E"). Voici une explication détaillée de chaque élément de la requête :
+
+\begin{itemize}
+    \item 
+     \textbf{SELECT C.*, P.*, E.* :} Cette clause spécifie les colonnes que vous souhaitez récupérer dans le résultat de la requête. Les préfixes "C.*", "P.*", et "E.*" signifient "toutes les colonnes" pour les tables "CONSULTATION", "PATIENT", et "EXAMEN", respectivement. Par conséquent, cette requête récupérera toutes les colonnes de ces trois tables.
+     \item \textbf{FROM CONSULTATION C :} "CONSULTATION" est le nom de la première table à partir de laquelle les données sont extraites. L'alias "C" est utilisé pour identifier la table "CONSULTATION" dans la requête et faciliter la référence à ses colonnes.
+     \item \textbf{INNER JOIN PATIENT P ON C.ID\_PATIENT\_ = P.ID\_PATIENT\_ :} C'est la première clause de jointure qui spécifie que nous voulons joindre la table "PATIENT" à la table "CONSULTATION". La condition de jointure "ON C.ID\_PATIENT\_ = P.ID\_PATIENT\_" indique que nous devons trouver des correspondances entre les valeurs de la colonne "ID\_PATIENT\_" de la table "CONSULTATION" et de la colonne "ID\_PATIENT\_" de la table "PATIENT".
+     \item \textbf{INNER JOIN EXAMEN E ON C.ID\_CONSULTATION\_ = E.ID\_CONSULTATION\_ :} C'est la deuxième clause de jointure qui spécifie que nous voulons joindre la table "EXAMEN" à la table "CONSULTATION". La condition de jointure "ON C.ID\_CONSULTATION\_ = E.ID\_CONSULTATION\_" indique que nous devons trouver des correspondances entre les valeurs de la colonne "ID\_CONSULTATION\_" de la table "CONSULTATION" et de la colonne "ID\_CONSULTATION\_" de la table "EXAMEN".
+\end{itemize}
+
+En résumé, cette requête récupère toutes les colonnes des tables "CONSULTATION", "PATIENT", et "EXAMEN", pour lesquelles les valeurs des colonnes "ID\_PATIENT\_" et "ID\NSULTATION\_" correspondent dans les tables respectives. Cela permet de récupérer des informations sur les consultations, les patients associés à ces consultations, ainsi que les examens réalisés pour ces consultations.\newline
+\item 
+\begin{center}
+    \begin{verbatim}
+SELECT  F.*, P.*, C.* 
+FROM FACTURE F
+INNER JOIN PATIENT P 
+ON F.ID_PATIENT_ = P.ID_PATIENT_
+INNER JOIN CONSULTATION C 
+ON F.ID_FACTURE_ = C.ID_FACTURE_;
+\end{verbatim}
+\end{center}
+Cette requête SQL Oracle est une commande SELECT qui effectue une jointure entre trois tables : "FACTURE" (aliasée par "F"), "PATIENT" (aliasée par "P"), et "CONSULTATION" (aliasée par "C"). 
+
+Voici une explication détaillée de chaque élément de la requête :
+\begin{itemize}
+    \item 
+     \textbf{SELECT F.*, P.*, C.* :} Cette clause spécifie les colonnes que vous souhaitez récupérer dans le résultat de la requête. Les préfixes "F.*", "P.*", et "C.*" signifient "toutes les colonnes" pour les tables "FACTURE", "PATIENT", et "CONSULTATION", respectivement. Par conséquent, cette requête récupérera toutes les colonnes de ces trois tables.
+
+     \item \textbf{FROM FACTURE F :} "FACTURE" est le nom de la première table à partir de laquelle les données sont extraites. L'alias "F" est utilisé pour identifier la table "FACTURE" dans la requête et faciliter la référence à ses colonnes.
+
+     \item \textbf{INNER JOIN PATIENT P ON F.ID\_PATIENT\_ = P.ID\_PATIENT\_ :} C'est la première clause de jointure qui spécifie que nous voulons joindre la table "PATIENT" à la table "FACTURE". La condition de jointure "ON F.ID\_PATIENT\_ = P.ID\_PATIENT\_" indique que nous devons trouver des correspondances entre les valeurs de la colonne "ID\_PATIENT\_" de la table "FACTURE" et de la colonne "ID\_PATIENT\_" de la table "PATIENT".
+
+     \item \textbf{INNER JOIN CONSULTATION C ON F.ID\_FACTURE\_ = C.ID\_FACTURE\_ :} C'est la deuxième clause de jointure qui spécifie que nous voulons joindre la table "CONSULTATION" à la table "FACTURE". La condition de jointure "ON F.ID\_FACTURE\_ = C.ID\_FACTURE\_" indique que nous devons trouver des correspondances entre les valeurs de la colonne "ID\_FACTURE\_" de la table "FACTURE" et de la colonne "ID\_FACTURE\_" de la table "CONSULTATION".
+\end{itemize}
+
+En résumé, cette requête récupère toutes les colonnes des tables "FACTURE", "PATIENT", et "CONSULTATION", pour lesquelles les valeurs des colonnes "ID\_PATIENT\_" et "ID\_FACTURE\_" correspondent dans les tables respectives. Cela permet de récupérer des informations sur les factures, les patients associés à ces factures, ainsi que les consultations liées à ces factures.\newline
+
+\item 
+\begin{center}
+\begin{verbatim}
+SELECT C.*,P.*,E.* 
+FROM CONSULTATION C
+INNER JOIN PATIENT P  
+ON C.ID_PATIENT_ = P.ID_PATIENT_
+INNER JOIN EXAMEN E 
+ON C.ID_CONSULTATION_  = E.ID_CONSULTATION_  
+ORDER BY C.DATE_CONSULTATION;
+\end{verbatim}
+\end{center}
+Ce code est une requête SQL qui extrait des données de trois tables différentes: CONSULTATION (C), PATIENT (P), et EXAMEN (E). Voici une explication détaillée de la requête:
+
+\begin{itemize}
+    \item \textbf{SELECT C.*, P.*, E.*:**} Cela signifie que nous voulons sélectionner toutes les colonnes de chaque table impliquée dans la requête. Cela est indiqué par C.*, P.*, et E.* où C, P, et E sont des alias pour les tables CONSULTATION, PATIENT, et EXAMEN respectivement.
+     \item \textbf{FROM CONSULTATION C INNER JOIN PATIENT P ON C.ID\_PATIENT\_ = P.ID\_PATIENT\_:**} Cette partie de la requête spécifie à partir de quelles tables les données doivent être extraites et comment ces tables sont liées. Les mots-clés "INNER JOIN" indiquent que seules les lignes ayant des correspondances dans les deux tables seront incluses dans le résultat. Dans ce cas, nous joignons la table CONSULTATION (aliasée par C) avec la table PATIENT (aliasée par P) en utilisant la condition de jointure "ON C.ID\_PATIENT\_ = P.ID\_PATIENT\_". Cela signifie que nous joignons les lignes où l'ID du patient dans la table CONSULTATION correspond à l'ID du patient dans la table PATIENT.
+     \item \textbf{INNER JOIN EXAMEN E ON C.ID\_CONSULTATION\_ = E.ID\_CONSULTATION\_:**} Cette partie ajoute une autre jointure. Nous joignons la table EXAMEN (aliasée par E) à la précédente jointure entre CONSULTATION et PATIENT. Nous utilisons également la condition de jointure "ON C.ID\_CONSULTATION\_ = E.ID\_CONSULTATION\_", ce qui signifie que nous joignons les lignes où l'ID de consultation dans la table CONSULTATION correspond à l'ID de consultation dans la table EXAMEN.
+     \item \textbf{ORDER BY C.DATE\_CONSULTATION;**} Cette partie de la requête spécifie l'ordre dans lequel les résultats doivent être triés. Ici, nous ordonnons les résultats par la colonne DATE\_CONSULTATION de la table CONSULTATION (aliasée par C), ce qui signifie que les résultats seront affichés par date croissante de consultation.
+\end{itemize}
+
+En résumé, cette requête récupère toutes les colonnes des tables CONSULTATION, PATIENT et EXAMEN, en combinant les données des trois tables en fonction des conditions de jointure spécifiées, et les trie par date de consultation.\newline
+\item 
+\begin{center}
+    \begin{verbatim}
+SELECT F.ID_PATIENT_ ,P.EMAIL,SUM(F.MONTANT_TOTAL) MONTANT_TOTAL,
+F.DATE_FACTURE, C.DATE_CONSULTATION  
+FROM FACTURE F
+INNER JOIN PATIENT P 
+ON F.ID_PATIENT_ = P.ID_PATIENT_
+INNER JOIN CONSULTATION C 
+ON F.ID_FACTURE_ = C.ID_FACTURE_ 
+GROUP BY F.ID_PATIENT_,P.EMAIL,F.DATE_FACTURE, C.DATE_CONSULTATION
+ORDER BY F.ID_PATIENT_, P.EMAIL,F.DATE_FACTURE, C.DATE_CONSULTATION;
+    \end{verbatim}
+\end{center}
+Cette requête SQL est conçue pour extraire des informations spécifiques sur les factures associées aux consultations et aux patients. Voici une explication détaillée de chaque partie de la requête :
+
+\begin{itemize}
+    \item 
+\textbf{SELECT F.ID\_PATIENT\_, P.EMAIL, SUM(F.MONTANT\_TOTAL) AS MONTANT\_TOTAL, F.DATE\_FACTURE, C.DATE\_CONSULTATION :**}
+Cette partie spécifie les colonnes que nous voulons sélectionner dans les résultats de la requête.
+  F.ID\_PATIENT\_ : Identifiant du patient associé à la facture.
+     P.EMAIL : Adresse e-mail du patient associé à la facture.
+     SUM(F.MONTANT\_TOTAL) AS MONTANT\_TOTAL : C'est une agrégation. Ici, nous calculons la somme totale des montants des factures (MONTANT\_TOTAL) associées à chaque patient. Nous utilisons la fonction SUM() pour agréger les montants des factures.
+     F.DATE\_FACTURE : Date à laquelle la facture a été émise.
+     C.DATE\_CONSULTATION : Date de la consultation associée à la facture.
+
+     \item \textbf{FROM FACTURE F INNER JOIN PATIENT P ON F.ID\_PATIENT\_ = P.ID\_PATIENT\_ INNER JOIN CONSULTATION C ON F.ID\_FACTURE\_ = C.ID\_FACTURE\_ :}
+     Cette partie spécifie les tables à partir desquelles les données sont extraites et comment elles sont liées.
+     Nous joignons les tables FACTURE (aliasée par F) et PATIENT (aliasée par P) en utilisant l'ID du patient pour trouver les correspondances entre les deux tables.
+     Ensuite, nous joignons la table FACTURE (aliasée par F) et la table CONSULTATION (aliasée par C) en utilisant l'ID de facture pour trouver les correspondances entre ces deux tables.
+
+     \item \textbf{GROUP BY F.ID\_PATIENT\_, P.EMAIL, F.DATE\_FACTURE, C.DATE\_CONSULTATION :}
+     Cette partie indique comment les résultats doivent être regroupés.
+     Nous regroupons les résultats en fonction de l'ID du patient, de l'adresse e-mail du patient, de la date de la facture et de la date de la consultation. Cela signifie que toutes les lignes ayant les mêmes valeurs pour ces colonnes seront regroupées ensemble.
+
+     \item \textbf{ORDER BY F.ID\_PATIENT\_, P.EMAIL, F.DATE\_FACTURE, C.DATE\_CONSULTATION :}
+     Cette partie spécifie l'ordre dans lequel les résultats doivent être triés.
+     Les résultats seront triés par ordre croissant d'ID du patient, d'adresse e-mail du patient, de date de facture, puis de date de consultation.
+\end{itemize}
+
+En résumé, cette requête récupère des informations sur les factures, les patients et les consultations, agrège les montants des factures par patient, et les trie par ordre croissant d'ID du patient, d'adresse e-mail du patient, de date de facture, puis de date de consultation.\newline
+
+\item
+\begin{center}
+\begin{verbatim}
+SELECT C.*,E.*,P.* 
+FROM CONSULTATION C
+INNER JOIN EXAMEN E 
+ON C.ID_CONSULTATION_  = E.ID_CONSULTATION_  
+RIGHT JOIN PATIENT P 
+ON C.ID_PATIENT_ = P.ID_PATIENT_
+ORDER BY C.DATE_CONSULTATION;
+\end{verbatim}
+\end{center}
+Cette requête SQL récupère des informations à partir des tables CONSULTATION (aliasée par C), EXAMEN (aliasée par E), et PATIENT (aliasée par P). Voici une explication détaillée de chaque partie de la requête :
+\begin{itemize}
+    \item 
+    \textbf{SELECT C.*, E.*, P.* :}
+    Cette partie spécifie les colonnes que nous voulons sélectionner dans les résultats de la requête.
+    C.* : Sélectionne toutes les colonnes de la table CONSULTATION.
+    E.* : Sélectionne toutes les colonnes de la table EXAMEN.
+    P.* : Sélectionne toutes les colonnes de la table PATIENT.
+
+    \textbf{FROM CONSULTATION C INNER JOIN EXAMEN E ON C.ID\_CONSULTATION\_ = E.ID\_CONSULTATION\_ :}
+    Cette partie spécifie les tables à partir desquelles les données sont extraites et comment elles sont liées.
+    Nous joignons la table CONSULTATION (aliasée par C) avec la table EXAMEN (aliasée par E) en utilisant l'ID de consultation pour trouver les correspondances entre les deux tables.
+
+    \textbf{RIGHT JOIN PATIENT P ON C.ID\_PATIENT\_ = P.ID\_PATIENT\_ :}
+    Cette partie effectue une jointure de type RIGHT JOIN entre la table PATIENT (aliasée par P) et le résultat de la jointure précédente (CONSULTATION et EXAMEN).
+    Cela signifie que toutes les lignes de la table PATIENT seront incluses dans le résultat final, même si elles n'ont pas de correspondance dans les tables CONSULTATION et EXAMEN. Les correspondances seront faites sur la base de l'ID du patient.
+
+    \textbf{ORDER BY C.DATE\_CONSULTATION :}
+    Cette partie spécifie l'ordre dans lequel les résultats doivent être triés.
+    Les résultats seront triés par ordre croissant de la colonne DATE\_CONSULTATION de la table CONSULTATION.
+\end{itemize}
+
+En résumé, cette requête récupère toutes les colonnes des tables CONSULTATION, EXAMEN et PATIENT, en combinant les données des tables CONSULTATION et EXAMEN en fonction de l'ID de consultation, puis joint la table PATIENT en fonction de l'ID du patient. Les résultats sont triés par date de consultation. \newline
+
+\end{enumerate}
