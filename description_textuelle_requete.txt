@@ -1,0 +1,152 @@
+I • La description textuelles des requêtes de mise à jour (2 requêtes impliquant 1 table, 2 
+requêtes impliquant 2 tables, 2 requêtes impliquant plus de 2 tables)
+
+A) 2 requêtes impliquant 1 table:
+
+    Requête 1:
+
+    Cette requête modifie la date de naissance du patient dont l'adresse mail est thomas.leclerc@email.com.
+                La nouvelle date de naissance sera 22-AUG-1986.
+                Seules les lignes correspondant à l'adresse mail spécifiée seront affectées.
+
+    Requête 2:
+    Cette requête modifie l'adresse du patient dont l'identifiant est 1.
+                La nouvelle adresse sera '90, DELMAS 75'.
+                Seule la ligne correspondant à l'identifiant spécifié sera affectée.
+
+
+B) 2 requêtes impliquant 2 tables:
+
+    Requête 1:
+
+    cette requête SQL permet de modifier la date de rendez-vous des patients dont le rendez-vous est prévu
+                entre le 14-FEB-2024 et le 18-FEB-2024 dans la table virtuelle issue de la jointure entre PATIENT 
+                et RENDEZ_VOUS. La nouvelle date de rendez-vous sera le 01-MAR-24.
+
+    Requête 2:
+
+    cette requête parcourt toutes les factures dont le montant total est inférieur à 200 et pour lesquelles
+     un patient correspondant existe. Pour chacune de ces factures, elle augmente le montant total de 10%.
+
+C)  2 requêtes impliquant plus de 2 tables
+
+    Requête 1:
+
+     cette requête met à jour la colonne DETAILS_PRESCRIPTION de la table PRESCRIPTION pour les enregistrements 
+     associés à des consultations de patients ayant un identifiant de patient égal à 1 et où la date de consultation est le 5 février 2024.
+      La nouvelle valeur de la colonne DETAILS_PRESCRIPTION sera 'Zinoboost'.
+
+    Requête 2:
+
+     cette requête met à jour la colonne `DETAILS_EXAMEN` de la table `EXAMEN` pour les enregistrements associés à des consultations
+      de patients ayant un identifiant de patient égal à 1 et où la date de consultation est le 5 février 2024. La nouvelle valeur de la colonne `DETAILS_EXAMEN` sera `'HAC1'`.
+
+
+
+ II • La description textuelles des requêtes de suppression (2 requêtes impliquant 1 table, 2 
+requêtes impliquant 2 tables, 2 requêtes impliquant plus de 2 tables)  
+
+A) 2 requêtes impliquant 1 table:
+
+    Requête 1:
+
+    cette requête supprime toutes les lignes de la table EXAMEN où la valeur de la colonne DATE_EXAMEN est égale à la date du 5 février 2024.
+
+    Requête 2:
+
+    cette requête supprime toutes les lignes de la table PRESCRIPTION où la valeur de la colonne DATE_PRESCRIPTION est égale à la date du 5 février 2024.
+
+B)   2 requêtes impliquant 2 tables: 
+
+    Requête 1:
+
+    cette requête supprime tous les rendez-vous des patients dont l'adresse e-mail est 'thomas.leclerc@email.com'.
+
+    Requête 2:
+
+    cette requête supprime tous les rendez-vous du patient dont l'identifiant est 3.
+
+C) 2  requêtes de suppression impliquant plus de 2 tables:
+
+    Requête 1:
+
+    cette requête supprime tous les examens associés à une consultation qui a eu lieu le 5 février 2024 et qui est liée à un patient dont l'identifiant est 1.
+
+    Requête 2:
+
+    cette requête supprime tous les examens associés à une consultation qui a eu lieu le 6 février 2024 et qui est liée à un patient dont l'identifiant est 2.
+
+
+III  • La description textuelles des requêtes de consultation (5 requêtes impliquant 1 table dont 1 
+avec un group By et une avec un Order By, 5 requêtes impliquant 2 tables avec jointures internes 
+dont 1 externe + 1 group by + 1 tri, 5 requêtes impliquant plus de 2 tables avec jointures internes 
+dont 1 externe + 1 group by + 1 tri)
+
+A) 5 requêtes impliquant 1 table dont 1 avec un group By et une avec un Order By:
+
+    Requête 1:
+
+    cette requête récupère toutes les informations (toutes les colonnes) stockées dans la table PATIENT, ce qui signifie qu'elle retournera toutes les lignes de cette table.
+
+    Requête 2:
+
+    cette requête récupère toutes les informations (toutes les colonnes) stockées dans la table CONSULTATION, ce qui signifie qu'elle retournera toutes les lignes de cette table.
+
+    Requête 3:
+
+    cette requête retournera le nombre de lignes pour chaque valeur unique de la colonne "DETAILS_EXAMEN" de la table "EXAMEN".
+
+    Requête 4:
+
+    cette requête retournera le nombre de lignes pour chaque valeur unique de la colonne "DETAILS_EXAMEN" de la table "EXAMEN".
+    
+    Requête 5:
+
+    cette requête retournera le nombre de factures (COUNT(*)) et la somme des montants totaux (SUM(MONTANT_TOTAL)) pour chaque patient (ID_PATIENT_), avec les résultats triés par ID_PATIENT_ dans l'ordre croissant.
+
+B) 5 requêtes impliquant 2 tables avec jointures internes dont 1 externe + 1 group by + 1 tri:
+
+    Requête 1:
+
+    cette requête récupère toutes les colonnes des tables CONSULTATION et PATIENT pour lesquelles les valeurs de la colonne ID_PATIENT_ correspondent dans les deux tables. Cela permet de récupérer des informations sur les consultations ainsi que sur les patients associés à ces consultations.
+
+    Requête 2:
+
+    cette requête récupère toutes les colonnes des tables FACTURE et PATIENT pour lesquelles les valeurs de la colonne ID_PATIENT_ correspondent dans les deux tables. Cela permet de récupérer des informations sur les factures ainsi que sur les patients associés à ces factures.
+
+    Requête 3:
+
+    cette requête récupérera toutes les données des consultations (avec leurs patients correspondants) et les ordonnera par date de consultation. Cela peut être utile pour obtenir une liste chronologique des consultations et des détails des patients associés à chacune d'elles.
+
+    Requête 4:
+
+    cette requête récupère la somme totale des montants des factures pour chaque patient, en les groupant par ID_PATIENT_ et EMAIL. Cela peut être utile pour obtenir une vue consolidée des montants facturés à chaque patient.
+
+    Requête 5:
+
+    cette requête retournera toutes les données de la table PATIENT ainsi que les données correspondantes de la table CONSULTATION, si elles existent. Si un patient n'a pas de consultation associée, les colonnes de la table CONSULTATION pour ce patient seront NULL dans le résultat. Les résultats seront triés par date de consultation dans l'ordre croissant.
+
+C)   5 requêtes impliquant plus de 2 tables avec jointures internes dont 1 externe + 1 group by + 1 tri:
+
+    Requête 1:
+
+    cette requête récupère toutes les colonnes des tables "CONSULTATION", "PATIENT", et "EXAMEN", pour lesquelles les valeurs des colonnes "ID_PATIENT_" et "ID_CONSULTATION_" correspondent dans les tables respectives. Cela permet de récupérer des informations sur les consultations, les patients associés à ces consultations, ainsi que les examens réalisés pour ces consultations.
+
+    Requête 2:
+
+    cette requête récupère toutes les colonnes des tables "FACTURE", "PATIENT", et "CONSULTATION", pour lesquelles les valeurs des colonnes "ID_PATIENT_" et "ID_FACTURE_" correspondent dans les tables respectives. Cela permet de récupérer des informations sur les factures, les patients associés à ces factures, ainsi que les consultations liées à ces factures.
+
+    Requête 3:
+
+    cette requête récupère toutes les colonnes des tables CONSULTATION, PATIENT et EXAMEN, en combinant les données des trois tables en fonction des conditions de jointure spécifiées, et les trie par date de consultation.
+
+    Requête 4:
+
+    cette requête récupère des informations sur les factures, les patients et les consultations, agrège les montants des factures par patient, et les trie par ordre croissant d'ID du patient, d'adresse e-mail du patient, de date de facture, puis de date de consultation.
+
+    Requête 5:
+
+    cette requête récupère toutes les colonnes des tables CONSULTATION, EXAMEN et PATIENT, en combinant les données des tables CONSULTATION et EXAMEN en fonction de l'ID de consultation, puis joint la table PATIENT en fonction de l'ID du patient. Les résultats sont triés par date de consultation.
+
+
+
