@@ -77,13 +77,11 @@ AS
                      p_telephone,
                      p_email);
 
-        COMMIT;
         RETURN 'Insertion Reussie';
     EXCEPTION
         WHEN OTHERS
         THEN
-            DBMS_OUTPUT.PUTLINE (
-                   'Erreur au niveau de la function MEDECIN_INSERER: '
+            RETURN ( 'Erreur au niveau de la function MEDECIN_INSERER: '
                 || SQLCODE
                 || '-'
                 || SQLERRM);
@@ -125,6 +123,15 @@ AS
             RAISE NO_DATA_FOUND;
         END IF;
 
+        -- Supprimer les rendez-vous associ?es au m?decin
+        DELETE FROM RENDEZ_VOUS 
+              WHERE ID_MEDECIN_ = p_id_medecin;
+
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+        
         -- Supprimer le m?decin lui-m?me
         DELETE FROM MEDECIN
               WHERE ID_MEDECIN_ = p_id_medecin;
@@ -160,7 +167,7 @@ AS
            SET SPECIALITE = p_specialite
          WHERE ID_MEDECIN_ = p_id_medecin;
 
-        IF SQL%ROWCOUNT
+        IF SQL%ROWCOUNT = 0
         THEN
             RAISE NO_DATA_FOUND;
         END IF;
@@ -320,23 +327,23 @@ BEGIN
     v_resultat :=
         PK_MEDECIN.MEDECIN_INSERER (p_id_medecin       => 30,
                                     p_nom_medecin      => 'Nom',
-                                    p_prenom_medecin   => 'Prénom',
-                                    p_specialite       => 'Spécialité',
+                                    p_prenom_medecin   => 'Prï¿½nom',
+                                    p_specialite       => 'Spï¿½cialitï¿½',
                                     p_telephone        => '12345678',
                                     p_email            => 'email@example.com');
-    DBMS_OUTPUT.PUT_LINE ('Résultat de MEDECIN_INSERER : ' || v_resultat);
+    DBMS_OUTPUT.PUT_LINE ('Rï¿½sultat de MEDECIN_INSERER : ' || v_resultat);
 
     -- Test de la fonction MEDECIN_SUPPRIMER
     v_resultat := PK_MEDECIN.MEDECIN_SUPPRIMER (p_id_medecin => 1);
-    DBMS_OUTPUT.PUT_LINE ('Résultat de MEDECIN_SUPPRIMER : ' || v_resultat);
+    DBMS_OUTPUT.PUT_LINE ('Rï¿½sultat de MEDECIN_SUPPRIMER : ' || v_resultat);
 
     -- Test de la fonction MEDECIN_MODIFIER_SPECIALITE
     v_resultat :=
         PK_MEDECIN.MEDECIN_MODIFIER_SPECIALITE (
             p_id_medecin   => 30,
-            p_specialite   => 'Nouvelle spécialité');
+            p_specialite   => 'Nouvelle spï¿½cialitï¿½');
     DBMS_OUTPUT.PUT_LINE (
-        'Résultat de MEDECIN_MODIFIER_SPECIALITE : ' || v_resultat);
+        'Rï¿½sultat de MEDECIN_MODIFIER_SPECIALITE : ' || v_resultat);
 
     -- Test de la fonction MEDECIN_MODIFIER_CONTACT
     v_resultat :=
@@ -345,26 +352,26 @@ BEGIN
             p_nouveau_telephone   => '87654321',
             p_nouvel_email        => 'new_email@example.com');
     DBMS_OUTPUT.PUT_LINE (
-        'Résultat de MEDECIN_MODIFIER_CONTACT : ' || v_resultat);
+        'Rï¿½sultat de MEDECIN_MODIFIER_CONTACT : ' || v_resultat);
 
     -- Test de la fonction MEDECIN_LISTER_ALL
     v_cursor := PK_MEDECIN.MEDECIN_LISTER_ALL;
 
-    -- Parcourir et afficher les résultats du curseur
+    -- Parcourir et afficher les rï¿½sultats du curseur
     LOOP
         FETCH v_cursor INTO c_medecin;
 
         EXIT WHEN v_cursor%NOTFOUND;
         DBMS_OUTPUT.PUT_LINE (
-               'ID Médecin : '
+               'ID Mï¿½decin : '
             || c_medecin.id_medecin_
             || ', Nom : '
             || c_medecin.nom
-            || ', Prénom : '
+            || ', Prï¿½nom : '
             || c_medecin.prenom
-            || ', Spécialité : '
+            || ', Spï¿½cialitï¿½ : '
             || c_medecin.specialite
-            || ', Téléphone : '
+            || ', Tï¿½lï¿½phone : '
             || c_medecin.telephone
             || ', Email : '
             || c_medecin.email);
@@ -374,7 +381,7 @@ BEGIN
 
     -- Test de la fonction MEDECIN_TOTAL
     v_total := PK_MEDECIN.MEDECIN_TOTAL;
-    DBMS_OUTPUT.PUT_LINE ('Total des médecins : ' || v_total);
+    DBMS_OUTPUT.PUT_LINE ('Total des mï¿½decins : ' || v_total);
 
     -- Test de la fonction LISTE_PATIENT_CONSULTER_MEDECIN_JOUR
     v_cursor :=
@@ -382,7 +389,7 @@ BEGIN
             P_ID_MEDECIN   => 2,
             P_DATE         => TO_DATE ('05/02/2024', 'DD/MM/YYYY'));
 
-    -- Parcourir et afficher les résultats du curseur
+    -- Parcourir et afficher les rï¿½sultats du curseur
     LOOP
         FETCH v_cursor INTO v_nom_patient, v_prenom_patient, v_email_patient;
 
@@ -390,7 +397,7 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE (
                'Nom Patient : '
             || v_nom_patient
-            || ', Prénom Patient : '
+            || ', Prï¿½nom Patient : '
             || v_prenom_patient
             || ', Email Patient : '
             || v_email_patient);
@@ -403,7 +410,7 @@ BEGIN
         PK_MEDECIN.NBRE_CONSULTATION_MEDECIN_JOUR (
             P_DATE   => TO_DATE ('07/02/2024', 'DD/MM/YYYY'));
 
-    -- Parcourir et afficher les résultats du curseur
+    -- Parcourir et afficher les rï¿½sultats du curseur
     LOOP
         FETCH v_cursor
             INTO v_nom_medecin,
@@ -413,11 +420,11 @@ BEGIN
 
         EXIT WHEN v_cursor%NOTFOUND;
         DBMS_OUTPUT.PUT_LINE (
-               'Nom Médecin : '
+               'Nom Mï¿½decin : '
             || v_nom_medecin
-            || ', Prénom Médecin : '
+            || ', Prï¿½nom Mï¿½decin : '
             || v_prenom_medecin
-            || ', Spécialité Médecin : '
+            || ', Spï¿½cialitï¿½ Mï¿½decin : '
             || v_specialite_medecin
             || ', Nombre de consultations : '
             || v_nbr_consultation);
@@ -430,13 +437,13 @@ BEGIN
         PK_MEDECIN.NBRE_CONSULTATION_SPECIALITE_JOUR (
             P_DATE   => TO_DATE ('08/02/2024', 'DD/MM/YYYY'));
 
-    -- Parcourir et afficher les résultats du curseur
+    -- Parcourir et afficher les rï¿½sultats du curseur
     LOOP
         FETCH v_cursor INTO v_specialite_medecin, v_nbr_consultation;
 
         EXIT WHEN v_cursor%NOTFOUND;
         DBMS_OUTPUT.PUT_LINE (
-               'Spécialité Médecin : '
+               'Spï¿½cialitï¿½ Mï¿½decin : '
             || v_specialite_medecin
             || ', Nombre de consultations : '
             || v_nbr_consultation);
@@ -535,7 +542,7 @@ AS
             RAISE BAD_ID_FACTURE;
         END IF;
 
-        -- Insérez les données dans la table
+        -- Insï¿½rez les donnï¿½es dans la table
         INSERT INTO consultation (ID_CONSULTATION_,
                                   ID_FACTURE_,
                                   ID_MEDECIN_,
@@ -619,7 +626,7 @@ AS
         RETURN VARCHAR2
     AS
     BEGIN
-        -- Modifier la date de consultation pour l'ID de consultation spécifié
+        -- Modifier la date de consultation pour l'ID de consultation spï¿½cifiï¿½
         UPDATE consultation
            SET DATE_CONSULTATION = p_nouvelle_date
          WHERE ID_CONSULTATION_ = p_id_consultation;
@@ -658,11 +665,11 @@ AS
 
         IF IS_PATIENT_EXIST = 0
         THEN
-            --on lève l’exception
+            --on lï¿½ve lï¿½exception
             RAISE BAD_ID_PATIENT;
         END IF;
 
-        -- Modifier l'ID du patient pour l'ID de consultation spécifié
+        -- Modifier l'ID du patient pour l'ID de consultation spï¿½cifiï¿½
         UPDATE consultation
            SET ID_PATIENT_ = p_id_patient
          WHERE ID_CONSULTATION_ = p_id_consultation;
@@ -713,7 +720,7 @@ DECLARE
     C_CONSULTATION_REF   SYS_REFCURSOR;
     C_CONSULTATION       CONSULTATION%ROWTYPE;
 BEGIN
-    -- Test de la fonction CONSULTATION_INSERER avec des données valides
+    -- Test de la fonction CONSULTATION_INSERER avec des donnï¿½es valides
     v_resultat :=
         PK_CONSULTATION.CONSULTATION_INSERER (
             P_ID_CONSULTATION     => 31,
@@ -722,7 +729,7 @@ BEGIN
             P_ID_PATIENT          => 1,
             P_DATE_CONSULTATION   => SYSDATE);
     DBMS_OUTPUT.PUT_LINE (
-           'Résultat de CONSULTATION_INSERER avec des données valides : '
+           'Rï¿½sultat de CONSULTATION_INSERER avec des donnï¿½es valides : '
         || v_resultat);
 
     -- Test de la fonction CONSULTATION_INSERER avec un ID de patient invalide
@@ -734,14 +741,14 @@ BEGIN
             P_ID_PATIENT          => 100,
             P_DATE_CONSULTATION   => SYSDATE);
     DBMS_OUTPUT.PUT_LINE (
-           'Résultat de CONSULTATION_INSERER avec un ID de patient invalide : '
+           'Rï¿½sultat de CONSULTATION_INSERER avec un ID de patient invalide : '
         || v_resultat);
 
     -- Test de la fonction CONSULTATION_SUPPRIMER
     v_resultat :=
         PK_CONSULTATION.CONSULTATION_SUPPRIMER (p_id_consultation => 2);
     DBMS_OUTPUT.PUT_LINE (
-        'Résultat de CONSULTATION_SUPPRIMER : ' || v_resultat);
+        'Rï¿½sultat de CONSULTATION_SUPPRIMER : ' || v_resultat);
 
     -- Test de la fonction CONSULTATION_MODIFIER_DATE
     v_resultat :=
@@ -749,7 +756,7 @@ BEGIN
             p_id_consultation   => 3,
             p_nouvelle_date     => SYSDATE);
     DBMS_OUTPUT.PUT_LINE (
-        'Résultat de CONSULTATION_MODIFIER_DATE : ' || v_resultat);
+        'Rï¿½sultat de CONSULTATION_MODIFIER_DATE : ' || v_resultat);
 
     -- Test de la fonction CONSULTATION_MODIFIER_PATIENT valide
     v_resultat :=
@@ -757,7 +764,7 @@ BEGIN
             p_id_consultation   => 3,
             p_id_patient        => 3);
     DBMS_OUTPUT.PUT_LINE (
-           'Résultat de CONSULTATION_MODIFIER_PATIENT avec un ID de patient valide : '
+           'Rï¿½sultat de CONSULTATION_MODIFIER_PATIENT avec un ID de patient valide : '
         || v_resultat);
 
     -- Test de la fonction CONSULTATION_MODIFIER_PATIENT avec un ID de patient invalide
@@ -766,7 +773,7 @@ BEGIN
             p_id_consultation   => 2,
             p_id_patient        => 1000);
     DBMS_OUTPUT.PUT_LINE (
-           'Résultat de CONSULTATION_MODIFIER_PATIENT avec un ID de patient invalide : '
+           'Rï¿½sultat de CONSULTATION_MODIFIER_PATIENT avec un ID de patient invalide : '
         || v_resultat);
 
     -- Test de la fonction CONSULTATION_MODIFIER_PATIENT avec un ID de consultation invalide
@@ -775,13 +782,13 @@ BEGIN
             p_id_consultation   => 200,
             p_id_patient        => 1);
     DBMS_OUTPUT.PUT_LINE (
-           'Résultat de CONSULTATION_MODIFIER_PATIENT avec un ID de consultation invalide : '
+           'Rï¿½sultat de CONSULTATION_MODIFIER_PATIENT avec un ID de consultation invalide : '
         || v_resultat);
 
     -- Test de la fonction CONSULTATION_LISTER
     C_CONSULTATION_REF := PK_CONSULTATION.CONSULTATION_LISTER (1);
 
-    -- Parcourir et afficher les résultats du curseur
+    -- Parcourir et afficher les rï¿½sultats du curseur
     LOOP
         FETCH C_CONSULTATION_REF INTO C_CONSULTATION;
 
@@ -791,7 +798,7 @@ BEGIN
             || C_CONSULTATION.ID_CONSULTATION_
             || ', ID Facture : '
             || C_CONSULTATION.ID_FACTURE_
-            || ', ID Médecin : '
+            || ', ID Mï¿½decin : '
             || C_CONSULTATION.ID_MEDECIN_
             || ', ID Patient : '
             || C_CONSULTATION.ID_PATIENT_
@@ -921,15 +928,15 @@ END;
 DECLARE
     v_count   NUMBER;
 BEGIN
-    -- Tester l'insertion d'un rendez-vous pour un même patient, médecin et date
+    -- Tester l'insertion d'un rendez-vous pour un mï¿½me patient, mï¿½decin et date
     INSERT INTO RENDEZ_VOUS (ID_PATIENT_, ID_MEDECIN_, DATE_RENDEZ_VOUS)
          VALUES (1, 1, TO_DATE ('10/02/2024', 'DD/MM/YYYY'));
 EXCEPTION
     WHEN OTHERS
     THEN
-        -- Capturer l'erreur levée par le trigger et l'afficher
+        -- Capturer l'erreur levï¿½e par le trigger et l'afficher
         DBMS_OUTPUT.PUT_LINE ('Erreur : ' || SQLERRM);
-        -- Rollback pour annuler les modifications effectuées pendant le test
+        -- Rollback pour annuler les modifications effectuï¿½es pendant le test
         ROLLBACK;
 END;
 /
@@ -940,7 +947,7 @@ END;
 DECLARE
     v_count   NUMBER;
 BEGIN
-    -- Insérer une facture
+    -- Insï¿½rer une facture
     INSERT INTO FACTURE (ID_FACTURE_,
                          ID_PATIENT_,
                          MONTANT_TOTAL,
@@ -950,7 +957,7 @@ BEGIN
                  100.00,
                  SYSDATE);
 
-    -- Mettre à jour le montant total de la facture
+    -- Mettre ï¿½ jour le montant total de la facture
     UPDATE FACTURE
        SET MONTANT_TOTAL = 150.00
      WHERE ID_FACTURE_ = 30;
@@ -961,16 +968,16 @@ BEGIN
 EXCEPTION
     WHEN OTHERS
     THEN
-        -- Capturer l'erreur levée par le trigger et l'afficher
+        -- Capturer l'erreur levï¿½e par le trigger et l'afficher
         DBMS_OUTPUT.PUT_LINE ('Erreur : ' || SQLERRM);
-        -- Rollback pour annuler les modifications effectuées pendant le test
+        -- Rollback pour annuler les modifications effectuï¿½es pendant le test
         ROLLBACK;
 END;
 /
 
 /*<TOAD_FILE_CHUNK>*/
--- Vérification des données dans la table HISTORIQUE_FACTURE après les opérations
--- Assurez-vous de vérifier la table HISTORIQUE_FACTURE pour voir les entrées de journalisation insérées par les déclencheurs
+-- Vï¿½rification des donnï¿½es dans la table HISTORIQUE_FACTURE aprï¿½s les opï¿½rations
+-- Assurez-vous de vï¿½rifier la table HISTORIQUE_FACTURE pour voir les entrï¿½es de journalisation insï¿½rï¿½es par les dï¿½clencheurs
 SELECT * FROM HISTORIQUE_FACTURE;
 
 /********************************** END TESTS TRIGGERS *************************************************/
