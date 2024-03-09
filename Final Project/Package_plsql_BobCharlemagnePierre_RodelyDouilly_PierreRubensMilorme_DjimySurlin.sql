@@ -1,8 +1,10 @@
-/* Formatted on 27/02/2024 21:35:17 (QP5 v5.360) */
+/*<TOAD_FILE_CHUNK>*/
+/* Formatted on 03/03/2024 13:16:35 (QP5 v5.360) */
 /********************************** PACKAGE SPECIFICATION PK_MEDECIN *************************************************/
+
 CREATE OR REPLACE PACKAGE PK_MEDECIN
 AS
-    -- Dï¿½claration de la fonction AInserer pour insï¿½rer des donnï¿½es dans la table MEDECIN
+    -- D?claration de la fonction AInserer pour ins?rer des donn?es dans la table MEDECIN
     FUNCTION MEDECIN_INSERER (p_id_medecin       IN INTEGER,
                               p_nom_medecin      IN VARCHAR2,
                               p_prenom_medecin   IN VARCHAR2,
@@ -47,8 +49,9 @@ AS
         RETURN SYS_REFCURSOR;
 END;
 
-/* Formatted on 28/02/2024 11:57:56 (QP5 v5.360) */
+
 /********************************** PACKAGE BODY PK_MEDECIN *************************************************/
+
 CREATE OR REPLACE PACKAGE BODY PK_MEDECIN
 AS
     FUNCTION MEDECIN_INSERER (p_id_medecin       IN INTEGER,
@@ -60,7 +63,7 @@ AS
         RETURN VARCHAR2
     AS
     BEGIN
-        -- Insertion des donnï¿½es dans la table MEDECIN en utilisant les paramï¿½tres passï¿½s
+        -- Insertion des donn?es dans la table MEDECIN en utilisant les param?tres pass?s
         INSERT INTO MEDECIN (ID_MEDECIN_,
                              NOM,
                              PRENOM,
@@ -76,6 +79,14 @@ AS
 
         COMMIT;
         RETURN 'Insertion Reussie';
+    EXCEPTION
+        WHEN OTHERS
+        THEN
+            DBMS_OUTPUT.PUTLINE (
+                   'Erreur au niveau de la function MEDECIN_INSERER: '
+                || SQLCODE
+                || '-'
+                || SQLERRM);
     END MEDECIN_INSERER;
 
     -- FUNCTION SUPPRIMER
@@ -83,29 +94,48 @@ AS
         RETURN VARCHAR2
     AS
     BEGIN
-
         -- Supprimer les EXAMENS associEes au CONSULTATION
         DELETE FROM EXAMEN
-              WHERE ID_CONSULTATION_  IN (SELECT ID_CONSULTATION_
-                                          FROM CONSULTATION
-                                         WHERE ID_MEDECIN_  = p_id_medecin);
-                                         
+              WHERE ID_CONSULTATION_ IN (SELECT ID_CONSULTATION_
+                                           FROM CONSULTATION
+                                          WHERE ID_MEDECIN_ = p_id_medecin);
+
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
         -- Supprimer les PRESCIPTIONS associEes au CONSULTATION
         DELETE FROM PRESCRIPTION
-              WHERE ID_CONSULTATION_  IN (SELECT ID_CONSULTATION_
-                                          FROM CONSULTATION
-                                         WHERE ID_MEDECIN_  = p_id_medecin); 
+              WHERE ID_CONSULTATION_ IN (SELECT ID_CONSULTATION_
+                                           FROM CONSULTATION
+                                          WHERE ID_MEDECIN_ = p_id_medecin);
 
-        -- Supprimer les consultations associï¿½es au mï¿½decin
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
+        -- Supprimer les consultations associ?es au m?decin
         DELETE FROM CONSULTATION
               WHERE ID_MEDECIN_ = p_id_medecin;
 
-        -- Supprimer le mï¿½decin lui-mï¿½me
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
+        -- Supprimer le m?decin lui-m?me
         DELETE FROM MEDECIN
               WHERE ID_MEDECIN_ = p_id_medecin;
 
-        -- Retourner un message indiquant que la suppression a ï¿½tï¿½ effectuï¿½e
-        RETURN 'Le mï¿½decin et les consultations associï¿½es ont ï¿½tï¿½ supprimï¿½s avec succï¿½s.';
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
+        -- Retourner un message indiquant que la suppression a ?t? effectu?e
+        RETURN 'Le m?decin et les consultations associ?es ont ?t? supprim?s avec succ?s.';
     EXCEPTION
         WHEN NO_DATA_FOUND
         THEN
@@ -113,7 +143,7 @@ AS
         WHEN OTHERS
         THEN
             -- En cas d'erreur, retourner un message d'erreur
-            RETURN    'Une erreur s''est produite : '
+            RETURN    'Erreur au niveau de la function MEDECIN_SUPPRIMER: '
                    || SQLCODE
                    || '-'
                    || SQLERRM;
@@ -130,6 +160,11 @@ AS
            SET SPECIALITE = p_specialite
          WHERE ID_MEDECIN_ = p_id_medecin;
 
+        IF SQL%ROWCOUNT
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
         RETURN 'SUCCES';
     EXCEPTION
         WHEN NO_DATA_FOUND
@@ -137,7 +172,7 @@ AS
             RETURN ' Medecin ' || p_id_medecin || ' n''existe pas';
         WHEN OTHERS
         THEN
-            RETURN    'Une erreur s''est produite : '
+            RETURN    'Erreur au niveau de la function MEDECIN_MODIFIER_SPECIALITE : '
                    || SQLCODE
                    || '-'
                    || SQLERRM;
@@ -154,6 +189,11 @@ AS
            SET TELEPHONE = p_nouveau_telephone, EMAIL = p_nouvel_email
          WHERE ID_MEDECIN_ = p_id_medecin;
 
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
         RETURN 'Mdification Reussie';
     EXCEPTION
         WHEN NO_DATA_FOUND
@@ -162,7 +202,7 @@ AS
         WHEN OTHERS
         THEN
             -- En cas d'erreur, retourner un message d'erreur
-            RETURN    'Une erreur s''est produite : '
+            RETURN    'Erreur au de la function MEDECIN_MODIFIER_CONTACT : '
                    || SQLCODE
                    || '-'
                    || SQLERRM;
@@ -255,7 +295,7 @@ END PK_MEDECIN;
 
 /********************************** TEST PACKAGE  PK_MEDECIN *************************************************/
 
-/* Formatted on 28/02/2024 13:03:35 (QP5 v5.360) */
+
 SET SERVEROUTPUT ON SIZE UNLIMITED
 
 DECLARE
@@ -278,50 +318,53 @@ BEGIN
 
     -- Test de la fonction MEDECIN_INSERER
     v_resultat :=
-        PK_MEDECIN.MEDECIN_INSERER (30,
-                                    'Nom',
-                                    'PrÃ©nom',
-                                    'SpÃ©cialitÃ©',
-                                    '12345678',
-                                    'email@example.com');
-    DBMS_OUTPUT.PUT_LINE ('RÃ©sultat de MEDECIN_INSERER : ' || v_resultat);
+        PK_MEDECIN.MEDECIN_INSERER (p_id_medecin       => 30,
+                                    p_nom_medecin      => 'Nom',
+                                    p_prenom_medecin   => 'Prénom',
+                                    p_specialite       => 'Spécialité',
+                                    p_telephone        => '12345678',
+                                    p_email            => 'email@example.com');
+    DBMS_OUTPUT.PUT_LINE ('Résultat de MEDECIN_INSERER : ' || v_resultat);
 
     -- Test de la fonction MEDECIN_SUPPRIMER
-    v_resultat := PK_MEDECIN.MEDECIN_SUPPRIMER (1);
-    DBMS_OUTPUT.PUT_LINE ('RÃ©sultat de MEDECIN_SUPPRIMER : ' || v_resultat);
+    v_resultat := PK_MEDECIN.MEDECIN_SUPPRIMER (p_id_medecin => 1);
+    DBMS_OUTPUT.PUT_LINE ('Résultat de MEDECIN_SUPPRIMER : ' || v_resultat);
 
     -- Test de la fonction MEDECIN_MODIFIER_SPECIALITE
     v_resultat :=
-        PK_MEDECIN.MEDECIN_MODIFIER_SPECIALITE (30, 'Nouvelle spÃ©cialitÃ©');
+        PK_MEDECIN.MEDECIN_MODIFIER_SPECIALITE (
+            p_id_medecin   => 30,
+            p_specialite   => 'Nouvelle spécialité');
     DBMS_OUTPUT.PUT_LINE (
-        'RÃ©sultat de MEDECIN_MODIFIER_SPECIALITE : ' || v_resultat);
+        'Résultat de MEDECIN_MODIFIER_SPECIALITE : ' || v_resultat);
 
     -- Test de la fonction MEDECIN_MODIFIER_CONTACT
     v_resultat :=
-        PK_MEDECIN.MEDECIN_MODIFIER_CONTACT (15,
-                                             '87654321',
-                                             'new_email@example.com');
+        PK_MEDECIN.MEDECIN_MODIFIER_CONTACT (
+            p_id_medecin          => 15,
+            p_nouveau_telephone   => '87654321',
+            p_nouvel_email        => 'new_email@example.com');
     DBMS_OUTPUT.PUT_LINE (
-        'RÃ©sultat de MEDECIN_MODIFIER_CONTACT : ' || v_resultat);
+        'Résultat de MEDECIN_MODIFIER_CONTACT : ' || v_resultat);
 
     -- Test de la fonction MEDECIN_LISTER_ALL
     v_cursor := PK_MEDECIN.MEDECIN_LISTER_ALL;
 
-    -- Parcourir et afficher les rÃ©sultats du curseur
+    -- Parcourir et afficher les résultats du curseur
     LOOP
         FETCH v_cursor INTO c_medecin;
 
         EXIT WHEN v_cursor%NOTFOUND;
         DBMS_OUTPUT.PUT_LINE (
-               'ID MÃ©decin : '
+               'ID Médecin : '
             || c_medecin.id_medecin_
             || ', Nom : '
             || c_medecin.nom
-            || ', PrÃ©nom : '
+            || ', Prénom : '
             || c_medecin.prenom
-            || ', SpÃ©cialitÃ© : '
+            || ', Spécialité : '
             || c_medecin.specialite
-            || ', TÃ©lÃ©phone : '
+            || ', Téléphone : '
             || c_medecin.telephone
             || ', Email : '
             || c_medecin.email);
@@ -331,15 +374,15 @@ BEGIN
 
     -- Test de la fonction MEDECIN_TOTAL
     v_total := PK_MEDECIN.MEDECIN_TOTAL;
-    DBMS_OUTPUT.PUT_LINE ('Total des mÃ©decins : ' || v_total);
+    DBMS_OUTPUT.PUT_LINE ('Total des médecins : ' || v_total);
 
     -- Test de la fonction LISTE_PATIENT_CONSULTER_MEDECIN_JOUR
     v_cursor :=
         PK_MEDECIN.LISTE_PATIENT_CONSULTER_MEDECIN_JOUR (
-            2,
-            TO_DATE ('05/02/2024', 'DD/MM/YYYY'));
+            P_ID_MEDECIN   => 2,
+            P_DATE         => TO_DATE ('05/02/2024', 'DD/MM/YYYY'));
 
-    -- Parcourir et afficher les rÃ©sultats du curseur
+    -- Parcourir et afficher les résultats du curseur
     LOOP
         FETCH v_cursor INTO v_nom_patient, v_prenom_patient, v_email_patient;
 
@@ -347,7 +390,7 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE (
                'Nom Patient : '
             || v_nom_patient
-            || ', PrÃ©nom Patient : '
+            || ', Prénom Patient : '
             || v_prenom_patient
             || ', Email Patient : '
             || v_email_patient);
@@ -358,9 +401,9 @@ BEGIN
     -- Test de la fonction NBRE_CONSULTATION_MEDECIN_JOUR
     v_cursor :=
         PK_MEDECIN.NBRE_CONSULTATION_MEDECIN_JOUR (
-            TO_DATE ('07/02/2024', 'DD/MM/YYYY'));
+            P_DATE   => TO_DATE ('07/02/2024', 'DD/MM/YYYY'));
 
-    -- Parcourir et afficher les rÃ©sultats du curseur
+    -- Parcourir et afficher les résultats du curseur
     LOOP
         FETCH v_cursor
             INTO v_nom_medecin,
@@ -370,11 +413,11 @@ BEGIN
 
         EXIT WHEN v_cursor%NOTFOUND;
         DBMS_OUTPUT.PUT_LINE (
-               'Nom MÃ©decin : '
+               'Nom Médecin : '
             || v_nom_medecin
-            || ', PrÃ©nom MÃ©decin : '
+            || ', Prénom Médecin : '
             || v_prenom_medecin
-            || ', SpÃ©cialitÃ© MÃ©decin : '
+            || ', Spécialité Médecin : '
             || v_specialite_medecin
             || ', Nombre de consultations : '
             || v_nbr_consultation);
@@ -385,15 +428,15 @@ BEGIN
     -- Test de la fonction NBRE_CONSULTATION_SPECIALITE_JOUR
     v_cursor :=
         PK_MEDECIN.NBRE_CONSULTATION_SPECIALITE_JOUR (
-            TO_DATE ('08/02/2024', 'DD/MM/YYYY'));
+            P_DATE   => TO_DATE ('08/02/2024', 'DD/MM/YYYY'));
 
-    -- Parcourir et afficher les rÃ©sultats du curseur
+    -- Parcourir et afficher les résultats du curseur
     LOOP
         FETCH v_cursor INTO v_specialite_medecin, v_nbr_consultation;
 
         EXIT WHEN v_cursor%NOTFOUND;
         DBMS_OUTPUT.PUT_LINE (
-               'SpÃ©cialitÃ© MÃ©decin : '
+               'Spécialité Médecin : '
             || v_specialite_medecin
             || ', Nombre de consultations : '
             || v_nbr_consultation);
@@ -405,11 +448,378 @@ END;
 /****************************** END TEST PACKAGE PK_MEDECIN *************************************************/
 
 
+/****************************** PACKAGE SPECIFICATION PK_CONSULTATION *************************************************/
+
+
+CREATE OR REPLACE PACKAGE PK_CONSULTATION
+AS
+    FUNCTION CONSULTATION_INSERER (
+        P_ID_CONSULTATION     IN consultation.ID_CONSULTATION_%TYPE,
+        p_id_facture          IN consultation.ID_FACTURE_%TYPE,
+        p_id_medecin          IN consultation.ID_MEDECIN_%TYPE,
+        p_id_patient          IN consultation.ID_PATIENT_%TYPE,
+        p_date_consultation   IN consultation.DATE_CONSULTATION%TYPE)
+        RETURN VARCHAR2;
+
+    FUNCTION CONSULTATION_SUPPRIMER (
+        p_id_consultation   IN consultation.ID_CONSULTATION_%TYPE)
+        RETURN VARCHAR2;
+
+    FUNCTION CONSULTATION_MODIFIER_DATE (
+        p_id_consultation   IN consultation.ID_CONSULTATION_%TYPE,
+        p_nouvelle_date     IN consultation.DATE_CONSULTATION%TYPE)
+        RETURN VARCHAR2;
+
+    FUNCTION CONSULTATION_MODIFIER_PATIENT (
+        p_id_consultation   IN consultation.ID_CONSULTATION_%TYPE,
+        p_id_patient        IN consultation.ID_PATIENT_%TYPE)
+        RETURN VARCHAR2;
+
+    FUNCTION CONSULTATION_LISTER (p_id_medecin IN medecin.ID_MEDECIN_%TYPE)
+        RETURN SYS_REFCURSOR;
+END PK_CONSULTATION;
+
+/****************************** END PACKAGE SPECIFICATION PK_CONSULTATION *************************************************/
+
+
+/****************************** PACKAGE BODY PK_CONSULTATION *************************************************/
+
+
+CREATE OR REPLACE PACKAGE BODY PK_CONSULTATION
+AS
+    FUNCTION CONSULTATION_INSERER (
+        P_ID_CONSULTATION     IN consultation.ID_CONSULTATION_%TYPE,
+        p_id_facture          IN consultation.ID_FACTURE_%TYPE,
+        p_id_medecin          IN consultation.ID_MEDECIN_%TYPE,
+        p_id_patient          IN consultation.ID_PATIENT_%TYPE,
+        p_date_consultation   IN consultation.DATE_CONSULTATION%TYPE)
+        RETURN VARCHAR2
+    AS
+        BAD_ID_PATIENT     EXCEPTION;
+        BAD_ID_MEDECIN     EXCEPTION;
+        BAD_ID_FACTURE     EXCEPTION;
+        IS_PATIENT_EXIST   NUMBER;
+        IS_MEDECIN_EXIST   NUMBER;
+        IS_FACTURE_EXIST   NUMBER;
+    BEGIN
+        -- check if patient exist
+        SELECT COUNT (*)
+          INTO IS_PATIENT_EXIST
+          FROM PATIENT
+         WHERE ID_PATIENT_ = p_id_patient;
+
+        IF IS_PATIENT_EXIST = 0
+        THEN
+            RAISE BAD_ID_PATIENT;
+        END IF;
+
+        -- check if medecin exist
+        SELECT COUNT (*)
+          INTO IS_MEDECIN_EXIST
+          FROM MEDECIN
+         WHERE ID_MEDECIN_ = p_id_medecin;
+
+        IF IS_MEDECIN_EXIST = 0
+        THEN
+            RAISE BAD_ID_MEDECIN;
+        END IF;
+
+        -- check if facture exist
+        SELECT COUNT (*)
+          INTO IS_FACTURE_EXIST
+          FROM FACTURE
+         WHERE ID_FACTURE_ = p_id_facture;
+
+        IF IS_FACTURE_EXIST = 0
+        THEN
+            RAISE BAD_ID_FACTURE;
+        END IF;
+
+        -- Insérez les données dans la table
+        INSERT INTO consultation (ID_CONSULTATION_,
+                                  ID_FACTURE_,
+                                  ID_MEDECIN_,
+                                  ID_PATIENT_,
+                                  DATE_CONSULTATION)
+             VALUES (P_ID_CONSULTATION,
+                     p_id_facture,
+                     p_id_medecin,
+                     p_id_patient,
+                     p_date_consultation);
+
+        RETURN 'Insertion Reussie';
+    EXCEPTION
+        WHEN BAD_ID_PATIENT
+        THEN
+            RETURN ' Patient  ' || p_id_patient || ' n''existe pas';
+        WHEN BAD_ID_MEDECIN
+        THEN
+            RETURN ' Medecin  ' || p_id_medecin || ' n''existe pas';
+        WHEN BAD_ID_FACTURE
+        THEN
+            RETURN ' Facture  ' || p_id_facture || ' n''existe pas';
+        WHEN OTHERS
+        THEN
+            DBMS_OUTPUT.PUT_LINE (
+                'Erreur CONSULTATION_INSERER : ' || SQLERRM);
+            ROLLBACK;
+    END CONSULTATION_INSERER;
+
+
+    FUNCTION CONSULTATION_SUPPRIMER (
+        p_id_consultation   IN consultation.ID_CONSULTATION_%TYPE)
+        RETURN VARCHAR2
+    AS
+    BEGIN
+        -- Supprimer les PRESCIPTIONS associEes au CONSULTTION
+        DELETE FROM PRESCRIPTION
+              WHERE ID_CONSULTATION_ = p_id_consultation;
+
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
+        -- Supprimer les EXAMENS associEes au CONSULTTION
+        DELETE FROM EXAMEN
+              WHERE ID_CONSULTATION_ = p_id_consultation;
+
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
+        -- Supprimer l'occurrence de la table consultation
+        DELETE FROM consultation
+              WHERE ID_CONSULTATION_ = p_id_consultation;
+
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
+        -- Retourner un message indiquant que la suppression a ?t? effectu?e
+        RETURN 'Les examens ,les prescription et les consultations associEes ont EtE supprimEs avec succEs.';
+    EXCEPTION
+        WHEN NO_DATA_FOUND
+        THEN
+            RETURN ' Consultation ' || p_id_consultation || ' n''existe pas';
+        WHEN OTHERS
+        THEN
+            -- En cas d'erreur, retourner un message d'erreur
+            RETURN    'Erreur au niveau de la fonction CONSULTATION_SUPPRIMER : '
+                   || SQLCODE
+                   || '-'
+                   || SQLERRM;
+    END CONSULTATION_SUPPRIMER;
+
+    FUNCTION CONSULTATION_MODIFIER_DATE (
+        p_id_consultation   IN consultation.ID_CONSULTATION_%TYPE,
+        p_nouvelle_date     IN consultation.DATE_CONSULTATION%TYPE)
+        RETURN VARCHAR2
+    AS
+    BEGIN
+        -- Modifier la date de consultation pour l'ID de consultation spécifié
+        UPDATE consultation
+           SET DATE_CONSULTATION = p_nouvelle_date
+         WHERE ID_CONSULTATION_ = p_id_consultation;
+
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
+        RETURN 'Modification Reussie';
+    EXCEPTION
+        WHEN NO_DATA_FOUND
+        THEN
+            RETURN ' Consultation ' || p_id_consultation || ' n''existe pas';
+        WHEN OTHERS
+        THEN
+            RETURN    'Erreur au niveau de la fonction CONSULTATION_MODIFIER_DATE : '
+                   || SQLCODE
+                   || '-'
+                   || SQLERRM;
+    END CONSULTATION_MODIFIER_DATE;
+
+
+    FUNCTION CONSULTATION_MODIFIER_PATIENT (
+        p_id_consultation   IN consultation.ID_CONSULTATION_%TYPE,
+        p_id_patient        IN consultation.ID_PATIENT_%TYPE)
+        RETURN VARCHAR2
+    AS
+        BAD_ID_PATIENT     EXCEPTION;
+        IS_PATIENT_EXIST   NUMBER;
+    BEGIN
+        SELECT COUNT (*)
+          INTO IS_PATIENT_EXIST
+          FROM PATIENT
+         WHERE ID_PATIENT_ = p_id_patient;
+
+        IF IS_PATIENT_EXIST = 0
+        THEN
+            --on lève l’exception
+            RAISE BAD_ID_PATIENT;
+        END IF;
+
+        -- Modifier l'ID du patient pour l'ID de consultation spécifié
+        UPDATE consultation
+           SET ID_PATIENT_ = p_id_patient
+         WHERE ID_CONSULTATION_ = p_id_consultation;
+
+        IF SQL%ROWCOUNT = 0
+        THEN
+            RAISE NO_DATA_FOUND;
+        END IF;
+
+        RETURN 'Modification Reussie';
+    EXCEPTION
+        WHEN BAD_ID_PATIENT
+        THEN
+            RETURN ' Patient  ' || p_id_patient || ' n''existe pas';
+        WHEN NO_DATA_FOUND
+        THEN
+            RETURN ' Consultation ' || p_id_consultation || ' n''existe pas';
+        WHEN OTHERS
+        THEN
+            RETURN    'Erreur au niveau de la fonction CONSULTATION_MODIFIER_PATIENT  : '
+                   || SQLCODE
+                   || '-'
+                   || SQLERRM;
+    END CONSULTATION_MODIFIER_PATIENT;
+
+
+    FUNCTION CONSULTATION_LISTER (p_id_medecin IN medecin.ID_MEDECIN_%TYPE)
+        RETURN SYS_REFCURSOR
+    AS
+        C_CONSULTATION   SYS_REFCURSOR;
+    BEGIN
+        OPEN C_CONSULTATION FOR SELECT *
+                                  FROM consultation
+                                 WHERE ID_MEDECIN_ = p_id_medecin;
+
+        RETURN C_CONSULTATION;
+    END CONSULTATION_LISTER;
+END PK_CONSULTATION;
+
+/****************************** END PACKAGE BODY PK_CONSULTATION *************************************************/
+
+
+
+/****************************** TEST PACKAGE PK_CONSULTATION *************************************************/
+
+DECLARE
+    v_resultat           VARCHAR2 (200);
+    C_CONSULTATION_REF   SYS_REFCURSOR;
+    C_CONSULTATION       CONSULTATION%ROWTYPE;
+BEGIN
+    -- Test de la fonction CONSULTATION_INSERER avec des données valides
+    v_resultat :=
+        PK_CONSULTATION.CONSULTATION_INSERER (
+            P_ID_CONSULTATION     => 31,
+            P_ID_FACTURE          => 101,
+            P_ID_MEDECIN          => 1,
+            P_ID_PATIENT          => 1,
+            P_DATE_CONSULTATION   => SYSDATE);
+    DBMS_OUTPUT.PUT_LINE (
+           'Résultat de CONSULTATION_INSERER avec des données valides : '
+        || v_resultat);
+
+    -- Test de la fonction CONSULTATION_INSERER avec un ID de patient invalide
+    v_resultat :=
+        PK_CONSULTATION.CONSULTATION_INSERER (
+            P_ID_CONSULTATION     => 32,
+            P_ID_FACTURE          => 101,
+            P_ID_MEDECIN          => 1,
+            P_ID_PATIENT          => 100,
+            P_DATE_CONSULTATION   => SYSDATE);
+    DBMS_OUTPUT.PUT_LINE (
+           'Résultat de CONSULTATION_INSERER avec un ID de patient invalide : '
+        || v_resultat);
+
+    -- Test de la fonction CONSULTATION_SUPPRIMER
+    v_resultat :=
+        PK_CONSULTATION.CONSULTATION_SUPPRIMER (p_id_consultation => 2);
+    DBMS_OUTPUT.PUT_LINE (
+        'Résultat de CONSULTATION_SUPPRIMER : ' || v_resultat);
+
+    -- Test de la fonction CONSULTATION_MODIFIER_DATE
+    v_resultat :=
+        PK_CONSULTATION.CONSULTATION_MODIFIER_DATE (
+            p_id_consultation   => 3,
+            p_nouvelle_date     => SYSDATE);
+    DBMS_OUTPUT.PUT_LINE (
+        'Résultat de CONSULTATION_MODIFIER_DATE : ' || v_resultat);
+
+    -- Test de la fonction CONSULTATION_MODIFIER_PATIENT valide
+    v_resultat :=
+        PK_CONSULTATION.CONSULTATION_MODIFIER_PATIENT (
+            p_id_consultation   => 3,
+            p_id_patient        => 3);
+    DBMS_OUTPUT.PUT_LINE (
+           'Résultat de CONSULTATION_MODIFIER_PATIENT avec un ID de patient valide : '
+        || v_resultat);
+
+    -- Test de la fonction CONSULTATION_MODIFIER_PATIENT avec un ID de patient invalide
+    v_resultat :=
+        PK_CONSULTATION.CONSULTATION_MODIFIER_PATIENT (
+            p_id_consultation   => 2,
+            p_id_patient        => 1000);
+    DBMS_OUTPUT.PUT_LINE (
+           'Résultat de CONSULTATION_MODIFIER_PATIENT avec un ID de patient invalide : '
+        || v_resultat);
+
+    -- Test de la fonction CONSULTATION_MODIFIER_PATIENT avec un ID de consultation invalide
+    v_resultat :=
+        PK_CONSULTATION.CONSULTATION_MODIFIER_PATIENT (
+            p_id_consultation   => 200,
+            p_id_patient        => 1);
+    DBMS_OUTPUT.PUT_LINE (
+           'Résultat de CONSULTATION_MODIFIER_PATIENT avec un ID de consultation invalide : '
+        || v_resultat);
+
+    -- Test de la fonction CONSULTATION_LISTER
+    C_CONSULTATION_REF := PK_CONSULTATION.CONSULTATION_LISTER (1);
+
+    -- Parcourir et afficher les résultats du curseur
+    LOOP
+        FETCH C_CONSULTATION_REF INTO C_CONSULTATION;
+
+        EXIT WHEN C_CONSULTATION_REF%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE (
+               'ID Consultation : '
+            || C_CONSULTATION.ID_CONSULTATION_
+            || ', ID Facture : '
+            || C_CONSULTATION.ID_FACTURE_
+            || ', ID Médecin : '
+            || C_CONSULTATION.ID_MEDECIN_
+            || ', ID Patient : '
+            || C_CONSULTATION.ID_PATIENT_
+            || ', Date Consultation : '
+            || TO_CHAR (C_CONSULTATION.DATE_CONSULTATION, 'DD-MON-YYYY'));
+    END LOOP;
+
+    CLOSE C_CONSULTATION_REF;
+END;
+
+/****************************** END TEST PACKAGE PK_CONSULTATION *************************************************/
+
+
+
 /********************************** TRIGGERS *************************************************/
 
 -- Creation de la table historique des factures POUR LES TRIGGERS
-CREATE TABLE HISTORIQUE_FACTURE(ID_FACTURE_ INTEGER NOT NULL ,ID_PATIENT_  INTEGER NOT NULL,
-    OLD_MONTANT_TOTAL NUMBER(15,2) ,NEW_MONTANT_TOTAL NUMBER(15,2),OLD_DATE_FACTURE DATE,NEW_DATE_FACTURE DATE, ACTION VARCHAR2(30) );
+
+CREATE TABLE HISTORIQUE_FACTURE
+(
+    ID_FACTURE_          INTEGER NOT NULL,
+    ID_PATIENT_          INTEGER NOT NULL,
+    OLD_MONTANT_TOTAL    NUMBER (15, 2),
+    NEW_MONTANT_TOTAL    NUMBER (15, 2),
+    OLD_DATE_FACTURE     DATE,
+    NEW_DATE_FACTURE     DATE,
+    ACTION               VARCHAR2 (30)
+);
 
 CREATE OR REPLACE TRIGGER TG_CTRL_RENDEZ_VOUS_DOUBLE
     BEFORE INSERT OR UPDATE
@@ -503,34 +913,34 @@ END;
 
 
 
-
 /********************************** TESTS TRIGGERS *************************************************/
 
-/* Formatted on 28/02/2024 19:29:50 (QP5 v5.360) */
+
 -- Test pour le trigger TG_CTRL_RENDEZ_VOUS_DOUBLE
 
 DECLARE
     v_count   NUMBER;
 BEGIN
-    -- Tester l'insertion d'un rendez-vous pour un mÃªme patient, mÃ©decin et date
+    -- Tester l'insertion d'un rendez-vous pour un même patient, médecin et date
     INSERT INTO RENDEZ_VOUS (ID_PATIENT_, ID_MEDECIN_, DATE_RENDEZ_VOUS)
          VALUES (1, 1, TO_DATE ('10/02/2024', 'DD/MM/YYYY'));
 EXCEPTION
     WHEN OTHERS
     THEN
-        -- Capturer l'erreur levÃ©e par le trigger et l'afficher
+        -- Capturer l'erreur levée par le trigger et l'afficher
         DBMS_OUTPUT.PUT_LINE ('Erreur : ' || SQLERRM);
-        -- Rollback pour annuler les modifications effectuÃ©es pendant le test
+        -- Rollback pour annuler les modifications effectuées pendant le test
         ROLLBACK;
 END;
 /
 
+/*<TOAD_FILE_CHUNK>*/
 -- Test pour le trigger TG_HISTORIQUE_FACTURE
 
 DECLARE
     v_count   NUMBER;
 BEGIN
-    -- InsÃ©rer une facture
+    -- Insérer une facture
     INSERT INTO FACTURE (ID_FACTURE_,
                          ID_PATIENT_,
                          MONTANT_TOTAL,
@@ -540,7 +950,7 @@ BEGIN
                  100.00,
                  SYSDATE);
 
-    -- Mettre Ã  jour le montant total de la facture
+    -- Mettre à jour le montant total de la facture
     UPDATE FACTURE
        SET MONTANT_TOTAL = 150.00
      WHERE ID_FACTURE_ = 30;
@@ -551,15 +961,17 @@ BEGIN
 EXCEPTION
     WHEN OTHERS
     THEN
-        -- Capturer l'erreur levÃ©e par le trigger et l'afficher
+        -- Capturer l'erreur levée par le trigger et l'afficher
         DBMS_OUTPUT.PUT_LINE ('Erreur : ' || SQLERRM);
-        -- Rollback pour annuler les modifications effectuÃ©es pendant le test
+        -- Rollback pour annuler les modifications effectuées pendant le test
         ROLLBACK;
 END;
 /
 
--- VÃ©rification des donnÃ©es dans la table HISTORIQUE_FACTURE aprÃ¨s les opÃ©rations
--- Assurez-vous de vÃ©rifier la table HISTORIQUE_FACTURE pour voir les entrÃ©es de journalisation insÃ©rÃ©es par les dÃ©clencheurs
+/*<TOAD_FILE_CHUNK>*/
+-- Vérification des données dans la table HISTORIQUE_FACTURE après les opérations
+-- Assurez-vous de vérifier la table HISTORIQUE_FACTURE pour voir les entrées de journalisation insérées par les déclencheurs
 SELECT * FROM HISTORIQUE_FACTURE;
 
 /********************************** END TESTS TRIGGERS *************************************************/
+
